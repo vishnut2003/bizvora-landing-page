@@ -17,7 +17,7 @@ export function Pricing() {
         </h2>
       </div>
 
-      <div className="flex w-full flex-col items-center gap-10 rounded-[24px] bg-[linear-gradient(118deg,rgba(171,255,89,0.3)_0%,rgb(108,211,255)_216%)] px-7 pt-[31px] pb-10 lg:py-12">
+      <div className="flex w-full flex-col items-center gap-10 rounded-[24px] bg-[linear-gradient(118deg,rgba(140,0,255,0.22)_0%,rgb(69,6,147)_216%)] px-7 pt-[31px] pb-10 lg:py-12">
         <p className="max-w-[625px] text-center text-[16px] leading-[1.6] font-normal tracking-[-0.04em] text-ink-70 capitalize">
           No tiers, no feature gates, no “available on Enterprise”. Pricing is
           tailored to your team on the demo call.

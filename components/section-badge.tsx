@@ -17,7 +17,7 @@ export function SectionBadge({
         // Fixed 33px height — Framer clips the 12px vertical padding.
         "inline-flex h-[33px] items-center justify-center rounded-[32px] px-4",
         "text-[14px] leading-[1.6] font-normal text-primary-dark capitalize",
-        "ring-1 ring-[rgba(97,171,25,0.3)] ring-inset",
+        "ring-1 ring-[rgba(140,0,255,0.3)] ring-inset",
         className,
       )}
     >

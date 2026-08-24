@@ -29,7 +29,7 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="flex w-full justify-center bg-[linear-gradient(180deg,rgba(171,255,89,0.5)_-32%,#fff_72%)] px-5 py-24 lg:py-[104px]"
+      className="flex w-full justify-center bg-[linear-gradient(180deg,rgba(140,0,255,0.35)_-32%,#fff_72%)] px-5 py-24 lg:py-[104px]"
     >
       <div className="flex w-full max-w-[732px] flex-col items-center gap-[30px]">
         <div className="flex flex-col items-center gap-2.5">
@@ -74,7 +74,7 @@ export function Contact() {
             {/* PillButton is a Link; the submit reuses its exact shape. */}
             <button
               type="submit"
-              className="group inline-flex h-[58px] w-full items-center justify-center rounded-[40px] bg-ink px-5 py-4 text-[14px] leading-[1.6] font-normal whitespace-nowrap text-primary transition-all duration-200 md:w-[212px]"
+              className="group inline-flex h-[58px] w-full items-center justify-center rounded-[40px] bg-[linear-gradient(125deg,rgb(140,0,255)_9%,rgb(69,6,147)_92%)] px-5 py-4 text-[14px] leading-[1.6] font-medium whitespace-nowrap text-white transition-all duration-200 md:w-[212px]"
             >
               Request a Demo
               <ArrowUpRightIcon className="size-3 w-0 shrink-0 overflow-hidden opacity-0 transition-all duration-200 group-hover:ml-[5px] group-hover:w-3 group-hover:opacity-100" />

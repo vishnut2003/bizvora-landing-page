@@ -8,8 +8,8 @@ export function Footer() {
       <div className="flex w-full max-w-[1055px] flex-col justify-between gap-10 lg:flex-row lg:items-start lg:gap-0">
         <div className="flex max-w-[341px] flex-col items-start gap-6">
           <Link href="/" className="flex items-center gap-2">
-            <BizvoraLogoIcon className="size-8 shrink-0" />
-            <span className="text-[20px] leading-[1.4] font-medium text-ink capitalize">
+            <BizvoraLogoIcon className="size-6 shrink-0" />
+            <span className="text-[20px] leading-6 font-extrabold text-ink capitalize">
               BizvoraOne
             </span>
           </Link>

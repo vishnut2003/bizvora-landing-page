@@ -18,8 +18,8 @@ export function BizvoraLogoIcon(props: SVGProps<SVGSVGElement>) {
           x2="58"
           y2="0"
         >
-          <stop offset="0" stopColor="rgb(171, 255, 89)" />
-          <stop offset="1" stopColor="rgb(108, 211, 255)" />
+          <stop offset="0" stopColor="rgb(140, 0, 255)" />
+          <stop offset="1" stopColor="rgb(69, 6, 147)" />
         </linearGradient>
       </defs>
       <g fill="url(#bizvora-mark)">
@@ -51,7 +51,7 @@ export function ChevronDownIcon(props: SVGProps<SVGSVGElement>) {
 export function VerticalRuleIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 3 43" fill="none" aria-hidden {...props}>
-      <path d="M 1.5 1 L 1.5 42" stroke="rgba(14, 20, 8, 0.7)" opacity="0.5" />
+      <path d="M 1.5 1 L 1.5 42" stroke="rgba(23, 23, 23, 0.7)" opacity="0.5" />
     </svg>
   );
 }

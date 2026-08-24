@@ -59,8 +59,8 @@ export function VoiceAgent() {
                 </span>
               </div>
             </div>
-            <span className="inline-flex h-[26px] shrink-0 items-center gap-1.5 rounded-[32px] bg-primary px-3 text-[12px] leading-none font-medium text-ink">
-              <span className="size-1.5 rounded-full bg-primary-dark" />
+            <span className="inline-flex h-[26px] shrink-0 items-center gap-1.5 rounded-[32px] bg-primary px-3 text-[12px] leading-none font-medium text-white">
+              <span className="size-1.5 rounded-full bg-white" />
               LIVE
             </span>
           </div>

@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 interface PillButtonProps {
   href: string;
   children: string;
-  /** "gradient" = green→cyan; "dark" = solid #0e1408 with green label. */
+  /** "gradient" = purple→deep purple; "dark" = solid ink with white label. */
   variant?: "gradient" | "dark";
   /** Nav uses the compact 42px height; body CTAs use 58px. */
   size?: "sm" | "md";
@@ -31,8 +31,8 @@ export function PillButton({
         "text-[14px] leading-[1.6] whitespace-nowrap",
         size === "sm" ? "h-[42px]" : "h-[58px]",
         variant === "gradient"
-          ? "bg-[linear-gradient(125deg,rgb(171,255,89)_9%,rgb(108,211,255)_92%)] font-medium text-ink"
-          : "bg-ink font-normal text-primary",
+          ? "bg-[linear-gradient(125deg,rgb(140,0,255)_9%,rgb(69,6,147)_92%)] font-medium text-white"
+          : "bg-ink font-normal text-white",
         className,
       )}
     >

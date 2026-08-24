@@ -25,14 +25,14 @@ const STATS = [
     label: "Leads",
     value: "6,523",
     badge: "Fast Growing",
-    badgeClass: "bg-[#d8f5db]",
+    badgeClass: "bg-[#eee0ff]",
     note: "Captured automatically from all 15 lead sources this month",
   },
   {
     label: "Proposals",
     value: "1,234",
     badge: "AI-Drafted",
-    badgeClass: "bg-[#cdf78a]",
+    badgeClass: "bg-[#d9baff]",
     note: "Drafted by AI from each lead’s context, sent as branded PDFs",
   },
   {
@@ -46,7 +46,7 @@ const STATS = [
     label: "Recovery",
     value: "56%",
     badge: "Improving",
-    badgeClass: "bg-[#cdf78a]",
+    badgeClass: "bg-[#d9baff]",
     note: "Outstanding invoices are clearing faster than last quarter",
   },
 ];
@@ -76,9 +76,9 @@ function Gauge() {
     <svg viewBox="0 0 326 170" className="w-full" aria-hidden="true">
       <defs>
         <linearGradient id="v2-gauge" x1="0" x2="1" y1="0" y2="0">
-          <stop offset="0%" stopColor="#6cd3ff" />
-          <stop offset="45%" stopColor="#abff59" />
-          <stop offset="100%" stopColor="#8ee83c" />
+          <stop offset="0%" stopColor="#450693" />
+          <stop offset="45%" stopColor="#8C00FF" />
+          <stop offset="100%" stopColor="#a855f7" />
         </linearGradient>
       </defs>
       <path
@@ -138,7 +138,7 @@ export function HeroDashboard() {
 
           {/* --- row 1: greeting gauge + stat grid ------------------------- */}
           <div className="flex gap-[0.7em] px-[0.7em]">
-            <div className="relative flex w-[40%] flex-col items-center gap-[0.6em] overflow-hidden rounded-[1em] bg-[linear-gradient(180deg,#eafbe9_0%,#f7fef3_100%)] px-[1.2em] pt-[1.4em] pb-[1.6em]">
+            <div className="relative flex w-[40%] flex-col items-center gap-[0.6em] overflow-hidden rounded-[1em] bg-[linear-gradient(180deg,#f3eaff_0%,#faf6ff_100%)] px-[1.2em] pt-[1.4em] pb-[1.6em]">
               <p className="text-[1.6em] font-medium tracking-[-0.03em]">
                 Hello, Suraj
               </p>
@@ -245,7 +245,7 @@ export function HeroDashboard() {
                   </div>
                   <div className="h-[0.65em] w-full overflow-hidden rounded-full bg-[repeating-linear-gradient(115deg,#fbdcc9_0_0.25em,#fdece3_0.25em_0.5em)]">
                     <div
-                      className="h-full rounded-full bg-[repeating-linear-gradient(115deg,#8ee83c_0_0.25em,#abff59_0.25em_0.5em)]"
+                      className="h-full rounded-full bg-[repeating-linear-gradient(115deg,#7a1fd6_0_0.25em,#8C00FF_0.25em_0.5em)]"
                       style={{ width: `${loc.pct}%` }}
                     />
                   </div>
