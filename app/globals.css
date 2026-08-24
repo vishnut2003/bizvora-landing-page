@@ -2,6 +2,7 @@
 
 @theme inline {
   --font-sans: var(--font-geist-sans), "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-dashboard: var(--font-rubik), "Rubik", ui-sans-serif, system-ui, sans-serif;
 
   /* Brand palette (bizvora-web theme: #8C00FF primary, #450693 secondary) */
   --color-ink: rgb(23, 23, 23);
