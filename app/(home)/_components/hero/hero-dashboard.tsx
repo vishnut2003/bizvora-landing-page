@@ -184,7 +184,7 @@ export function HeroDashboard() {
       <div
         role="img"
         aria-label="BizvoraOne workspace dashboard in dark mode: good morning greeting, ₹42,50,000 pipeline value across 18 open leads, ₹8,74,500 receivable, 12 active projects, with recent activity and lead pipeline"
-        className="font-dashboard flex aspect-[16/9] flex-col overflow-hidden rounded-[1.5em] bg-ink p-[0.6em] text-[1.2cqw] leading-none text-zinc-100"
+        className="font-dashboard flex aspect-[16/9] flex-col overflow-hidden rounded-[1.5em] bg-ink p-[0.6em] text-[1.2cqw] leading-none text-zinc-100 shadow-[0_30px_60px_-15px_rgba(23,23,23,0.5),0_60px_120px_-25px_rgba(69,6,147,0.25)]"
       >
         {/* browser chrome: traffic lights + address bar, so the dark bezel
             reads as a desktop window instead of a plain slab */}
