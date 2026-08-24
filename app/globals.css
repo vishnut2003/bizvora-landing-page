@@ -36,3 +36,78 @@ body {
   background: rgb(255, 255, 255);
   color: rgb(14, 20, 8);
 }
+
+/* --- Reveal animations (replaces Framer's Motion-driven appear) ---------- */
+
+/* Scale-in: feature imagery + testimonial cards */
+[data-reveal="scale"] {
+  opacity: 0;
+  transform: scale(0.9);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+/* Fade-up: app-promo copy. Distance differs per element. */
+[data-reveal="up"] {
+  opacity: 0;
+  transform: translateY(var(--reveal-distance, 30px));
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-reveal][data-revealed="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+/* --- Partner marquee: 100px/s leftward, edge-masked ---------------------- */
+
+.marquee-viewport {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0) 0%,
+    rgb(0, 0, 0) 12.5%,
+    rgb(0, 0, 0) 87.5%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0) 0%,
+    rgb(0, 0, 0) 12.5%,
+    rgb(0, 0, 0) 87.5%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.marquee-track {
+  animation: marquee var(--marquee-duration) linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    /* one full set of logos plus its trailing gap */
+    transform: translateX(calc(-1 * var(--marquee-distance)));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .marquee-track {
+    animation: none;
+  }
+}

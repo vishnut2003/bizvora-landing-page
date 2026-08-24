@@ -9,14 +9,15 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Bizvora",
-  description: "Bizvora landing page",
+  title: "BizvoraOne | All-in-one business management software for Indian teams",
+  description:
+    "BizvoraOne runs your whole business from one workspace: CRM, AI proposals, quotations, accounting, projects and HR & payroll, plus an AI voice agent that calls every new lead within seconds. Made in India, hosted in Mumbai.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
-      <body className={`${inter.className} min-h-full flex flex-col bg-surface text-ink`}>
+      <body className={`${inter.className} min-h-full flex flex-col overflow-x-hidden bg-surface text-ink`}>
         {children}
       </body>
     </html>
