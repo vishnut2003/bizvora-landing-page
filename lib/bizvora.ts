@@ -64,13 +64,13 @@ export const NAV_LINKS: (NavLink | NavGroup)[] = [
 
 /** Marquee entries. Rendered as text — we have no rights-cleared logo files. */
 export const INTEGRATIONS = [
-  "Meta Ads",
-  "Google Ads",
-  "Web-form webhook",
-  "Vapi · voice",
-  "Claude · AI",
-  "Resend · email",
-];
+  { name: "Meta Ads", tag: "Lead forms" },
+  { name: "Google Ads", tag: "Lead forms" },
+  { name: "Webhooks", tag: "Web forms" },
+  { name: "Vapi", tag: "Voice AI" },
+  { name: "Claude", tag: "AI engine" },
+  { name: "Resend", tag: "Email" },
+] as const;
 
 /** The two headline module cards. Artwork is BizvoraOne's own (AI-generated). */
 export const FEATURES: Feature[] = [

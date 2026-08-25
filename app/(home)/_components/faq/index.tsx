@@ -17,16 +17,23 @@ export function Faq() {
       </div>
 
       <div className="flex w-full max-w-[860px] flex-col gap-4">
-        {FAQS.map((faq) => (
+        {FAQS.map((faq, i) => (
           <details
             key={faq.question}
-            className="group rounded-[16px] bg-surface-muted p-7"
+            className="group rounded-[16px] border border-ink/10 bg-white px-6 py-5 transition-all duration-200 open:border-primary/25 open:shadow-[0_16px_32px_-24px_rgba(69,6,147,0.35)] hover:border-primary/25"
           >
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-6 text-[16px] leading-[1.4] font-medium text-ink lg:text-[20px] [&::-webkit-details-marker]:hidden">
-              {faq.question}
-              <ChevronDownIcon className="h-[5px] w-2 shrink-0 text-ink-70 transition-transform duration-200 group-open:rotate-180" />
+            <summary className="flex cursor-pointer list-none items-center gap-4 [&::-webkit-details-marker]:hidden">
+              <span className="w-7 shrink-0 text-[13px] font-semibold tracking-[0.04em] text-primary/60">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span className="flex-1 text-[16px] leading-[1.4] font-medium text-ink lg:text-[18px]">
+                {faq.question}
+              </span>
+              <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary-10 transition-all duration-200 group-open:rotate-180 group-open:bg-primary">
+                <ChevronDownIcon className="h-[6px] w-2.5 text-primary-dark transition-colors duration-200 group-open:text-white" />
+              </span>
             </summary>
-            <p className="pt-5 text-[16px] leading-[1.6] font-normal tracking-[-0.04em] text-ink-70 capitalize">
+            <p className="pt-4 pl-11 text-[15px] leading-[1.7] font-normal tracking-[-0.02em] text-ink-70">
               {faq.answer}
             </p>
           </details>

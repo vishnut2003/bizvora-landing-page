@@ -1,6 +1,5 @@
 import { BasicLayout } from "@/layout/basic-layout";
 import { About } from "./_components/about";
-import { AppPromo } from "./_components/app-promo";
 import { Contact } from "./_components/contact";
 import { Faq } from "./_components/faq";
 import { Features } from "./_components/features";
@@ -23,7 +22,6 @@ export default function Home() {
         <Industries />
         <RoleDashboards />
         <About />
-        <AppPromo />
         <Pricing />
         <Faq />
         <Contact />

@@ -3,7 +3,13 @@ import { PillButton } from "@/components/pill-button";
 import { SectionBadge } from "@/components/section-badge";
 import { PLAN_INCLUDES } from "@/lib/bizvora";
 
-/** Section header in the Features pattern; body reuses the Metrics gradient panel. */
+const PLAN_PROMISES = ["No tiers", "No feature gates", "No enterprise-only"];
+
+/**
+ * Section header in the Features pattern; body is the Metrics gradient panel
+ * holding a single-plan pricing card: plan identity + CTA left, the
+ * everything-included checklist right.
+ */
 export function Pricing() {
   return (
     <section
@@ -17,26 +23,54 @@ export function Pricing() {
         </h2>
       </div>
 
-      <div className="flex w-full flex-col items-center gap-10 rounded-[24px] bg-[linear-gradient(118deg,rgba(140,0,255,0.22)_0%,rgb(69,6,147)_216%)] px-7 pt-[31px] pb-10 lg:py-12">
-        <p className="max-w-[625px] text-center text-[16px] leading-[1.6] font-normal tracking-[-0.04em] text-ink-70 capitalize">
-          No tiers, no feature gates, no “available on Enterprise”. Pricing is
-          tailored to your team on the demo call.
-        </p>
+      <div className="flex w-full max-w-[980px] flex-col overflow-hidden rounded-[24px] border border-primary/15 bg-white shadow-[0_40px_80px_-48px_rgba(69,6,147,0.4)] lg:flex-row">
+          {/* plan identity + CTA */}
+          <div className="flex flex-col items-start gap-7 p-8 lg:w-[38%] lg:shrink-0 lg:p-10">
+            <span className="text-[12px] font-semibold tracking-[0.14em] text-primary-dark uppercase">
+              All-in-one plan
+            </span>
+            <div className="flex flex-col gap-2">
+              <p className="text-[36px] leading-[1.1] font-medium tracking-[-0.03em] text-ink">
+                Tailored
+              </p>
+              <p className="text-[14px] leading-[1.6] tracking-[-0.02em] text-ink-70">
+                Pricing is scoped to your team on the demo call — every module,
+                every seat conversation, one number.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {PLAN_PROMISES.map((promise) => (
+                <span
+                  key={promise}
+                  className="rounded-full bg-primary-10 px-3 py-1.5 text-[12px] leading-none font-medium text-primary-dark"
+                >
+                  {promise}
+                </span>
+              ))}
+            </div>
+            <PillButton href="#contact" className="w-full max-w-[240px]">
+              Request a Demo
+            </PillButton>
+          </div>
 
-        <ul className="grid w-full max-w-[860px] list-none grid-cols-1 gap-4 md:grid-cols-2">
-          {PLAN_INCLUDES.map((item) => (
-            <li key={item} className="flex items-start gap-3">
-              <Mark name="check" className="mt-1 size-4 shrink-0 text-primary-dark" />
-              <span className="text-[16px] leading-[1.6] font-normal tracking-[-0.04em] text-ink-70 capitalize">
-                {item}
-              </span>
-            </li>
-          ))}
-        </ul>
-
-        <PillButton href="#contact" variant="dark" className="w-[192px]">
-          Request a Demo
-        </PillButton>
+          {/* everything included */}
+          <div className="flex flex-1 flex-col gap-5 border-t border-ink/5 p-8 lg:border-t-0 lg:border-l lg:p-10">
+            <span className="text-[12px] font-semibold tracking-[0.14em] text-ink-50 uppercase">
+              Everything included
+            </span>
+            <ul className="grid list-none grid-cols-1 gap-x-8 gap-y-4 md:grid-cols-2">
+              {PLAN_INCLUDES.map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-primary-10">
+                    <Mark name="check" className="size-3 text-primary-dark" />
+                  </span>
+                  <span className="text-[14px] leading-[1.6] tracking-[-0.02em] text-ink-70">
+                    {item}
+                  </span>
+                </li>
+              ))}
+            </ul>
+        </div>
       </div>
     </section>
   );

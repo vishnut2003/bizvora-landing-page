@@ -2,52 +2,68 @@ import Link from "next/link";
 import { BizvoraLogoIcon } from "@/components/icons";
 import { FOOTER_COLUMNS } from "@/lib/bizvora";
 
+/**
+ * Dark footer bookending the page (matches the voice-agent/about panels):
+ * brand + link columns over a faint top glow, then a split bottom bar.
+ */
 export function Footer() {
   return (
-    <footer className="flex w-full flex-col items-center gap-[30px] bg-surface px-5 md:px-10 lg:px-16">
-      <div className="flex w-full max-w-[1055px] flex-col justify-between gap-10 lg:flex-row lg:items-start lg:gap-0">
-        <div className="flex max-w-[341px] flex-col items-start gap-6">
-          <Link href="/" className="flex items-center gap-2">
-            <BizvoraLogoIcon className="size-6 shrink-0" />
-            <span className="text-[20px] leading-6 font-extrabold text-ink capitalize">
-              BizvoraOne
-            </span>
-          </Link>
-          <p className="text-[16px] leading-[1.6] font-normal tracking-[-0.04em] text-ink-70 capitalize">
-            A complete operating system for your business, by Web Spider
-            Solutions.
+    <footer className="relative w-full overflow-hidden bg-ink px-5 pt-16 pb-6 md:px-10 lg:px-16">
+      <div className="pointer-events-none absolute -top-40 left-1/2 h-[320px] w-[640px] -translate-x-1/2 rounded-full bg-primary/15 blur-3xl" />
+
+      <div className="relative mx-auto flex w-full max-w-[1055px] flex-col gap-12">
+        <div className="flex flex-col justify-between gap-12 lg:flex-row lg:items-start lg:gap-6">
+          <div className="flex max-w-[341px] flex-col items-start gap-5">
+            <Link href="/" className="flex items-center gap-2">
+              <BizvoraLogoIcon className="size-6 shrink-0" />
+              <span className="text-[20px] leading-6 font-extrabold text-white capitalize">
+                BizvoraOne
+              </span>
+            </Link>
+            <p className="text-[14px] leading-[1.7] font-normal tracking-[-0.02em] text-zinc-400">
+              A complete operating system for your business, by Web Spider
+              Solutions.
+            </p>
+            <Link
+              href="mailto:hello@webspidersolutions.com"
+              className="text-[14px] leading-[1.6] tracking-[-0.02em] text-zinc-400 underline decoration-primary/50 underline-offset-4 transition-colors duration-200 hover:text-white"
+            >
+              hello@webspidersolutions.com
+            </Link>
+          </div>
+
+          {/* One row from `sm` up. BizvoraOne's labels are long and `nowrap`,
+              so below that they wrap onto a second line rather than pushing
+              the page sideways. */}
+          <div className="flex flex-wrap justify-between gap-x-6 gap-y-10 lg:flex-nowrap lg:justify-start lg:gap-x-[66px]">
+            {FOOTER_COLUMNS.map((column) => (
+              <div key={column.heading} className="flex flex-col items-start gap-4">
+                <p className="mb-1 text-[12px] leading-[1.6] font-semibold tracking-[0.1em] whitespace-nowrap text-zinc-500 uppercase">
+                  {column.heading}
+                </p>
+                {column.links.map((link) => (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    className="text-[14px] leading-[1.3] font-normal tracking-[-0.02em] whitespace-nowrap text-zinc-400 transition-colors duration-200 hover:text-white"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 md:flex-row">
+          <p className="text-[13px] leading-[1.6] tracking-[-0.02em] text-zinc-500">
+            © 2026 Web Spider Solutions. All rights reserved.
+          </p>
+          <p className="flex items-center gap-2 text-[13px] leading-[1.6] tracking-[-0.02em] text-zinc-500">
+            <span className="size-1.5 rounded-full bg-primary" />
+            Hosted in Mumbai · Data stays in India
           </p>
         </div>
-
-        {/* One row from `sm` up (gap 24 → 66). BizvoraOne's labels are far
-            long and are `nowrap`, so below that they wrap
-            onto a second line rather than pushing the page sideways. */}
-        <div className="flex flex-wrap justify-between gap-x-6 gap-y-10 lg:flex-nowrap lg:justify-start lg:gap-x-[66px]">
-          {FOOTER_COLUMNS.map((column) => (
-            <div key={column.heading} className="flex flex-col items-start gap-6">
-              <p className="text-[14px] leading-[1.6] font-bold tracking-[-0.02em] whitespace-nowrap text-ink">
-                {column.heading}
-              </p>
-              {column.links.map((link) => (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  className="text-[16px] leading-[1.2] font-normal tracking-[-0.04em] whitespace-nowrap text-ink-70 capitalize transition-colors duration-200 hover:text-ink"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Copyright block: 1px rgba(14,20,8,.1) rule, 10px gap, 10px bottom pad. */}
-      <div className="flex w-full max-w-[1200px] flex-col gap-2.5 pb-2.5">
-        <div className="h-px w-full rounded-[5px] bg-[rgba(14,20,8,0.1)]" />
-        <p className="text-center text-[16px] leading-[1.6] font-normal tracking-[-0.04em] text-ink">
-          © 2026 Web Spider Solutions. All rights reserved.
-        </p>
       </div>
     </footer>
   );

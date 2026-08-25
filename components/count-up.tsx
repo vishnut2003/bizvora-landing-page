@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { cn } from "@/lib/utils";
 
 const DURATION = 2000;
 const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
@@ -9,7 +10,15 @@ const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
  * Counts 0 → `value` once the tile enters the viewport, matching the target's
  * ~2s ease-out. The suffix is static text, not animated.
  */
-export function CountUp({ value, suffix }: { value: number; suffix: string }) {
+export function CountUp({
+  value,
+  suffix,
+  className,
+}: {
+  value: number;
+  suffix: string;
+  className?: string;
+}) {
   const ref = useRef<HTMLSpanElement>(null);
   const [display, setDisplay] = useState(0);
 
@@ -42,7 +51,7 @@ export function CountUp({ value, suffix }: { value: number; suffix: string }) {
   }, [value]);
 
   return (
-    <span ref={ref} className="text-[56px] leading-none font-bold text-ink">
+    <span ref={ref} className={cn("text-[56px] leading-none font-bold text-ink", className)}>
       {display}
       {suffix}
     </span>

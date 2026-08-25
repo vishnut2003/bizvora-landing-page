@@ -10,12 +10,14 @@ const TRUST_POINTS = ["Free live demo", "All 6 modules included", "Hosted in Mum
 /**
  * Hero + integrations strip:
  * full-bleed gradient block (`#fff 18%` → `rgba(140,0,255,.35)`) with
- * `overflow: hidden`, and the strip 72px below it. Copy fades up in a
+ * `overflow: hidden`, and the strip 40–48px below it. Copy fades up in a
  * stagger; the dashboard rises last over a purple glow.
  */
 export function Hero() {
   return (
-    <section className="flex w-full flex-col items-center gap-16 lg:gap-[72px]">
+    // negative bottom margin claws back part of the page-level section gap
+    // so the integrations strip sits closer to both the hero and Modules
+    <section className="-mb-6 flex w-full flex-col items-center gap-10 md:-mb-8 lg:-mb-12 lg:gap-12">
       <div className="relative flex w-full flex-col items-center justify-center gap-8 overflow-hidden bg-[linear-gradient(180deg,#fff_18%,rgba(140,0,255,0.35)_100%)] pt-[120px] pb-16 lg:gap-12 lg:pt-[140px] lg:pb-20">
         {/* ambient orbs behind the headline */}
         <div className="pointer-events-none absolute top-[6%] left-[6%] size-[280px] rounded-full bg-primary/15 blur-3xl" />
@@ -81,9 +83,21 @@ export function Hero() {
       </div>
 
       <div className="flex w-full max-w-[1025px] flex-col items-center gap-6 px-5 md:flex-row md:gap-10 lg:px-0">
-        <p className="max-w-[287px] shrink-0 text-center text-[20px] leading-[1.5] font-medium text-ink capitalize md:text-left">
-          Your leads and documents flow in automatically
-        </p>
+        <div className="flex max-w-[320px] shrink-0 flex-col items-center gap-2.5 text-center md:items-start md:text-left">
+          <span className="flex items-center gap-2 text-[12px] font-semibold tracking-[0.14em] text-primary uppercase">
+            <span className="relative flex size-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-60" />
+              <span className="relative inline-flex size-2 rounded-full bg-primary" />
+            </span>
+            Connected sources
+          </span>
+          <p className="text-[21px] leading-[1.35] font-medium tracking-[-0.02em] text-ink">
+            Your leads and documents flow in{" "}
+            <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
+              automatically
+            </span>
+          </p>
+        </div>
         <VerticalRuleIcon className="hidden h-[43px] w-[3px] shrink-0 md:block" />
         <PartnerMarquee />
       </div>

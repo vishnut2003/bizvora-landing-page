@@ -24,13 +24,18 @@ export function Industries() {
             delay={(i % 4) * 100}
             className="flex h-full"
           >
-            <div className="flex h-full w-full flex-col items-start gap-4 rounded-[16px] bg-surface-muted p-7">
-              <Mark name={industry.icon} className="size-7 shrink-0 text-primary-dark" />
-              <div className="flex flex-col gap-2.5">
-                <p className="text-[16px] leading-[1.4] font-medium text-ink">
+            <div className="group/card flex h-full w-full flex-col items-start gap-5 rounded-[16px] border border-ink/10 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/25 hover:shadow-[0_20px_40px_-24px_rgba(69,6,147,0.35)]">
+              <span className="flex size-11 shrink-0 items-center justify-center rounded-[12px] bg-primary-10 transition-colors duration-300 group-hover/card:bg-primary">
+                <Mark
+                  name={industry.icon}
+                  className="size-5 text-primary-dark transition-colors duration-300 group-hover/card:text-white"
+                />
+              </span>
+              <div className="flex flex-col gap-2">
+                <p className="text-[16px] leading-[1.4] font-semibold text-ink">
                   {industry.name}
                 </p>
-                <p className="text-[16px] leading-[1.6] font-normal tracking-[-0.04em] text-ink-70 capitalize">
+                <p className="text-[14px] leading-[1.6] font-normal tracking-[-0.02em] text-ink-50">
                   {industry.blurb}
                 </p>
               </div>
