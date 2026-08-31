@@ -155,6 +155,15 @@ body {
   animation: fa-sweep 3.4s ease-in-out 1.4s infinite;
 }
 
+/* --- 404 page (app/not-found.tsx) ---------------------------------------
+   The digit tiles and floating product cards drift on the existing
+   fa-float keyframes, staggered per element via --nf-delay. */
+
+.nf-float {
+  animation: fa-float 6s ease-in-out infinite;
+  animation-delay: var(--nf-delay, 0ms);
+}
+
 /* voice-agent chat: speaking-waveform bars on the AI avatar */
 .eq-bar {
   transform-origin: center;
@@ -295,6 +304,9 @@ body {
     stroke-dashoffset: 0;
   }
   .eq-bar {
+    animation: none;
+  }
+  .nf-float {
     animation: none;
   }
 }
