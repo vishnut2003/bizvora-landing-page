@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import type { CSSProperties, ComponentType, SVGProps } from "react";
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import { BasicLayout } from "@/layout/basic-layout";
 import { ArrowUpRightIcon, Mark } from "@/components/icons";
@@ -8,46 +8,19 @@ import { Reveal } from "@/components/reveal";
 import { MODULES } from "@/lib/bizvora";
 import type { ModuleDetail } from "@/types/content";
 import { cn } from "@/lib/utils";
+import { CtaPanel } from "./_components/cta-panel";
 import {
-  AccountingRecoveryArt,
-  AiProposalsArt,
-  CrmPipelineArt,
-} from "@/app/(home)/_components/features/feature-art";
-import {
-  PayrollPayslipArt,
-  ProjectMilestonesArt,
-  QuotationBuilderArt,
-  VoiceAgentArt,
-} from "./_components/module-art";
+  ARTS,
+  CARD_CLASSES,
+  GHOST_BUTTON_CLASSES,
+  JUMP_CHIP_CLASSES,
+} from "./_components/shared";
 
 export const metadata: Metadata = {
   title: "Modules | BizvoraOne",
   description:
     "Explore all BizvoraOne modules — CRM, AI Proposals, Quotations, Accounting & Recovery, Projects, HR & Payroll and the AI Voice Agent — one workspace for Indian businesses.",
 };
-
-type Art = ComponentType<SVGProps<SVGSVGElement>>;
-
-/** Animated artwork per module slug — three reused from home, four new. */
-const ARTS: Record<string, Art> = {
-  crm: CrmPipelineArt,
-  "ai-proposals": AiProposalsArt,
-  quotations: QuotationBuilderArt,
-  "accounting-recovery": AccountingRecoveryArt,
-  projects: ProjectMilestonesArt,
-  "hr-payroll": PayrollPayslipArt,
-  "ai-voice-agent": VoiceAgentArt,
-};
-
-const JUMP_CHIP_CLASSES =
-  "inline-flex items-center gap-2 rounded-[32px] border border-ink/10 bg-white/70 px-4 py-2 text-[13px] leading-[1.6] tracking-[-0.02em] text-ink-70 backdrop-blur-sm transition-colors duration-200 hover:border-primary/40 hover:bg-primary-10 hover:text-ink";
-
-/** Same gradient-card recipe as the home Features cards (not exported there). */
-const CARD_CLASSES =
-  "group rounded-[16px] border border-primary/10 bg-gradient-to-b from-[#FBF9FF] to-[#F3EDFC] transition-all duration-300 hover:-translate-y-1 hover:border-primary/25 hover:shadow-[0_24px_48px_-24px_rgba(69,6,147,0.28)]";
-
-const GHOST_BUTTON_CLASSES =
-  "inline-flex h-[58px] w-[212px] items-center justify-center rounded-[40px] border border-ink/10 bg-white/70 text-[14px] leading-[1.6] font-medium text-ink backdrop-blur-sm transition-colors duration-200 hover:border-primary/40 hover:bg-primary-10";
 
 /**
  * One deep-dive row: copy column + a layered art composition, alternating
@@ -103,8 +76,8 @@ function ModuleSection({ module, index }: { module: ModuleDetail; index: number 
             ))}
           </ul>
 
-          {/* stat + per-module CTA */}
-          <div className="mt-2 flex w-full items-center gap-6 border-t border-ink/10 pt-5">
+          {/* stat + per-module CTAs */}
+          <div className="mt-2 flex w-full flex-wrap items-center gap-x-6 gap-y-4 border-t border-ink/10 pt-5">
             <div className="flex flex-col">
               <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-[28px] leading-[1.2] font-semibold tracking-[-0.02em] text-transparent">
                 {module.stat.value}
@@ -117,6 +90,14 @@ function ModuleSection({ module, index }: { module: ModuleDetail; index: number 
               className="group inline-flex items-center gap-1.5 text-[14px] font-medium text-primary-dark transition-colors hover:text-primary"
             >
               See it live on a demo
+              <ArrowUpRightIcon className="size-3 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </Link>
+            <span className="h-10 w-px bg-ink/10" />
+            <Link
+              href={`/modules/${module.slug}`}
+              className="group inline-flex items-center gap-1.5 text-[14px] font-medium text-ink-70 transition-colors hover:text-primary-dark"
+            >
+              Learn more
               <ArrowUpRightIcon className="size-3 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
           </div>
@@ -371,82 +352,7 @@ export default function ModulesPage() {
             <ModuleSection key={module.slug} module={module} index={i} />
           ))}
 
-          <section className="flex w-full max-w-[500px] flex-col px-5 py-8 md:max-w-[900px] md:px-10 lg:max-w-[1200px] lg:py-12">
-            <Reveal variant="up" distance={30}>
-              <div className="relative flex w-full flex-col items-center gap-6 overflow-hidden rounded-[24px] border border-white/10 bg-ink px-8 py-12 text-center lg:px-[52px] lg:py-16">
-                {/* layered backdrop: orbs + a white dot grid fading from the top */}
-                <div className="pointer-events-none absolute -top-24 left-[8%] size-[320px] rounded-full bg-primary/40 blur-3xl" />
-                <div className="pointer-events-none absolute -bottom-28 right-[6%] size-[340px] rounded-full bg-violet-400/30 blur-3xl" />
-                <div className="pointer-events-none absolute top-1/2 left-1/2 size-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/15 blur-3xl" />
-                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.12)_1px,transparent_1px)] [background-size:22px_22px] [mask-image:radial-gradient(ellipse_75%_85%_at_50%_0%,black,transparent)]" />
-
-                <span className="relative inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-[11px] font-semibold tracking-[0.14em] text-white/70 uppercase backdrop-blur-sm">
-                  <span className="relative flex size-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#C084FC] opacity-60" />
-                    <span className="relative inline-flex size-2 rounded-full bg-[#C084FC]" />
-                  </span>
-                  One plan, every module included
-                </span>
-
-                <h2 className="relative max-w-[560px] text-[24px] leading-[1.2] font-medium tracking-[-0.04em] text-white md:text-[36px] lg:text-[40px]">
-                  See all of it working together —{" "}
-                  <span className="bg-gradient-to-r from-[#C084FC] to-primary bg-clip-text text-transparent">
-                    on your data
-                  </span>
-                </h2>
-                <p className="relative max-w-[520px] text-[15px] leading-[1.6] tracking-[-0.02em] text-white/70">
-                  Pricing is scoped to your team size and shared on the demo
-                  call. You&apos;ll never discover a feature you need lives on a
-                  higher tier.
-                </p>
-
-                {/* all seven modules, right here — each tile jumps to its section */}
-                <div className="relative flex flex-wrap items-center justify-center gap-3">
-                  {MODULES.map((module, i) => (
-                    <Link
-                      key={module.slug}
-                      href={`#${module.slug}`}
-                      title={module.name}
-                      aria-label={module.name}
-                      className="group/mod flex size-11 items-center justify-center rounded-[12px] bg-white/5 ring-1 ring-white/10 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:bg-primary hover:ring-primary"
-                      style={{ transitionDelay: `${i * 15}ms` }}
-                    >
-                      <Mark
-                        name={module.icon}
-                        className="size-5 text-[#C084FC] transition-colors duration-300 group-hover/mod:text-white"
-                      />
-                    </Link>
-                  ))}
-                </div>
-
-                <div className="relative flex flex-col items-center gap-3 sm:flex-row">
-                  <PillButton href="/#contact" className="w-[212px]">
-                    Request a Demo
-                  </PillButton>
-                  <Link
-                    href="/#plan"
-                    className="inline-flex h-[58px] w-[212px] items-center justify-center rounded-[40px] border border-white/20 bg-white/5 text-[14px] leading-[1.6] font-medium text-white backdrop-blur-sm transition-colors duration-200 hover:border-white/40 hover:bg-white/10"
-                  >
-                    See What&apos;s Included
-                  </Link>
-                </div>
-
-                <div className="relative flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
-                  {["No per-module pricing", "All 8 role dashboards", "Hosted in Mumbai"].map(
-                    (point) => (
-                      <span
-                        key={point}
-                        className="flex items-center gap-2 text-[13px] leading-[1.6] tracking-[-0.02em] text-white/60"
-                      >
-                        <Mark name="check" className="size-3.5 shrink-0 text-[#C084FC]" />
-                        {point}
-                      </span>
-                    ),
-                  )}
-                </div>
-              </div>
-            </Reveal>
-          </section>
+          <CtaPanel />
 
           {MODULES.slice(4).map((module, i) => (
             <ModuleSection key={module.slug} module={module} index={i + 4} />

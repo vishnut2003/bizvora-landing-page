@@ -56,6 +56,35 @@ export interface ModuleDetail {
   artAlt: string;
 }
 
+/** One expanded capability card on a /modules/<slug> page. */
+export interface ModuleFeatureCard {
+  title: string;
+  description: string;
+  icon: MarkName;
+}
+
+/** One "how it works" step on a /modules/<slug> page. */
+export interface ModuleStep {
+  title: string;
+  description: string;
+}
+
+/** Extra copy for /modules/<slug>; composes with ModuleDetail at render. */
+export interface ModulePageExtras {
+  /** Gradient value-prop line under the h1, distinct from the description. */
+  heroTagline: string;
+  /** Exactly three: hero satellites on desktop, a compact row on mobile. */
+  heroStats: { value: string; label: string }[];
+  featureCards: ModuleFeatureCard[];
+  steps: [ModuleStep, ModuleStep, ModuleStep];
+  /** Resolved against ROLES by name at render — no copy duplication. */
+  roleNames: string[];
+  /** Sibling module slugs, resolved against MODULES. */
+  related: string[];
+  /** Resolved against FAQS by exact question text (curly quotes included). */
+  faqQuestions: string[];
+}
+
 export interface Industry {
   name: string;
   blurb: string;
