@@ -86,9 +86,35 @@ export interface ModulePageExtras {
 }
 
 export interface Industry {
+  /** The /industries/<slug> route and the anchor id on /industries. */
+  slug: string;
   name: string;
   blurb: string;
   icon: MarkName;
+}
+
+/** One daily-frustration card on an /industries/<slug> page. */
+export interface IndustryPainPoint {
+  title: string;
+  description: string;
+  icon: MarkName;
+}
+
+/** Extra copy for /industries/<slug>; composes with Industry at render. */
+export interface IndustryPageExtras {
+  /** Gradient value-prop line after the h1 name. */
+  heroTagline: string;
+  /** Two-sentence hero paragraph. */
+  description: string;
+  /** Exactly three: hero satellites on desktop, a compact row on mobile. */
+  heroStats: { value: string; label: string }[];
+  /** 3-4 pain→relief cards. */
+  painPoints: IndustryPainPoint[];
+  steps: [ModuleStep, ModuleStep, ModuleStep];
+  /** The three modules this industry leans on, resolved against MODULES. */
+  moduleSlugs: string[];
+  /** Resolved against FAQS by exact question text (curly quotes included). */
+  faqQuestions: string[];
 }
 
 /** A role-scoped dashboard: who it is for and what it shows them. */

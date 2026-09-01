@@ -7,7 +7,7 @@ import { CountUp } from "@/components/count-up";
 import { PillButton } from "@/components/pill-button";
 import { TradesTicker } from "@/components/trades-ticker";
 import { Reveal } from "@/components/reveal";
-import { INDUSTRIES, MODULES } from "@/lib/bizvora";
+import { INDUSTRIES, INDUSTRY_PAGES, MODULES } from "@/lib/bizvora";
 import { cn } from "@/lib/utils";
 import { CtaPanel } from "@/app/modules/_components/cta-panel";
 import { CARD_CLASSES, GHOST_BUTTON_CLASSES } from "@/app/modules/_components/shared";
@@ -16,46 +16,6 @@ export const metadata: Metadata = {
   title: "Industries | BizvoraOne",
   description:
     "BizvoraOne runs the same flow for every industry — manufacturing, real estate, IT & agencies, consulting, law & CA/CS, education, healthcare and distribution: enquiries in, work delivered, money collected.",
-};
-
-/**
- * Per-industry presentation extras, keyed by the INDUSTRIES name: the anchor
- * id (matching the nav's /industries/<slug> naming) and the three modules
- * that industry leans on hardest, linked to their /modules pages.
- */
-const INDUSTRY_META: Record<string, { id: string; modules: string[] }> = {
-  Manufacturing: {
-    id: "manufacturing",
-    modules: ["quotations", "accounting-recovery", "crm"],
-  },
-  "Real Estate & Construction": {
-    id: "real-estate-construction",
-    modules: ["ai-voice-agent", "crm", "projects"],
-  },
-  "IT & Agencies": {
-    id: "it-agencies",
-    modules: ["ai-proposals", "projects", "hr-payroll"],
-  },
-  "Service & Consulting": {
-    id: "service-consulting",
-    modules: ["crm", "ai-proposals", "accounting-recovery"],
-  },
-  "Law & CA / CS Firms": {
-    id: "law-ca-cs",
-    modules: ["projects", "accounting-recovery", "ai-proposals"],
-  },
-  Education: {
-    id: "education",
-    modules: ["ai-voice-agent", "crm", "accounting-recovery"],
-  },
-  Healthcare: {
-    id: "healthcare",
-    modules: ["ai-voice-agent", "accounting-recovery", "hr-payroll"],
-  },
-  "Trading & Distribution": {
-    id: "trading-distribution",
-    modules: ["quotations", "accounting-recovery", "crm"],
-  },
 };
 
 /** Numeric values count up on reveal; string values render static. */
@@ -181,7 +141,7 @@ export default function IndustriesPage() {
                     {INDUSTRIES.map((industry) => (
                       <Link
                         key={industry.name}
-                        href={`#${INDUSTRY_META[industry.name].id}`}
+                        href={`/industries/${industry.slug}`}
                         className="group/tile flex items-center gap-3 rounded-[12px] border border-ink/10 bg-white p-3 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/25 hover:shadow-[0_16px_32px_-20px_rgba(69,6,147,0.35)]"
                       >
                         <span className="flex size-8 shrink-0 items-center justify-center rounded-[10px] bg-primary-10 transition-colors duration-300 group-hover/tile:bg-primary">
@@ -320,8 +280,9 @@ export default function IndustriesPage() {
 
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             {INDUSTRIES.map((industry, i) => {
-              const meta = INDUSTRY_META[industry.name];
-              const industryModules = meta.modules
+              const industryModules = INDUSTRY_PAGES[
+                industry.slug as keyof typeof INDUSTRY_PAGES
+              ].moduleSlugs
                 .map((slug) => MODULES.find((m) => m.slug === slug))
                 .filter((m) => m !== undefined);
               return (
@@ -333,7 +294,7 @@ export default function IndustriesPage() {
                   className="h-full"
                 >
                   <div
-                    id={meta.id}
+                    id={industry.slug}
                     className={`${CARD_CLASSES} relative flex h-full scroll-mt-[110px] flex-col gap-3 overflow-hidden p-5 lg:scroll-mt-[130px]`}
                   >
                     <span className="pointer-events-none absolute -right-10 -bottom-10 size-32 rounded-full bg-primary/5 blur-2xl transition-colors duration-300 group-hover:bg-primary/15" />
@@ -350,6 +311,13 @@ export default function IndustriesPage() {
                     <p className="text-[13px] leading-[1.6] tracking-[-0.02em] text-ink-70">
                       {industry.blurb}
                     </p>
+                    <Link
+                      href={`/industries/${industry.slug}`}
+                      className="group/more relative inline-flex items-center gap-1.5 text-[13px] font-medium text-primary-dark transition-colors hover:text-primary"
+                    >
+                      Learn more
+                      <ArrowUpRightIcon className="size-3 transition-transform duration-200 group-hover/more:translate-x-0.5 group-hover/more:-translate-y-0.5" />
+                    </Link>
 
                     {/* the modules this industry leans on, linked */}
                     <div className="relative mt-auto flex items-center gap-1.5 border-t border-ink/10 pt-3">

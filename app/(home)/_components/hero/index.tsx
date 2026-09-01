@@ -87,7 +87,7 @@ export function Hero() {
 
         {/* the trades ticker rides inside the gradient block, so it blends
             with the hero instead of sitting on a white seam */}
-        <TradesTicker industryLinkBase="/industries" />
+        <TradesTicker />
       </div>
 
       <div className="flex w-full max-w-[1025px] flex-col items-center gap-6 px-5 md:flex-row md:gap-10 lg:px-0">

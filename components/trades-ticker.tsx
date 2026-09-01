@@ -5,18 +5,6 @@ import { Reveal } from "@/components/reveal";
 import { INDUSTRIES, MODULES } from "@/lib/bizvora";
 import { cn } from "@/lib/utils";
 
-/** Anchor ids on /industries, matching the nav's /industries/<slug> naming. */
-const INDUSTRY_ANCHORS: Record<string, string> = {
-  Manufacturing: "manufacturing",
-  "Real Estate & Construction": "real-estate-construction",
-  "IT & Agencies": "it-agencies",
-  "Service & Consulting": "service-consulting",
-  "Law & CA / CS Firms": "law-ca-cs",
-  Education: "education",
-  Healthcare: "healthcare",
-  "Trading & Distribution": "trading-distribution",
-};
-
 const CHIP_CLASSES =
   "flex shrink-0 items-center gap-2.5 rounded-full border border-ink/10 bg-white py-2 pr-5 pl-2.5 shadow-[0_1px_2px_rgba(23,23,23,0.04),0_8px_16px_-10px_rgba(69,6,147,0.2)] transition-colors duration-200 hover:border-primary/30";
 
@@ -26,17 +14,10 @@ const CHIP_CLASSES =
  * reduced-motion off); the second adds `marquee-reverse`. Four chip sets per
  * track, translating -50% (two sets per loop half), keep the loop gapless on
  * wide viewports; every set after the first is aria-hidden and unfocusable.
- *
- * `industryLinkBase` prefixes the industry chips' anchor links — "" on
- * /industries itself, "/industries" everywhere else.
+ * Industry chips navigate to the /industries/<slug> pages; module chips to
+ * /modules/<slug>.
  */
-export function TradesTicker({
-  industryLinkBase = "",
-  className,
-}: {
-  industryLinkBase?: string;
-  className?: string;
-}) {
+export function TradesTicker({ className }: { className?: string }) {
   const sets = [0, 1, 2, 3];
   return (
     <section className={cn("flex w-full flex-col items-center gap-6", className)}>
@@ -61,7 +42,7 @@ export function TradesTicker({
               INDUSTRIES.map((industry) => (
                 <li key={`${set}-${industry.name}`} aria-hidden={set > 0}>
                   <Link
-                    href={`${industryLinkBase}#${INDUSTRY_ANCHORS[industry.name]}`}
+                    href={`/industries/${industry.slug}`}
                     tabIndex={set > 0 ? -1 : undefined}
                     className={CHIP_CLASSES}
                   >
