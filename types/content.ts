@@ -36,6 +36,26 @@ export interface Module {
   icon: MarkName;
 }
 
+/** A module's full record for the /modules deep-dive page. */
+export interface ModuleDetail {
+  /** Anchor id on /modules today; the future /modules/<slug> route. */
+  slug: string;
+  name: string;
+  /** Category label above the heading, e.g. "Sales". */
+  eyebrow: string;
+  /** One-liner — kept identical to the header/strip blurbs. */
+  blurb: string;
+  /** Two sentences for the deep-dive section. */
+  description: string;
+  /** Check-bulleted capability list. */
+  features: string[];
+  icon: MarkName;
+  /** Highlight chip in the copy column. */
+  stat: { value: string; label: string };
+  /** Accessible label for the section's SVG artwork. */
+  artAlt: string;
+}
+
 export interface Industry {
   name: string;
   blurb: string;

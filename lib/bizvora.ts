@@ -5,6 +5,7 @@ import type {
   Industry,
   Metric,
   Module,
+  ModuleDetail,
   NavGroup,
   NavLink,
   Role,
@@ -102,6 +103,140 @@ export const MODULE_STRIP: Module[] = [
   { name: "Accounting & Recovery", blurb: "Tally-style vouchers & collections", icon: "ledger" },
   { name: "Projects", blurb: "Milestones with review gates", icon: "kanban" },
   { name: "HR & Payroll", blurb: "Payroll runs & payslip PDFs", icon: "hr" },
+];
+
+/**
+ * Canonical module source for the /modules page. The header's ITEM_META and
+ * MODULE_STRIP above mirror these blurbs — keep the three in sync. Copy is
+ * drawn from FEATURES, VOICE_FACTS and the FAQs.
+ */
+export const MODULES: ModuleDetail[] = [
+  {
+    slug: "crm",
+    name: "CRM",
+    eyebrow: "Sales",
+    blurb: "Customers, leads & 9-stage pipeline",
+    description:
+      "Every enquiry from Meta Ads, Google Ads and your website lands in one 9-stage pipeline — 15 lead sources in total, captured automatically. Sales sees each lead's stage, value in ₹ and what's due next, so nothing goes cold.",
+    features: [
+      "9-stage pipeline, from first enquiry to Won",
+      "15 lead sources: Meta Ads and Google Ads lead forms, plus a public webhook for any website form",
+      "Leads captured automatically — no manual entry, no copy-paste from inboxes",
+      "Stage, deal value and next action visible on every lead",
+      "Role-scoped: Sales sees the pipeline, and nothing that isn't theirs",
+    ],
+    icon: "crm",
+    stat: { value: "15", label: "lead sources feeding one pipeline" },
+    artAlt: "Nine-stage lead pipeline funnel",
+  },
+  {
+    slug: "ai-proposals",
+    name: "AI Proposals",
+    eyebrow: "Sales",
+    blurb: "Drafted by AI, branded PDF output",
+    description:
+      "The AI drafts each proposal from the lead's own context — who they are, what they asked for — so the first draft already sounds like you. Review, refine and export as a branded PDF your clients actually read.",
+    features: [
+      "First drafts written by AI from the lead's context",
+      "Branded PDF output with your letterhead and line items in ₹",
+      "Edit everything before it leaves the building",
+      "Proposal stays linked to the lead's pipeline record",
+      "Send-for-signature — coming soon",
+    ],
+    icon: "doc",
+    stat: { value: "Minutes", label: "from lead to first draft" },
+    artAlt: "AI-drafted proposal document",
+  },
+  {
+    slug: "quotations",
+    name: "Quotations",
+    eyebrow: "Sales",
+    blurb: "Itemized quotes in seconds",
+    description:
+      "Build itemized quotations in seconds — line items, quantities, GST and totals in ₹, ready while the lead is still warm. Every quote keeps its number and status, linked back to the lead it belongs to.",
+    features: [
+      "Itemized line items with quantity, rate and amount",
+      "GST and totals calculated for you — no spreadsheet on the side",
+      "Numbered quotes with sent and accepted status",
+      "Linked to the lead, so follow-up is never guesswork",
+      "Flows into accounting once the deal is won",
+    ],
+    icon: "quote",
+    stat: { value: "Seconds", label: "to an itemized, GST-ready quote" },
+    artAlt: "Itemized quotation totalling up with GST",
+  },
+  {
+    slug: "accounting-recovery",
+    name: "Accounting & Recovery",
+    eyebrow: "Finance",
+    blurb: "Tally-style vouchers & collections",
+    description:
+      "Vouchers in the Tally-style layout your accountant already understands — debit, credit, balance — with zero retraining. Recovery tracks receivables ageing from 0–30 to 120+ days, so collections happen before dues go stale.",
+    features: [
+      "Tally-style voucher entry your accountant knows on day one",
+      "Receivables ageing across five buckets, 0–30 to 120+ days",
+      "A dedicated Recovery role that owns collection follow-ups",
+      "Outstanding invoices and ₹ balances at a glance",
+      "Data in MongoDB Atlas, Mumbai region — your books stay in India",
+    ],
+    icon: "ledger",
+    stat: { value: "5", label: "ageing buckets tracked for recovery" },
+    artAlt: "Voucher ledger and receivables ageing",
+  },
+  {
+    slug: "projects",
+    name: "Projects",
+    eyebrow: "Delivery",
+    blurb: "Milestones with review gates",
+    description:
+      "Every engagement broken into milestones with review gates, so work is checked before it moves forward. Management sees delivery dates across every active project; employees see only the tasks that are theirs.",
+    features: [
+      "Milestones with review gates before hand-off",
+      "Delivery dates across every active project, in one view",
+      "Won leads flow straight into a project — no re-entry",
+      "Tasks scoped per employee: their work, nothing else",
+      "A Projects role that sees gates and dates across the board",
+    ],
+    icon: "kanban",
+    stat: { value: "1 view", label: "for every active project's dates" },
+    artAlt: "Kanban columns with a milestone timeline and review gate",
+  },
+  {
+    slug: "hr-payroll",
+    name: "HR & Payroll",
+    eyebrow: "People",
+    blurb: "Payroll runs & payslip PDFs",
+    description:
+      "Employee records, payroll runs and payslip PDFs in one place — no spreadsheet gymnastics at month-end. HR runs payroll; every employee self-serves their own payslips from their dashboard.",
+    features: [
+      "Central employee records with roles and permissions",
+      "Monthly payroll runs in ₹, without the month-end scramble",
+      "Payslip PDFs generated for every employee, automatically",
+      "Employees see their own payslips — and only their own",
+      "HR's dashboard shows the whole run, end to end",
+    ],
+    icon: "hr",
+    stat: { value: "PDF", label: "payslips, generated per employee" },
+    artAlt: "Attendance grid feeding a payslip with net pay",
+  },
+  {
+    slug: "ai-voice-agent",
+    name: "AI Voice Agent",
+    eyebrow: "AI",
+    blurb: "Calls every new lead in seconds",
+    description:
+      "The moment a lead fills a form, the AI agent calls — seconds from form-fill to first ring, in one of six voices you choose. It qualifies the lead, books the meeting and logs everything back on the CRM record.",
+    features: [
+      "Calls new leads within seconds of form-fill",
+      "6 voices — pick the one that fits your brand",
+      "AI-disclosure toggle: when on, the agent introduces itself as an AI on every call",
+      "Books the meeting with your team, right on the call",
+      "Full conversation logged on the lead's CRM record",
+    ],
+    icon: "phone",
+    stat: { value: "Seconds", label: "from form-fill to first ring" },
+    artAlt: "AI voice agent call card with live waveform and transcript",
+  },
 ];
 
 export const METRICS: Metric[] = [
