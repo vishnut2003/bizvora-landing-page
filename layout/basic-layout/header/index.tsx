@@ -174,14 +174,17 @@ export function Header() {
           )}
         </div>
 
-        <PillButton
-          href="/demo"
-          variant="gradient"
-          size="sm"
-          className="hidden w-[165px] lg:inline-flex"
-        >
-          Request a Demo
-        </PillButton>
+        <div className="hidden items-center gap-5 lg:flex">
+          <a
+            href="https://app.bizvora.com"
+            className="text-[14px] leading-[1.6] font-medium text-ink underline decoration-ink/30 underline-offset-4 transition-colors hover:text-primary-dark hover:decoration-primary/50"
+          >
+            Login
+          </a>
+          <PillButton href="/demo" variant="gradient" size="sm" className="w-[165px]">
+            Request a Demo
+          </PillButton>
+        </div>
 
         <button
           type="button"
@@ -230,14 +233,18 @@ export function Header() {
                 )}
               </div>
             ))}
-            <PillButton
-              href="/demo"
-              variant="gradient"
-              size="sm"
-              className="mt-2 self-start"
-            >
-              Request a Demo
-            </PillButton>
+            <div className="mt-2 flex items-center gap-6">
+              <a
+                href="https://app.bizvora.com"
+                onClick={() => setOpen(false)}
+                className="text-[15px] leading-[1.6] font-medium text-ink underline decoration-ink/30 underline-offset-4 transition-colors hover:text-primary-dark hover:decoration-primary/50"
+              >
+                Login
+              </a>
+              <PillButton href="/demo" variant="gradient" size="sm">
+                Request a Demo
+              </PillButton>
+            </div>
           </div>
         </div>
       )}
