@@ -77,12 +77,15 @@ function ModuleSection({ module, index }: { module: ModuleDetail; index: number 
           </ul>
 
           {/* stat + per-module CTAs */}
-          <div className="mt-2 flex w-full flex-wrap items-center gap-x-6 gap-y-4 border-t border-ink/10 pt-5">
+          <div className="mt-2 flex w-full flex-wrap items-center gap-x-4 gap-y-4 border-t border-ink/10 pt-5">
             <div className="flex flex-col">
               <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-[28px] leading-[1.2] font-semibold tracking-[-0.02em] text-transparent">
                 {module.stat.value}
               </span>
-              <span className="text-[12px] leading-[1.5] text-ink-50">{module.stat.label}</span>
+              {/* capped so the row's three items stay on one line at lg */}
+              <span className="max-w-[150px] text-[12px] leading-[1.5] text-ink-50">
+                {module.stat.label}
+              </span>
             </div>
             <span className="h-10 w-px bg-ink/10" />
             <Link

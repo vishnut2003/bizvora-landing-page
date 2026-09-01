@@ -57,6 +57,15 @@ function SectionHeading({
 const GRADIENT_TEXT_CLASSES =
   "bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent";
 
+/** Bento column spans for the five feature cards: 4+2 / 2+4 / full-width. */
+const FEATURE_SPANS = [
+  "md:col-span-4",
+  "md:col-span-2",
+  "md:col-span-2",
+  "md:col-span-4",
+  "md:col-span-6",
+];
+
 export default async function ModuleDetailPage({ params }: PageProps<"/modules/[slug]">) {
   const { slug } = await params;
   const index = MODULES.findIndex((m) => m.slug === slug);
@@ -217,32 +226,49 @@ export default async function ModuleDetailPage({ params }: PageProps<"/modules/[
             What the module{" "}
             <span className={GRADIENT_TEXT_CLASSES}>actually does</span>
           </SectionHeading>
-          <div className="grid gap-4 md:grid-cols-2">
-            {extras.featureCards.map((card, i) => (
-              <Reveal
-                key={card.title}
-                variant="up"
-                distance={30}
-                delay={i * 60}
-                className={cn(
-                  extras.featureCards.length % 2 === 1 &&
-                    i === extras.featureCards.length - 1 &&
-                    "md:col-span-2",
-                )}
-              >
-                <div className={`${CARD_CLASSES} flex h-full flex-col gap-3 p-6`}>
-                  <span className="flex size-10 items-center justify-center rounded-[12px] bg-primary-10">
-                    <Mark name={card.icon} className="size-5 text-primary-dark" />
-                  </span>
-                  <p className="text-[16px] leading-[1.4] font-medium tracking-[-0.02em] text-ink">
-                    {card.title}
-                  </p>
-                  <p className="text-[14px] leading-[1.6] tracking-[-0.02em] text-ink-70">
-                    {card.description}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
+          <div className="grid gap-4 md:grid-cols-6">
+            {extras.featureCards.map((card, i) => {
+              // bento rhythm: wide/narrow, narrow/wide, full-width closer
+              const span = FEATURE_SPANS[i] ?? "md:col-span-3";
+              const wide = span === "md:col-span-6";
+              return (
+                <Reveal key={card.title} variant="up" distance={30} delay={i * 60} className={span}>
+                  <div
+                    className={cn(
+                      `${CARD_CLASSES} relative h-full overflow-hidden p-6`,
+                      wide
+                        ? "flex flex-col gap-3 md:flex-row md:items-center md:gap-6"
+                        : "flex flex-col gap-3",
+                    )}
+                  >
+                    {/* corner glow, warming on hover */}
+                    <span className="pointer-events-none absolute -right-10 -bottom-10 size-32 rounded-full bg-primary/5 blur-2xl transition-colors duration-300 group-hover:bg-primary/15" />
+                    {/* ghost index numeral */}
+                    <span
+                      aria-hidden
+                      className="pointer-events-none absolute top-3 right-5 text-[44px] leading-none font-semibold tracking-[-0.04em] text-primary/10 transition-colors duration-300 select-none group-hover:text-primary/20"
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+
+                    <span className="flex size-10 shrink-0 items-center justify-center rounded-[12px] bg-primary-10 transition-colors duration-300 group-hover:bg-primary">
+                      <Mark
+                        name={card.icon}
+                        className="size-5 text-primary-dark transition-colors duration-300 group-hover:text-white"
+                      />
+                    </span>
+                    <div className={cn("relative flex flex-col gap-2", wide && "md:max-w-[640px]")}>
+                      <p className="text-[16px] leading-[1.4] font-medium tracking-[-0.02em] text-ink">
+                        {card.title}
+                      </p>
+                      <p className="text-[14px] leading-[1.6] tracking-[-0.02em] text-ink-70">
+                        {card.description}
+                      </p>
+                    </div>
+                  </div>
+                </Reveal>
+              );
+            })}
           </div>
         </section>
 
@@ -253,28 +279,56 @@ export default async function ModuleDetailPage({ params }: PageProps<"/modules/[
               Three steps,{" "}
               <span className={GRADIENT_TEXT_CLASSES}>zero re-entry</span>
             </SectionHeading>
-            <div className="relative grid gap-8 md:grid-cols-3">
-              {/* connector behind the numbered badges */}
-              <div className="pointer-events-none absolute top-5 right-[16%] left-[16%] hidden h-px bg-ink/10 md:block" />
-              {extras.steps.map((step, i) => (
-                <Reveal
-                  key={step.title}
-                  variant="up"
-                  distance={30}
-                  delay={i * 100}
-                  className="relative flex flex-col items-start gap-3 md:items-center md:text-center"
-                >
-                  <span className="flex size-10 items-center justify-center rounded-full bg-[linear-gradient(125deg,rgb(140,0,255)_9%,rgb(69,6,147)_92%)] text-[14px] font-semibold text-white shadow-[0_8px_20px_rgba(69,6,147,0.35)]">
-                    {i + 1}
-                  </span>
-                  <p className="text-[16px] leading-[1.4] font-medium tracking-[-0.02em] text-ink">
-                    {step.title}
-                  </p>
-                  <p className="text-[14px] leading-[1.6] tracking-[-0.02em] text-ink-70">
-                    {step.description}
-                  </p>
-                </Reveal>
-              ))}
+            {/* open timeline: nodes on a gradient rail, ghost numerals behind
+                the copy — no boxes. The rail runs horizontally on md+, and a
+                short vertical segment joins stacked steps on mobile. */}
+            <div className="flex flex-col gap-14 md:flex-row md:gap-10">
+              {extras.steps.map((step, i) => {
+                const last = i === extras.steps.length - 1;
+                return (
+                  <Reveal
+                    key={step.title}
+                    variant="up"
+                    distance={30}
+                    delay={i * 120}
+                    className="relative flex-1"
+                  >
+                    {/* oversized ghost numeral */}
+                    <span
+                      aria-hidden
+                      className="pointer-events-none absolute -top-9 -left-1 text-[88px] leading-none font-semibold tracking-[-0.04em] text-primary/5 select-none"
+                    >
+                      {`0${i + 1}`}
+                    </span>
+                    {/* mobile rail segment down to the next step */}
+                    {!last && (
+                      <span className="absolute top-12 -bottom-12 left-5 w-px bg-gradient-to-b from-primary/30 to-primary/5 md:hidden" />
+                    )}
+
+                    <div className="relative flex items-center gap-4">
+                      <span
+                        className="fa-anim fa-pop flex size-10 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(125deg,rgb(140,0,255)_9%,rgb(69,6,147)_92%)] text-[15px] font-semibold text-white shadow-[0_8px_20px_rgba(69,6,147,0.35)]"
+                        style={{ animationDelay: `${0.1 + i * 0.25}s` }}
+                      >
+                        {i + 1}
+                      </span>
+                      {!last && (
+                        <span
+                          className="fa-anim fa-bar-l hidden h-[2px] flex-1 rounded-full bg-gradient-to-r from-primary/50 via-primary/20 to-primary/5 md:block"
+                          style={{ animationDelay: `${0.3 + i * 0.25}s` }}
+                        />
+                      )}
+                    </div>
+
+                    <p className="relative mt-6 pl-14 text-[17px] leading-[1.4] font-medium tracking-[-0.02em] text-ink md:pl-0">
+                      {step.title}
+                    </p>
+                    <p className="relative mt-2 pl-14 text-[14px] leading-[1.7] tracking-[-0.02em] text-ink-70 md:pl-0">
+                      {step.description}
+                    </p>
+                  </Reveal>
+                );
+              })}
             </div>
           </div>
         </section>
@@ -288,17 +342,44 @@ export default async function ModuleDetailPage({ params }: PageProps<"/modules/[
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {roles.map((role, i) => (
               <Reveal key={role.name} variant="up" distance={30} delay={i * 80}>
-                <div className="flex h-full flex-col gap-2 rounded-[12px] border border-ink/10 bg-white p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/25 hover:shadow-[0_16px_32px_-20px_rgba(69,6,147,0.35)]">
-                  <span className="text-[14px] leading-[1.3] font-semibold text-ink">
-                    {role.name}
+                <div className={`${CARD_CLASSES} relative flex h-full flex-col gap-4 overflow-hidden p-5`}>
+                  {/* dashboard-window chrome dots */}
+                  <span className="absolute top-5 right-5 flex gap-1.5">
+                    <span className="size-1.5 rounded-full bg-primary/40" />
+                    <span className="size-1.5 rounded-full bg-ink/10" />
+                    <span className="size-1.5 rounded-full bg-ink/10" />
                   </span>
-                  <span className="text-[13px] leading-[1.6] tracking-[-0.02em] text-ink-70">
+                  <span className="pointer-events-none absolute -right-10 -bottom-10 size-32 rounded-full bg-primary/5 blur-2xl transition-colors duration-300 group-hover:bg-primary/15" />
+
+                  <div className="flex items-center gap-3">
+                    <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(125deg,rgb(140,0,255)_9%,rgb(69,6,147)_92%)] text-[14px] font-semibold text-white shadow-[0_8px_20px_rgba(69,6,147,0.35)]">
+                      {role.name.charAt(0)}
+                    </span>
+                    <div className="flex flex-col">
+                      <span className="text-[14px] leading-[1.3] font-semibold text-ink">
+                        {role.name}
+                      </span>
+                      <span className="text-[10px] font-semibold tracking-[0.12em] text-ink-50 uppercase">
+                        Role dashboard
+                      </span>
+                    </div>
+                  </div>
+                  <p className="relative text-[13px] leading-[1.6] tracking-[-0.02em] text-ink-70">
                     {role.sees}
-                  </span>
+                  </p>
                 </div>
               </Reveal>
             ))}
           </div>
+          <Reveal variant="up" distance={20} delay={roles.length * 80} className="mx-auto -mt-4">
+            <Link
+              href="/#dashboards"
+              className="group inline-flex items-center gap-1.5 text-[14px] font-medium text-primary-dark transition-colors hover:text-primary"
+            >
+              See all 8 role dashboards
+              <ArrowUpRightIcon className="size-3 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </Link>
+          </Reveal>
         </section>
 
         {/* module FAQs, when any apply */}
@@ -308,20 +389,41 @@ export default async function ModuleDetailPage({ params }: PageProps<"/modules/[
               Questions teams{" "}
               <span className={GRADIENT_TEXT_CLASSES}>ask about this</span>
             </SectionHeading>
-            <div className="mx-auto flex w-full max-w-[760px] flex-col gap-4">
-              {faqs.map((faq, i) => (
-                <Reveal key={faq.question} variant="up" distance={30} delay={i * 80}>
-                  <div className={`${CARD_CLASSES} flex flex-col gap-2 p-6`}>
-                    <p className="text-[15px] leading-[1.4] font-medium tracking-[-0.02em] text-ink">
-                      {faq.question}
-                    </p>
-                    <p className="text-[14px] leading-[1.6] tracking-[-0.02em] text-ink-70">
-                      {faq.answer}
-                    </p>
-                  </div>
-                </Reveal>
-              ))}
-              <Reveal variant="up" distance={20} delay={faqs.length * 80}>
+            <div className="mx-auto flex w-full max-w-[960px] flex-col gap-4">
+              <div className={cn("grid gap-4", faqs.length > 1 && "md:grid-cols-2")}>
+                {faqs.map((faq, i) => (
+                  <Reveal key={faq.question} variant="up" distance={30} delay={i * 80}>
+                    <div
+                      className={`${CARD_CLASSES} relative flex h-full flex-col gap-4 overflow-hidden p-6 text-left`}
+                    >
+                      <span className="pointer-events-none absolute -right-10 -bottom-10 size-32 rounded-full bg-primary/5 blur-2xl transition-colors duration-300 group-hover:bg-primary/15" />
+
+                      <div className="flex items-start gap-3">
+                        <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(125deg,rgb(140,0,255)_9%,rgb(69,6,147)_92%)] text-[13px] font-semibold text-white shadow-[0_8px_20px_rgba(69,6,147,0.35)]">
+                          Q
+                        </span>
+                        <p className="pt-1 text-[15px] leading-[1.4] font-medium tracking-[-0.02em] text-ink">
+                          {faq.question}
+                        </p>
+                      </div>
+                      <div className="relative flex items-start gap-3">
+                        <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary-10 text-[13px] font-semibold text-primary-dark">
+                          A
+                        </span>
+                        <p className="border-l border-ink/10 pt-1 pl-3 text-[14px] leading-[1.6] tracking-[-0.02em] text-ink-70">
+                          {faq.answer}
+                        </p>
+                      </div>
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
+              <Reveal
+                variant="up"
+                distance={20}
+                delay={faqs.length * 80}
+                className="mx-auto mt-2"
+              >
                 <Link
                   href="/#faq"
                   className="group inline-flex items-center gap-1.5 text-[14px] font-medium text-primary-dark transition-colors hover:text-primary"

@@ -363,7 +363,7 @@ export const MODULE_PAGES = {
           "Export a branded PDF and send it. The proposal stays linked to the lead, so everyone sees where it stands.",
       },
     ],
-    roleNames: ["Sales", "Management"],
+    roleNames: ["Sales", "Management", "Admin"],
     related: ["crm", "quotations"],
     faqQuestions: ["What does “coming soon” mean?"],
   },
