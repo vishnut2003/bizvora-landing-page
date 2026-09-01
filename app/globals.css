@@ -93,6 +93,11 @@ body {
   animation-play-state: paused;
 }
 
+/* rightward drift for a paired counter-scrolling row (/industries) */
+.marquee-track.marquee-reverse {
+  animation-direction: reverse;
+}
+
 @keyframes marquee {
   from {
     transform: translateX(0);

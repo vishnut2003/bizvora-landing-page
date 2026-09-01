@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Mark, VerticalRuleIcon } from "@/components/icons";
 import { PillButton } from "@/components/pill-button";
 import { Reveal } from "@/components/reveal";
+import { TradesTicker } from "@/components/trades-ticker";
 import { HeroDashboard } from "./hero-dashboard";
 import { PartnerMarquee } from "./partner-marquee";
 
@@ -17,8 +18,11 @@ export function Hero() {
   return (
     // negative bottom margin claws back part of the page-level section gap
     // so the integrations strip sits closer to both the hero and Modules
-    <section className="-mb-6 flex w-full flex-col items-center gap-10 md:-mb-8 lg:-mb-12 lg:gap-12">
-      <div className="relative flex w-full flex-col items-center justify-center gap-8 overflow-hidden bg-[linear-gradient(180deg,#fff_18%,rgba(140,0,255,0.35)_100%)] pt-[120px] pb-16 lg:gap-12 lg:pt-[140px] lg:pb-20">
+    <section className="-mb-6 flex w-full flex-col items-center gap-6 md:-mb-8 lg:-mb-12 lg:gap-8">
+      {/* purple peaks behind the dashboard and ticker, then eases back to
+          white on a curved ramp — the extra stops keep the fade's start and
+          end soft enough that no horizontal band shows */}
+      <div className="relative flex w-full flex-col items-center justify-center gap-8 overflow-hidden bg-[linear-gradient(180deg,#fff_18%,rgba(140,0,255,0.35)_58%,rgba(140,0,255,0.33)_72%,rgba(140,0,255,0.22)_82%,rgba(140,0,255,0.1)_91%,rgba(140,0,255,0.03)_97%,rgba(140,0,255,0)_100%)] pt-[120px] pb-10 lg:gap-12 lg:pt-[140px] lg:pb-12">
         {/* ambient orbs behind the headline */}
         <div className="pointer-events-none absolute top-[6%] left-[6%] size-[280px] rounded-full bg-primary/15 blur-3xl" />
         <div className="pointer-events-none absolute top-[14%] right-[4%] size-[320px] rounded-full bg-violet-400/20 blur-3xl" />
@@ -80,6 +84,10 @@ export function Hero() {
         >
           <HeroDashboard />
         </Reveal>
+
+        {/* the trades ticker rides inside the gradient block, so it blends
+            with the hero instead of sitting on a white seam */}
+        <TradesTicker industryLinkBase="/industries" />
       </div>
 
       <div className="flex w-full max-w-[1025px] flex-col items-center gap-6 px-5 md:flex-row md:gap-10 lg:px-0">
