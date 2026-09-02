@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Mark, VerticalRuleIcon } from "@/components/icons";
-import { PillButton } from "@/components/pill-button";
+import { DemoPillButton } from "@/components/demo-trigger";
 import { Reveal } from "@/components/reveal";
 import { TradesTicker } from "@/components/trades-ticker";
 import { HeroDashboard } from "./hero-dashboard";
@@ -49,9 +49,9 @@ export function Hero() {
 
           <Reveal variant="up" distance={30} delay={240}>
             <div className="flex flex-col items-center gap-3 sm:flex-row">
-              <PillButton href="#contact" className="w-[212px]">
+              <DemoPillButton className="w-[212px]">
                 Request a Demo
-              </PillButton>
+              </DemoPillButton>
               <Link
                 href="#modules"
                 className="inline-flex h-[58px] w-[212px] items-center justify-center rounded-[40px] border border-ink/10 bg-white/70 text-[14px] leading-[1.6] font-medium text-ink backdrop-blur-sm transition-colors duration-200 hover:border-primary/40 hover:bg-primary-10"

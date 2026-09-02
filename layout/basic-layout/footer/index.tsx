@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { BizvoraLogoIcon } from "@/components/icons";
+import { DemoLink } from "@/components/demo-trigger";
 import { FOOTER_COLUMNS } from "@/lib/bizvora";
 
 /**
@@ -41,15 +42,20 @@ export function Footer() {
                 <p className="mb-1 text-[12px] leading-[1.6] font-semibold tracking-[0.1em] whitespace-nowrap text-zinc-500 uppercase">
                   {column.heading}
                 </p>
-                {column.links.map((link) => (
-                  <Link
-                    key={link.label}
-                    href={link.href}
-                    className="text-[14px] leading-[1.3] font-normal tracking-[-0.02em] whitespace-nowrap text-zinc-400 transition-colors duration-200 hover:text-white"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
+                {column.links.map((link) => {
+                  const className =
+                    "text-[14px] leading-[1.3] font-normal tracking-[-0.02em] whitespace-nowrap text-zinc-400 transition-colors duration-200 hover:text-white";
+                  // The demo row opens the modal; everything else navigates.
+                  return link.label === "Request a Demo" ? (
+                    <DemoLink key={link.label} className={className}>
+                      {link.label}
+                    </DemoLink>
+                  ) : (
+                    <Link key={link.label} href={link.href} className={className}>
+                      {link.label}
+                    </Link>
+                  );
+                })}
               </div>
             ))}
           </div>

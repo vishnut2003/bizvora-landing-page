@@ -3,7 +3,7 @@ import type { CSSProperties } from "react";
 import Link from "next/link";
 import { BasicLayout } from "@/layout/basic-layout";
 import { ArrowUpRightIcon, Mark, type MarkName } from "@/components/icons";
-import { PillButton } from "@/components/pill-button";
+import { DemoLink, DemoPillButton } from "@/components/demo-trigger";
 import { TradesTicker } from "@/components/trades-ticker";
 import { Reveal } from "@/components/reveal";
 import { MODULES, ROLES } from "@/lib/bizvora";
@@ -218,13 +218,12 @@ function UseCaseSection({ useCase, index }: { useCase: UseCase; index: number })
               ))}
             </div>
             <span className="h-10 w-px bg-ink/10" />
-            <Link
-              href="/#contact"
+            <DemoLink
               className="group inline-flex items-center gap-1.5 text-[14px] font-medium text-primary-dark transition-colors hover:text-primary"
             >
               See it live on a demo
               <ArrowUpRightIcon className="size-3 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </Link>
+            </DemoLink>
           </div>
         </Reveal>
 
@@ -338,9 +337,9 @@ export default function UseCasesPage() {
 
                 <Reveal variant="up" distance={30} delay={240}>
                   <div className="flex flex-col gap-3 sm:flex-row">
-                    <PillButton href="/#contact" className="w-[212px]">
+                    <DemoPillButton className="w-[212px]">
                       Request a Demo
-                    </PillButton>
+                    </DemoPillButton>
                     <Link href="#lead-to-call" className={GHOST_BUTTON_CLASSES}>
                       Follow a Workflow
                     </Link>

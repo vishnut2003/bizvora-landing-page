@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BasicLayout } from "@/layout/basic-layout";
 import { ArrowUpRightIcon, Mark } from "@/components/icons";
-import { PillButton } from "@/components/pill-button";
+import { DemoPillButton } from "@/components/demo-trigger";
 import { Reveal } from "@/components/reveal";
 import { FAQS, INDUSTRIES, INDUSTRY_PAGES, MODULES } from "@/lib/bizvora";
 import type { IndustryPageExtras } from "@/types/content";
@@ -130,9 +130,9 @@ export default async function IndustryDetailPage({ params }: PageProps<"/industr
 
                 <Reveal variant="up" distance={30} delay={280}>
                   <div className="flex flex-col gap-3 sm:flex-row">
-                    <PillButton href="/#contact" className="w-[212px]">
+                    <DemoPillButton className="w-[212px]">
                       Request a Demo
-                    </PillButton>
+                    </DemoPillButton>
                     <Link href="/industries" className={GHOST_BUTTON_CLASSES}>
                       All Industries
                     </Link>

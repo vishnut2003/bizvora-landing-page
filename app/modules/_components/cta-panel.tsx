@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Mark } from "@/components/icons";
-import { PillButton } from "@/components/pill-button";
+import { DemoPillButton } from "@/components/demo-trigger";
 import { Reveal } from "@/components/reveal";
 import { MODULES, PLAN } from "@/lib/bizvora";
 
@@ -63,9 +63,9 @@ export function CtaPanel({ tileLinkMode = "anchor" }: { tileLinkMode?: "anchor" 
           </div>
 
           <div className="relative flex flex-col items-center gap-3 sm:flex-row">
-            <PillButton href="/#contact" className="w-[212px]">
+            <DemoPillButton className="w-[212px]">
               Request a Demo
-            </PillButton>
+            </DemoPillButton>
             <Link
               href="/pricing"
               className="inline-flex h-[58px] w-[212px] items-center justify-center rounded-[40px] border border-white/20 bg-white/5 text-[14px] leading-[1.6] font-medium text-white backdrop-blur-sm transition-colors duration-200 hover:border-white/40 hover:bg-white/10"

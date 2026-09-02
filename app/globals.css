@@ -160,6 +160,55 @@ body {
   animation: fa-sweep 3.4s ease-in-out 1.4s infinite;
 }
 
+/* --- Demo modal: backdrop fade, sheet slide-up, desktop panel scale --------
+   Driven by data-visible rather than keyframes so the mobile drag can override
+   `transform` inline while the sheet is being pulled down. */
+
+.dm-backdrop {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.dm-backdrop[data-visible="true"] {
+  opacity: 1;
+}
+
+/* mobile: rises from below the fold */
+.dm-panel {
+  opacity: 0;
+  transform: translateY(100%);
+  transition:
+    opacity 0.2s ease,
+    transform 0.28s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.dm-panel[data-visible="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* desktop: settles in place instead of sliding */
+@media (min-width: 768px) {
+  .dm-panel {
+    transform: translateY(8px) scale(0.96);
+  }
+
+  .dm-panel[data-visible="true"] {
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dm-backdrop,
+  .dm-panel {
+    transition: none;
+  }
+  .dm-panel {
+    transform: none;
+    opacity: 1;
+  }
+}
+
 /* --- 404 page (app/not-found.tsx) ---------------------------------------
    The digit tiles and floating product cards drift on the existing
    fa-float keyframes, staggered per element via --nf-delay. */

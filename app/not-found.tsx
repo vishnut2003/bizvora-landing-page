@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { DemoLink } from "@/components/demo-trigger";
 import { Search } from "lucide-react";
 import { BasicLayout } from "@/layout/basic-layout";
 import { Mark, type MarkName } from "@/components/icons";
@@ -280,12 +281,11 @@ export default function NotFound() {
                 <PillButton href="/" className="w-[212px]">
                   Back to Home
                 </PillButton>
-                <Link
-                  href="/#contact"
+                <DemoLink
                   className="inline-flex h-[58px] w-[212px] items-center justify-center rounded-[40px] border border-ink/10 bg-white/70 text-[14px] leading-[1.6] font-medium text-ink backdrop-blur-sm transition-colors duration-200 hover:border-primary/40 hover:bg-primary-10"
                 >
                   Request a Demo
-                </Link>
+                </DemoLink>
               </div>
             </Reveal>
 

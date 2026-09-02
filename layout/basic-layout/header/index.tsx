@@ -10,7 +10,7 @@ import {
   MenuIcon,
   type MarkName,
 } from "@/components/icons";
-import { PillButton } from "@/components/pill-button";
+import { DemoPillButton } from "@/components/demo-trigger";
 import { NAV_LINKS } from "@/lib/bizvora";
 import type { NavGroup, NavLink } from "@/types/content";
 import { cn } from "@/lib/utils";
@@ -181,9 +181,9 @@ export function Header() {
           >
             Login
           </a>
-          <PillButton href="/demo" variant="gradient" size="sm" className="w-[165px]">
+          <DemoPillButton variant="gradient" size="sm" className="w-[165px]">
             Request a Demo
-          </PillButton>
+          </DemoPillButton>
         </div>
 
         <button
@@ -241,9 +241,13 @@ export function Header() {
               >
                 Login
               </a>
-              <PillButton href="/demo" variant="gradient" size="sm">
+              <DemoPillButton
+                variant="gradient"
+                size="sm"
+                onOpen={() => setOpen(false)}
+              >
                 Request a Demo
-              </PillButton>
+              </DemoPillButton>
             </div>
           </div>
         </div>

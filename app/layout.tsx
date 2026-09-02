@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Rubik } from "next/font/google";
+import { DemoModalProvider } from "@/components/demo-modal/context";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -23,7 +24,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${geistSans.variable} ${rubik.variable} h-full antialiased`}>
       <body className={`${geistSans.className} min-h-full flex flex-col overflow-x-hidden bg-surface text-ink`}>
-        {children}
+        <DemoModalProvider>{children}</DemoModalProvider>
       </body>
     </html>
   );

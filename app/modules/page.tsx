@@ -3,7 +3,7 @@ import type { CSSProperties } from "react";
 import Link from "next/link";
 import { BasicLayout } from "@/layout/basic-layout";
 import { ArrowUpRightIcon, Mark } from "@/components/icons";
-import { PillButton } from "@/components/pill-button";
+import { DemoLink, DemoPillButton } from "@/components/demo-trigger";
 import { Reveal } from "@/components/reveal";
 import { MODULES } from "@/lib/bizvora";
 import type { ModuleDetail } from "@/types/content";
@@ -88,13 +88,12 @@ function ModuleSection({ module, index }: { module: ModuleDetail; index: number 
               </span>
             </div>
             <span className="h-10 w-px bg-ink/10" />
-            <Link
-              href="/#contact"
+            <DemoLink
               className="group inline-flex items-center gap-1.5 text-[14px] font-medium text-primary-dark transition-colors hover:text-primary"
             >
               See it live on a demo
               <ArrowUpRightIcon className="size-3 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </Link>
+            </DemoLink>
             <span className="h-10 w-px bg-ink/10" />
             <Link
               href={`/modules/${module.slug}`}
@@ -219,9 +218,9 @@ export default function ModulesPage() {
 
                 <Reveal variant="up" distance={30} delay={240}>
                   <div className="flex flex-col gap-3 sm:flex-row">
-                    <PillButton href="/#contact" className="w-[212px]">
+                    <DemoPillButton className="w-[212px]">
                       Request a Demo
-                    </PillButton>
+                    </DemoPillButton>
                     <Link href="#crm" className={GHOST_BUTTON_CLASSES}>
                       Explore the Modules
                     </Link>
@@ -426,9 +425,9 @@ export default function ModulesPage() {
 
             <Reveal variant="up" distance={30} delay={180}>
               <div className="flex flex-col items-center gap-3 sm:flex-row">
-                <PillButton href="/#contact" className="w-[212px]">
+                <DemoPillButton className="w-[212px]">
                   Request a Demo
-                </PillButton>
+                </DemoPillButton>
                 <Link href="/#plan" className={GHOST_BUTTON_CLASSES}>
                   See What&apos;s Included
                 </Link>

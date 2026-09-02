@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { DemoLink } from "@/components/demo-trigger";
 import { BasicLayout } from "@/layout/basic-layout";
 import { ArrowUpRightIcon, ChevronDownIcon, Mark, type MarkName } from "@/components/icons";
 import { TradesTicker } from "@/components/trades-ticker";
@@ -193,13 +194,12 @@ export default function FaqsPage() {
                 <p className="text-[13px] leading-[1.6] tracking-[-0.02em] text-ink-70">
                   Can&apos;t find your question?
                 </p>
-                <Link
-                  href="/#contact"
+                <DemoLink
                   className="group/ask mt-2 inline-flex items-center gap-1.5 text-[13px] font-medium text-primary-dark transition-colors hover:text-primary"
                 >
                   Ask us on a demo
                   <ArrowUpRightIcon className="size-3 transition-transform duration-200 group-hover/ask:translate-x-0.5 group-hover/ask:-translate-y-0.5" />
-                </Link>
+                </DemoLink>
               </div>
             </Reveal>
 

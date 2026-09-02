@@ -1,6 +1,6 @@
 import { CountUp } from "@/components/count-up";
 import { Mark, type MarkName } from "@/components/icons";
-import { PillButton } from "@/components/pill-button";
+import { DemoPillButton } from "@/components/demo-trigger";
 import { METRICS } from "@/lib/bizvora";
 
 /** Icon per metric, in METRICS order (modules, lead sources, stages, dashboards). */
@@ -27,9 +27,9 @@ export function Metrics() {
               them first, and run the entire delivery in one workspace.
             </p>
           </div>
-          <PillButton href="#contact" variant="dark" className="w-[192px]">
+          <DemoPillButton variant="dark" className="w-[192px]">
             Request a Demo
-          </PillButton>
+          </DemoPillButton>
         </div>
 
         <div className="relative grid w-full grid-cols-2 gap-4 lg:w-[476px] lg:shrink-0">

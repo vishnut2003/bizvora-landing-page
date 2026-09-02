@@ -3,7 +3,7 @@ import { Fragment, type CSSProperties } from "react";
 import Link from "next/link";
 import { BasicLayout } from "@/layout/basic-layout";
 import { ArrowUpRightIcon, Mark, type MarkName } from "@/components/icons";
-import { PillButton } from "@/components/pill-button";
+import { DemoPillButton } from "@/components/demo-trigger";
 import { TradesTicker } from "@/components/trades-ticker";
 import { Reveal } from "@/components/reveal";
 import { INDUSTRIES } from "@/lib/bizvora";
@@ -146,9 +146,9 @@ export default function TestimonialsPage() {
 
               <Reveal variant="up" distance={30} delay={240}>
                 <div className="flex flex-col gap-3 sm:flex-row">
-                  <PillButton href="/#contact" className="w-[212px]">
+                  <DemoPillButton className="w-[212px]">
                     Request a Demo
-                  </PillButton>
+                  </DemoPillButton>
                   <Link href="/use-cases" className={GHOST_BUTTON_CLASSES}>
                     See the Workflows
                   </Link>

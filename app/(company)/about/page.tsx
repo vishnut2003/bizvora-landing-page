@@ -4,7 +4,7 @@ import Link from "next/link";
 import { BasicLayout } from "@/layout/basic-layout";
 import { ArrowUpRightIcon, Mark, type MarkName } from "@/components/icons";
 import { CountUp } from "@/components/count-up";
-import { PillButton } from "@/components/pill-button";
+import { DemoPillButton } from "@/components/demo-trigger";
 import { TradesTicker } from "@/components/trades-ticker";
 import { Reveal } from "@/components/reveal";
 import { CtaPanel } from "@/app/modules/_components/cta-panel";
@@ -134,9 +134,9 @@ export default function AboutPage() {
 
               <Reveal variant="up" distance={30} delay={240}>
                 <div className="flex flex-col gap-3 sm:flex-row">
-                  <PillButton href="/#contact" className="w-[212px]">
+                  <DemoPillButton className="w-[212px]">
                     Request a Demo
-                  </PillButton>
+                  </DemoPillButton>
                   <Link href="/modules" className={GHOST_BUTTON_CLASSES}>
                     Explore the Modules
                   </Link>

@@ -1340,7 +1340,7 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
     heading: "Information",
     links: [
       { label: "Pricing", href: "/pricing" },
-      { label: "Request a Demo", href: "/demo" },
+      { label: "Request a Demo", href: "/contact" },
       { label: "Contact Us", href: "/contact" },
       { label: "FAQs", href: "/faqs" },
       { label: "Terms of Use", href: "/terms" },

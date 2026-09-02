@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowUpRightIcon, Mark } from "@/components/icons";
-import { PillButton } from "@/components/pill-button";
+import { DemoPillButton } from "@/components/demo-trigger";
 import { SectionBadge } from "@/components/section-badge";
 import { PLAN, PLAN_INCLUDES } from "@/lib/bizvora";
 
@@ -58,9 +58,9 @@ export function Pricing() {
               ))}
             </div>
             <div className="flex w-full max-w-[240px] flex-col gap-3">
-              <PillButton href="#contact" className="w-full">
+              <DemoPillButton className="w-full">
                 Request a Demo
-              </PillButton>
+              </DemoPillButton>
               <Link
                 href="/pricing"
                 className="group/plan inline-flex items-center gap-1.5 text-[13px] font-medium text-primary-dark transition-colors hover:text-primary"
