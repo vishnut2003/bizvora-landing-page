@@ -8,7 +8,6 @@ import { PillButton } from "@/components/pill-button";
 import { TradesTicker } from "@/components/trades-ticker";
 import { Reveal } from "@/components/reveal";
 import { INDUSTRIES, INDUSTRY_PAGES, MODULES } from "@/lib/bizvora";
-import { cn } from "@/lib/utils";
 import { CtaPanel } from "@/app/modules/_components/cta-panel";
 import { CARD_CLASSES, GHOST_BUTTON_CLASSES } from "@/app/modules/_components/shared";
 

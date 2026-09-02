@@ -22,11 +22,11 @@ export async function generateMetadata({
   params,
 }: PageProps<"/modules/[slug]">): Promise<Metadata> {
   const { slug } = await params;
-  const module = MODULES.find((m) => m.slug === slug);
-  if (!module) return {};
+  const mod = MODULES.find((m) => m.slug === slug);
+  if (!mod) return {};
   return {
-    title: `${module.name} | BizvoraOne`,
-    description: `${module.blurb}. ${module.description}`,
+    title: `${mod.name} | BizvoraOne`,
+    description: `${mod.blurb}. ${mod.description}`,
   };
 }
 
@@ -69,11 +69,11 @@ const FEATURE_SPANS = [
 export default async function ModuleDetailPage({ params }: PageProps<"/modules/[slug]">) {
   const { slug } = await params;
   const index = MODULES.findIndex((m) => m.slug === slug);
-  const module = MODULES[index];
+  const mod = MODULES[index];
   const extras = PAGE_EXTRAS[slug];
-  if (!module || !extras) notFound();
+  if (!mod || !extras) notFound();
 
-  const Art = ARTS[module.slug];
+  const Art = ARTS[mod.slug];
   const num = String(index + 1).padStart(2, "0");
   const roles = extras.roleNames
     .map((name) => ROLES.find((role) => role.name === name))
@@ -109,31 +109,31 @@ export default async function ModuleDetailPage({ params }: PageProps<"/modules/[
                       Modules
                     </Link>
                     <span className="text-ink-50">/</span>
-                    <span className="font-medium text-primary-dark">{module.name}</span>
+                    <span className="font-medium text-primary-dark">{mod.name}</span>
                   </nav>
                 </Reveal>
 
                 <Reveal variant="up" distance={20} delay={60}>
                   <div className="flex items-center gap-3">
                     <span className="flex size-11 items-center justify-center rounded-[12px] bg-white shadow-[0_2px_8px_-2px_rgba(69,6,147,0.15)] ring-1 ring-primary/15">
-                      <Mark name={module.icon} className="size-5 text-primary-dark" />
+                      <Mark name={mod.icon} className="size-5 text-primary-dark" />
                     </span>
                     <span className="text-[12px] font-semibold tracking-[0.14em] text-primary-dark uppercase">
-                      {num} · {module.eyebrow}
+                      {num} · {mod.eyebrow}
                     </span>
                   </div>
                 </Reveal>
 
                 <Reveal variant="up" distance={30} delay={120} as="h1">
                   <span className="block text-[30px] leading-[1.12] font-medium tracking-[-0.04em] text-ink md:text-[44px] lg:text-[54px]">
-                    {module.name}.{" "}
+                    {mod.name}.{" "}
                     <span className={GRADIENT_TEXT_CLASSES}>{extras.heroTagline}</span>
                   </span>
                 </Reveal>
 
                 <Reveal variant="up" distance={30} delay={200}>
                   <p className="max-w-[520px] text-[16px] leading-[1.6] tracking-[-0.02em] text-ink-70">
-                    {module.description}
+                    {mod.description}
                   </p>
                 </Reveal>
 
@@ -166,7 +166,7 @@ export default async function ModuleDetailPage({ params }: PageProps<"/modules/[
                     <Reveal variant="scale">
                       <Art
                         role="img"
-                        aria-label={module.artAlt}
+                        aria-label={mod.artAlt}
                         className="h-auto w-full transition-transform duration-500 group-hover:scale-[1.02]"
                       />
                     </Reveal>
@@ -186,7 +186,7 @@ export default async function ModuleDetailPage({ params }: PageProps<"/modules/[
                       style={{ "--nf-delay": `${i * 900}ms` } as CSSProperties}
                     >
                       <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary-10">
-                        <Mark name={module.icon} className="size-4 text-primary-dark" />
+                        <Mark name={mod.icon} className="size-4 text-primary-dark" />
                       </span>
                       <div className="flex flex-col">
                         <span className="text-[15px] leading-none font-semibold text-ink">
@@ -222,7 +222,7 @@ export default async function ModuleDetailPage({ params }: PageProps<"/modules/[
 
         {/* feature cards */}
         <section className={`${SECTION_CLASSES} flex flex-col gap-10`}>
-          <SectionHeading eyebrow={`Inside ${module.name}`}>
+          <SectionHeading eyebrow={`Inside ${mod.name}`}>
             What the module{" "}
             <span className={GRADIENT_TEXT_CLASSES}>actually does</span>
           </SectionHeading>
@@ -337,7 +337,7 @@ export default async function ModuleDetailPage({ params }: PageProps<"/modules/[
         <section className={`${SECTION_CLASSES} flex flex-col gap-10`}>
           <SectionHeading eyebrow="Role-scoped by design">
             Who sees what in{" "}
-            <span className={GRADIENT_TEXT_CLASSES}>{module.name}</span>
+            <span className={GRADIENT_TEXT_CLASSES}>{mod.name}</span>
           </SectionHeading>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {roles.map((role, i) => (
@@ -439,7 +439,7 @@ export default async function ModuleDetailPage({ params }: PageProps<"/modules/[
         {/* related modules */}
         <section className={`${SECTION_CLASSES} flex flex-col gap-10`}>
           <SectionHeading eyebrow="Works with">
-            {module.name} doesn&apos;t{" "}
+            {mod.name} doesn&apos;t{" "}
             <span className={GRADIENT_TEXT_CLASSES}>work alone</span>
           </SectionHeading>
           <div
