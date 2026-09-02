@@ -57,8 +57,6 @@ export const NAV_LINKS: (NavLink | NavGroup)[] = [
       { label: "Why Choose Us", href: "/why-choose-us" },
       { label: "Use Cases", href: "/use-cases" },
       { label: "Testimonials", href: "/testimonials" },
-      { label: "Become a Partner", href: "/become-a-partner" },
-      { label: "Careers", href: "/careers" },
       { label: "FAQs", href: "/faqs" },
     ],
   },
@@ -1282,8 +1280,6 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
       { label: "Why Choose Us", href: "/why-choose-us" },
       { label: "Use Cases", href: "/use-cases" },
       { label: "Testimonials", href: "/testimonials" },
-      { label: "Become a Partner", href: "/become-a-partner" },
-      { label: "Careers", href: "/careers" },
     ],
   },
   {
