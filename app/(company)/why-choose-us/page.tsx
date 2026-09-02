@@ -21,7 +21,7 @@ const SWITCH_REASONS: { label: string; sub: string; icon: MarkName }[] = [
   { label: "One login, whole business", sub: "7 modules on one database", icon: "check" },
   { label: "Leads called in seconds", sub: "AI voice agent on every enquiry", icon: "phone" },
   { label: "Books in Tally style", sub: "Zero retraining for accounts", icon: "ledger" },
-  { label: "One plan, priced by team", sub: "No tiers, no feature gates", icon: "quote" },
+  { label: "One plan, ₹199 a user", sub: "No tiers, no feature gates", icon: "quote" },
 ];
 
 /** Left card: the pains of a stitched stack. Right card mirrors them fixed. */
@@ -74,7 +74,7 @@ const REASONS: { title: string; description: string; icon: MarkName }[] = [
     title: "One plan, everything in",
     icon: "check",
     description:
-      "Every module ships to every customer. Pricing is scoped to your team size — you'll never find a feature on a higher tier.",
+      "Every module ships to every customer at ₹199 per user per month, GST included — you'll never find a feature on a higher tier.",
   },
 ];
 
@@ -83,7 +83,7 @@ const SWITCH_STEPS = [
   {
     title: "See it on a live demo",
     description:
-      "Bring your toughest workflow — we run it end to end, live, on the actual product. Pricing for your team size is shared on the call.",
+      "Bring your toughest workflow — we run it end to end, live, on the actual product. You already know the price before you book.",
   },
   {
     title: "We set up your workspace",
@@ -436,8 +436,8 @@ export default function WhyChooseUsPage() {
                 </div>
 
                 <Reveal variant="up" distance={20} delay={300}>
-                  <PillButton href="/#contact" className="w-[212px]">
-                    Get Your Price
+                  <PillButton href="/pricing" className="w-[212px]">
+                    See Pricing
                   </PillButton>
                 </Reveal>
               </div>

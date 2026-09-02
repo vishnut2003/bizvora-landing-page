@@ -4,7 +4,7 @@ import { BasicLayout } from "@/layout/basic-layout";
 import { ArrowUpRightIcon, ChevronDownIcon, Mark, type MarkName } from "@/components/icons";
 import { TradesTicker } from "@/components/trades-ticker";
 import { Reveal } from "@/components/reveal";
-import { FAQS } from "@/lib/bizvora";
+import { FAQS, PRICING_FAQS } from "@/lib/bizvora";
 import { CtaPanel } from "@/app/modules/_components/cta-panel";
 import { JUMP_CHIP_CLASSES } from "@/app/modules/_components/shared";
 
@@ -34,20 +34,9 @@ const FAQ_GROUPS: FaqGroup[] = [
     slug: "plan-pricing",
     label: "Plan & pricing",
     icon: "quote",
-    blurb: "One plan, one price conversation — here's how it works.",
-    items: [
-      canonical("Why isn’t the price public?"),
-      {
-        question: "What exactly is included?",
-        answer:
-          "All of it: CRM with the 9-stage pipeline and 15 lead sources, the AI voice agent, AI proposals with branded PDFs, quotations, accounting vouchers with recovery and collections, projects with milestones and review gates, HR with payroll and payslip PDFs, and 8 role-scoped dashboards.",
-      },
-      {
-        question: "Do some modules cost extra?",
-        answer:
-          "No. There are no tiers, no feature gates and no per-module add-ons. Every module ships to every customer — pricing is scoped to your team size alone.",
-      },
-    ],
+    blurb: "One plan, one public price — here's how it works.",
+    // The canonical set, so /pricing and this page can never disagree.
+    items: PRICING_FAQS,
   },
   {
     slug: "ai-features",

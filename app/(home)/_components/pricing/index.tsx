@@ -1,9 +1,10 @@
-import { Mark } from "@/components/icons";
+import Link from "next/link";
+import { ArrowUpRightIcon, Mark } from "@/components/icons";
 import { PillButton } from "@/components/pill-button";
 import { SectionBadge } from "@/components/section-badge";
-import { PLAN_INCLUDES } from "@/lib/bizvora";
+import { PLAN, PLAN_INCLUDES } from "@/lib/bizvora";
 
-const PLAN_PROMISES = ["No tiers", "No feature gates", "No enterprise-only"];
+const PLAN_PROMISES = ["No tiers", "No feature gates", `${PLAN.trialDays} days free`];
 
 /**
  * Section header in the Features pattern; body is the Metrics gradient panel
@@ -30,12 +31,20 @@ export function Pricing() {
               All-in-one plan
             </span>
             <div className="flex flex-col gap-2">
-              <p className="text-[36px] leading-[1.1] font-medium tracking-[-0.03em] text-ink">
-                Tailored
+              <p className="flex items-end gap-2">
+                <span className="text-[44px] leading-[1.1] font-medium tracking-[-0.03em] text-ink">
+                  ₹{PLAN.monthly}
+                </span>
+                <span className="pb-1.5 text-[13px] leading-[1.3] tracking-[-0.02em] text-ink-50">
+                  per user
+                  <br />
+                  per month
+                </span>
               </p>
               <p className="text-[14px] leading-[1.6] tracking-[-0.02em] text-ink-70">
-                Pricing is scoped to your team on the demo call — every module,
-                every seat conversation, one number.
+                GST included. Every module, every seat, one number — or ₹
+                {PLAN.annualPerUser.toLocaleString("en-IN")} a user if you pay
+                yearly.
               </p>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -48,9 +57,18 @@ export function Pricing() {
                 </span>
               ))}
             </div>
-            <PillButton href="#contact" className="w-full max-w-[240px]">
-              Request a Demo
-            </PillButton>
+            <div className="flex w-full max-w-[240px] flex-col gap-3">
+              <PillButton href="#contact" className="w-full">
+                Request a Demo
+              </PillButton>
+              <Link
+                href="/pricing"
+                className="group/plan inline-flex items-center gap-1.5 text-[13px] font-medium text-primary-dark transition-colors hover:text-primary"
+              >
+                See the full pricing page
+                <ArrowUpRightIcon className="size-3 transition-transform duration-200 group-hover/plan:translate-x-0.5 group-hover/plan:-translate-y-0.5" />
+              </Link>
+            </div>
           </div>
 
           {/* everything included */}

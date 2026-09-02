@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Mark } from "@/components/icons";
 import { PillButton } from "@/components/pill-button";
 import { Reveal } from "@/components/reveal";
-import { MODULES } from "@/lib/bizvora";
+import { MODULES, PLAN } from "@/lib/bizvora";
 
 /**
  * The dark conversion panel shared by /modules and /modules/<slug>.
@@ -36,9 +36,9 @@ export function CtaPanel({ tileLinkMode = "anchor" }: { tileLinkMode?: "anchor" 
             </span>
           </h2>
           <p className="relative max-w-[520px] text-[15px] leading-[1.6] tracking-[-0.02em] text-white/70">
-            Pricing is scoped to your team size and shared on the demo call.
-            You&apos;ll never discover a feature you need lives on a higher
-            tier.
+            ₹{PLAN.monthly} per user per month, GST included — every module,
+            every dashboard. You&apos;ll never discover a feature you need lives
+            on a higher tier.
           </p>
 
           {/* all seven modules, right here — each tile links per tileLinkMode */}
@@ -67,10 +67,10 @@ export function CtaPanel({ tileLinkMode = "anchor" }: { tileLinkMode?: "anchor" 
               Request a Demo
             </PillButton>
             <Link
-              href="/#plan"
+              href="/pricing"
               className="inline-flex h-[58px] w-[212px] items-center justify-center rounded-[40px] border border-white/20 bg-white/5 text-[14px] leading-[1.6] font-medium text-white backdrop-blur-sm transition-colors duration-200 hover:border-white/40 hover:bg-white/10"
             >
-              See What&apos;s Included
+              See Pricing
             </Link>
           </div>
 

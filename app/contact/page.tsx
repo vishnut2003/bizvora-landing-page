@@ -24,7 +24,7 @@ const CHANNELS: {
   {
     title: "Book a live demo",
     description:
-      "The fastest way to evaluate BizvoraOne: bring your toughest workflow and we run it end to end, live, with pricing for your team size on the call.",
+      "The fastest way to evaluate BizvoraOne: bring your toughest workflow and we run it end to end, live, on the actual product.",
     icon: "phone",
     href: "#contact-form",
     linkLabel: "Fill the form above",
@@ -61,9 +61,9 @@ const NEXT_STEPS = [
       "A demo on the actual product, driven by your own use case: your lead flow, your quoting, your books. Bring your hardest question.",
   },
   {
-    title: "You get your price",
+    title: "You start your trial",
     description:
-      "One plan, everything included, scoped to your team size. You'll leave the call knowing exactly what it costs — nothing discovered later.",
+      "One plan at ₹199 a seat, everything included — you knew that before you called. Fourteen days free, then the whole team goes live.",
   },
 ];
 
@@ -112,7 +112,7 @@ export default function ContactPage() {
                 <p className="max-w-[520px] text-[16px] leading-[1.6] tracking-[-0.02em] text-ink-70">
                   Leave your details and we&apos;ll call you back to book a
                   live demo — all seven modules and the AI voice agent, run on
-                  your own use case, with your price on the same call.
+                  your own use case. The price is already public: ₹199 a seat.
                 </p>
               </Reveal>
 
@@ -247,7 +247,7 @@ export default function ContactPage() {
               </span>
               <h2 className="max-w-[560px] text-[24px] leading-[1.2] font-medium tracking-[-0.04em] text-ink md:text-[36px]">
                 From form-fill to{" "}
-                <span className={GRADIENT_TEXT_CLASSES}>a price you know</span>
+                <span className={GRADIENT_TEXT_CLASSES}>a live workspace</span>
               </h2>
             </Reveal>
 

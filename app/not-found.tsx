@@ -18,7 +18,7 @@ const QUICK_LINKS: { label: string; href: string; icon: MarkName }[] = [
   { label: "Modules", href: "/#modules", icon: "kanban" },
   { label: "AI Voice Agent", href: "/#voice", icon: "phone" },
   { label: "Industries", href: "/#industries", icon: "factory" },
-  { label: "Pricing", href: "/#plan", icon: "quote" },
+  { label: "Pricing", href: "/pricing", icon: "quote" },
   { label: "FAQ", href: "/#faq", icon: "doc" },
 ];
 

@@ -33,7 +33,8 @@ const SECTIONS: LegalSection[] = [
   {
     heading: "Plan and billing",
     body: [
-      "BizvoraOne is sold as a single plan that includes every module, priced according to your team size. Pricing is agreed before you subscribe and does not gate features behind higher tiers. Fees, billing cycle and payment terms are set out in your order or invoice.",
+      "BizvoraOne is sold as a single plan that includes every module, charged per user per month at the rate published on our pricing page and confirmed in your order. Published prices are inclusive of GST, and your invoice shows the tax split. The plan does not gate features behind higher tiers.",
+      "New workspaces may begin with a free trial of the period stated at sign-up, after which the subscription continues at the confirmed rate unless you tell us otherwise. You may add or remove users during a billing cycle, and charges adjust accordingly. Published rates may change on notice; a change does not affect a billing cycle already paid for. Billing cycle and payment terms are set out in your order or invoice.",
     ],
   },
   {

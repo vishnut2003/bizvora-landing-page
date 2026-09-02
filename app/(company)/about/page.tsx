@@ -44,7 +44,7 @@ const VALUES: { title: string; description: string; icon: MarkName }[] = [
     title: "One plan, everything included",
     icon: "check",
     description:
-      "No tiers, no feature gates. Every module ships to every customer, and pricing is scoped to your team size alone.",
+      "No tiers, no feature gates. Every module ships to every customer, and every seat is ₹199 a month, GST included.",
   },
   {
     title: "India-first, not India-adapted",

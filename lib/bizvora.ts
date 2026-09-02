@@ -1215,12 +1215,66 @@ export const PLAN_INCLUDES = [
   "8 role-scoped dashboards",
 ];
 
-export const FAQS: Faq[] = [
+/**
+ * The single plan's commercial terms. Every page that prints a number reads it
+ * from here — the home Pricing card, /pricing and the /faqs answers.
+ * Amounts are GST-inclusive: ₹199 is what the customer pays.
+ *
+ * Note ₹1,999 a year is NOT "two months free" (ten months would be ₹1,990).
+ * Annual copy says "save ₹389 a user" or "about 16% off" — never "two months".
+ */
+export const PLAN = {
+  monthly: 199,
+  annualPerUser: 1999,
+  annualPerMonth: 167, // 1999 / 12, rounded for display
+  annualSavingPerUser: 389, // 199 * 12 - 1999
+  annualSavingPercent: 16, // 389 / 2388
+  trialDays: 14,
+} as const;
+
+/** Formats a rupee amount the way the product itself does — en-IN, lakhs. */
+export const inr = (amount: number) => `₹${amount.toLocaleString("en-IN")}`;
+
+/**
+ * The plan questions, asked and answered with the number in the open.
+ * Rendered by /pricing and by the /faqs "Plan & pricing" group, so the two
+ * can never drift apart.
+ */
+export const PRICING_FAQS: Faq[] = [
   {
-    question: "Why isn’t the price public?",
+    question: "How much does BizvoraOne cost?",
     answer:
-      "There’s exactly one plan and it includes everything. Pricing is scoped to your team size and shared on the demo call. You’ll never discover a feature you need lives on a higher tier.",
+      "₹199 per user per month, GST included, with every module in. Pay yearly and it’s ₹1,999 per user — ₹389 a seat saved. There’s one plan, so nobody discovers a feature on a higher tier.",
   },
+  {
+    question: "Is GST extra?",
+    answer:
+      "No. ₹199 is what you pay. GST is included in the price, and your invoice shows the split so your accountant can claim the input credit.",
+  },
+  {
+    question: "What exactly is included?",
+    answer:
+      "All of it: CRM with the 9-stage pipeline and 15 lead sources, the AI voice agent, AI proposals with branded PDFs, quotations, accounting vouchers with recovery and collections, projects with milestones and review gates, HR with payroll and payslip PDFs, and 8 role-scoped dashboards.",
+  },
+  {
+    question: "Do some modules cost extra?",
+    answer:
+      "No. There are no tiers, no feature gates and no per-module add-ons. Every module ships to every customer, at the same ₹199 a seat.",
+  },
+  {
+    question: "Can we try it first?",
+    answer:
+      "14 days, no card. You get the full product — every module, every dashboard — not a cut-down version of it.",
+  },
+  {
+    question: "What if our team grows or shrinks?",
+    answer:
+      "Add or remove users any month. You’re billed for the seats you have, and the rate per seat never changes with team size.",
+  },
+];
+
+export const FAQS: Faq[] = [
+  PRICING_FAQS[0],
   {
     question: "What does “coming soon” mean?",
     answer:
