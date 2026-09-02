@@ -63,7 +63,7 @@ export function About() {
               ))}
             </ul>
           </div>
-          <PillButton href="#contact" className="w-[192px]">
+          <PillButton href="/about" className="w-[192px]">
             More About Us
           </PillButton>
         </div>
