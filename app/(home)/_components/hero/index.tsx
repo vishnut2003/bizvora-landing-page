@@ -47,16 +47,25 @@ export function Hero() {
             </Reveal>
           </div>
 
-          <Reveal variant="up" distance={30} delay={240}>
-            <div className="flex flex-col items-center gap-3 sm:flex-row">
-              <DemoPillButton className="w-[212px]">
-                Request a Demo
+          {/* w-full on the wrapper: the column centres its items, so without it
+              the reveal shrinks to the pills' text and w-full below is moot. */}
+          <Reveal
+            variant="up"
+            distance={30}
+            delay={240}
+            className="flex w-full justify-center"
+          >
+            {/* Phones: the pair shares one row, so the labels are kept short
+                enough for two 40px-radius pills to sit inside a 360px screen. */}
+            <div className="flex w-full max-w-[440px] items-center gap-3 sm:w-auto sm:max-w-none">
+              <DemoPillButton className="min-w-0 flex-1 px-4 sm:w-[212px] sm:flex-none sm:px-5">
+                Get a Demo
               </DemoPillButton>
               <Link
                 href="/modules"
-                className="inline-flex h-[58px] w-[212px] items-center justify-center rounded-[40px] border border-ink/10 bg-white/70 text-[14px] leading-[1.6] font-medium text-ink backdrop-blur-sm transition-colors duration-200 hover:border-primary/40 hover:bg-primary-10"
+                className="inline-flex h-[58px] min-w-0 flex-1 items-center justify-center rounded-[40px] border border-ink/10 bg-white/70 px-4 text-[14px] leading-[1.6] font-medium whitespace-nowrap text-ink backdrop-blur-sm transition-colors duration-200 hover:border-primary/40 hover:bg-primary-10 sm:w-[212px] sm:flex-none sm:px-5"
               >
-                Explore Modules
+                See Modules
               </Link>
             </div>
           </Reveal>
