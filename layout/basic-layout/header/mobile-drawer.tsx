@@ -14,6 +14,7 @@ import {
 import { DemoPillButton } from "@/components/demo-trigger";
 import { NAV_LINKS } from "@/lib/bizvora";
 import type { NavGroup, NavLink } from "@/types/content";
+import { useScrollLock } from "@/lib/scroll-lock";
 import { cn } from "@/lib/utils";
 import { ITEM_META, hasChildren, isUnder } from "./nav-meta";
 
@@ -235,20 +236,7 @@ export function MobileDrawer({
     closeRef.current();
   }, [pathname]);
 
-  // Hold the page still behind the drawer.
-  useEffect(() => {
-    if (!present) return;
-    const { body, documentElement } = document;
-    const prevOverflow = body.style.overflow;
-    const prevPadding = body.style.paddingRight;
-    const gap = window.innerWidth - documentElement.clientWidth;
-    body.style.overflow = "hidden";
-    if (gap > 0) body.style.paddingRight = `${gap}px`;
-    return () => {
-      body.style.overflow = prevOverflow;
-      body.style.paddingRight = prevPadding;
-    };
-  }, [present]);
+  useScrollLock(present);
 
   // Escape closes; Tab cycles inside the drawer.
   useEffect(() => {

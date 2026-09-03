@@ -19,6 +19,7 @@ import {
   LEAD_TRUST_POINTS,
   leadInputClass,
 } from "@/components/lead-form-fields";
+import { useScrollLock } from "@/lib/scroll-lock";
 import { cn } from "@/lib/utils";
 
 /** Must outlast the longest exit transition in globals.css (.dm-panel). */
@@ -95,21 +96,7 @@ export function DemoModal({
     return () => window.clearTimeout(timer);
   }, [open, present]);
 
-  // Hold the page still. The scrollbar's width is handed to padding so the
-  // layout behind does not jump sideways as it disappears.
-  useEffect(() => {
-    if (!present) return;
-    const { body, documentElement } = document;
-    const prevOverflow = body.style.overflow;
-    const prevPadding = body.style.paddingRight;
-    const gap = window.innerWidth - documentElement.clientWidth;
-    body.style.overflow = "hidden";
-    if (gap > 0) body.style.paddingRight = `${gap}px`;
-    return () => {
-      body.style.overflow = prevOverflow;
-      body.style.paddingRight = prevPadding;
-    };
-  }, [present]);
+  useScrollLock(present);
 
   // Escape closes; Tab cycles inside the dialog.
   useEffect(() => {
