@@ -475,7 +475,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <CtaPanel tileLinkMode="page" />
+        <CtaPanel />
       </main>
     </BasicLayout>
   );

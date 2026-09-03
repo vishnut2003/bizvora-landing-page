@@ -435,7 +435,7 @@ export default async function IndustryDetailPage({ params }: PageProps<"/industr
               </div>
               <Reveal variant="up" distance={20} delay={faqs.length * 80} className="mx-auto mt-2">
                 <Link
-                  href="/#faq"
+                  href="/faqs"
                   className="group inline-flex items-center gap-1.5 text-[14px] font-medium text-primary-dark transition-colors hover:text-primary"
                 >
                   More FAQs
@@ -446,7 +446,7 @@ export default async function IndustryDetailPage({ params }: PageProps<"/industr
           </section>
         )}
 
-        <CtaPanel tileLinkMode="page" />
+        <CtaPanel />
       </main>
     </BasicLayout>
   );

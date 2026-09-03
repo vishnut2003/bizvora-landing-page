@@ -221,7 +221,7 @@ export default function ModulesPage() {
                     <DemoPillButton className="w-[212px]">
                       Request a Demo
                     </DemoPillButton>
-                    <Link href="#crm" className={GHOST_BUTTON_CLASSES}>
+                    <Link href="/modules/crm" className={GHOST_BUTTON_CLASSES}>
                       Explore the Modules
                     </Link>
                   </div>
@@ -255,7 +255,7 @@ export default function ModulesPage() {
                       {MODULES.map((module, i) => (
                         <Link
                           key={module.slug}
-                          href={`#${module.slug}`}
+                          href={`/modules/${module.slug}`}
                           className={cn(
                             "group/tile flex items-center gap-3 rounded-[12px] border border-ink/10 bg-white p-3 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/25 hover:shadow-[0_16px_32px_-20px_rgba(69,6,147,0.35)]",
                             i === MODULES.length - 1 && "col-span-2",
@@ -334,11 +334,15 @@ export default function ModulesPage() {
               </Reveal>
             </div>
 
-            {/* jump links */}
+            {/* module links */}
             <Reveal variant="up" distance={20} delay={320}>
               <div className="flex flex-wrap items-center justify-center gap-2 lg:justify-start">
                 {MODULES.map((module) => (
-                  <Link key={module.slug} href={`#${module.slug}`} className={JUMP_CHIP_CLASSES}>
+                  <Link
+                    key={module.slug}
+                    href={`/modules/${module.slug}`}
+                    className={JUMP_CHIP_CLASSES}
+                  >
                     <span className="size-1.5 rounded-full bg-primary" />
                     {module.name}
                   </Link>
@@ -428,7 +432,7 @@ export default function ModulesPage() {
                 <DemoPillButton className="w-[212px]">
                   Request a Demo
                 </DemoPillButton>
-                <Link href="/#plan" className={GHOST_BUTTON_CLASSES}>
+                <Link href="/pricing" className={GHOST_BUTTON_CLASSES}>
                   See What&apos;s Included
                 </Link>
               </div>

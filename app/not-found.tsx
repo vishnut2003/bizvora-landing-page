@@ -14,13 +14,13 @@ export const metadata: Metadata = {
     "The page you're looking for doesn't exist. Head back to BizvoraOne and keep running your business from one workspace.",
 };
 
-/** Section chips shown under the CTAs — all anchor into the home page. */
+/** Section chips shown under the CTAs — each lands on a real page. */
 const QUICK_LINKS: { label: string; href: string; icon: MarkName }[] = [
-  { label: "Modules", href: "/#modules", icon: "kanban" },
-  { label: "AI Voice Agent", href: "/#voice", icon: "phone" },
-  { label: "Industries", href: "/#industries", icon: "factory" },
+  { label: "Modules", href: "/modules", icon: "kanban" },
+  { label: "AI Voice Agent", href: "/modules/ai-voice-agent", icon: "phone" },
+  { label: "Industries", href: "/industries", icon: "factory" },
   { label: "Pricing", href: "/pricing", icon: "quote" },
-  { label: "FAQ", href: "/#faq", icon: "doc" },
+  { label: "FAQ", href: "/faqs", icon: "doc" },
 ];
 
 /**

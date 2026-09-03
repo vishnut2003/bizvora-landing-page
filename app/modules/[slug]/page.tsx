@@ -373,7 +373,7 @@ export default async function ModuleDetailPage({ params }: PageProps<"/modules/[
           </div>
           <Reveal variant="up" distance={20} delay={roles.length * 80} className="mx-auto -mt-4">
             <Link
-              href="/#dashboards"
+              href="/why-choose-us"
               className="group inline-flex items-center gap-1.5 text-[14px] font-medium text-primary-dark transition-colors hover:text-primary"
             >
               See all 8 role dashboards
@@ -425,7 +425,7 @@ export default async function ModuleDetailPage({ params }: PageProps<"/modules/[
                 className="mx-auto mt-2"
               >
                 <Link
-                  href="/#faq"
+                  href="/faqs"
                   className="group inline-flex items-center gap-1.5 text-[14px] font-medium text-primary-dark transition-colors hover:text-primary"
                 >
                   More FAQs
@@ -489,7 +489,7 @@ export default async function ModuleDetailPage({ params }: PageProps<"/modules/[
           </div>
         </section>
 
-        <CtaPanel tileLinkMode="page" />
+        <CtaPanel />
       </main>
     </BasicLayout>
   );

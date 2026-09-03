@@ -226,7 +226,7 @@ export default function PricingPage() {
           </div>
         </section>
 
-        <CtaPanel tileLinkMode="page" />
+        <CtaPanel />
       </main>
     </BasicLayout>
   );

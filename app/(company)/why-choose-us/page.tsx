@@ -522,7 +522,7 @@ export default function WhyChooseUsPage() {
           </div>
         </section>
 
-        <CtaPanel tileLinkMode="page" />
+        <CtaPanel />
       </main>
     </BasicLayout>
   );

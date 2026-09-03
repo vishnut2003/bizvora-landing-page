@@ -6,11 +6,9 @@ import { MODULES, PLAN } from "@/lib/bizvora";
 
 /**
  * The dark conversion panel shared by /modules and /modules/<slug>.
- * `tileLinkMode` decides where the seven module icon tiles point:
- * "anchor" (overview) jumps to the section ids on the same page,
- * "page" (detail pages) navigates to the sibling module pages.
+ * The seven module icon tiles always navigate to their own module page.
  */
-export function CtaPanel({ tileLinkMode = "anchor" }: { tileLinkMode?: "anchor" | "page" }) {
+export function CtaPanel() {
   return (
     <section className="flex w-full max-w-[500px] flex-col px-5 py-8 md:max-w-[900px] md:px-10 lg:max-w-[1200px] lg:py-12">
       <Reveal variant="up" distance={30}>
@@ -41,14 +39,12 @@ export function CtaPanel({ tileLinkMode = "anchor" }: { tileLinkMode?: "anchor" 
             on a higher tier.
           </p>
 
-          {/* all seven modules, right here — each tile links per tileLinkMode */}
+          {/* all seven modules, right here — each tile opens its module page */}
           <div className="relative flex flex-wrap items-center justify-center gap-3">
             {MODULES.map((module, i) => (
               <Link
                 key={module.slug}
-                href={
-                  tileLinkMode === "page" ? `/modules/${module.slug}` : `#${module.slug}`
-                }
+                href={`/modules/${module.slug}`}
                 title={module.name}
                 aria-label={module.name}
                 className="group/mod flex size-11 items-center justify-center rounded-[12px] bg-white/5 ring-1 ring-white/10 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:bg-primary hover:ring-primary"

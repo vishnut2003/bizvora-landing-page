@@ -106,7 +106,7 @@ export default function IndustriesPage() {
                   <DemoPillButton className="w-[212px]">
                     Request a Demo
                   </DemoPillButton>
-                  <Link href="#manufacturing" className={GHOST_BUTTON_CLASSES}>
+                  <Link href="/industries/manufacturing" className={GHOST_BUTTON_CLASSES}>
                     Find Your Industry
                   </Link>
                 </div>
@@ -421,7 +421,7 @@ export default function IndustriesPage() {
           </div>
         </section>
 
-        <CtaPanel tileLinkMode="page" />
+        <CtaPanel />
       </main>
     </BasicLayout>
   );

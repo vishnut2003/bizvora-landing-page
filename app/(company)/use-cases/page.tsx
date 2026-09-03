@@ -508,7 +508,7 @@ export default function UseCasesPage() {
           </div>
         </section>
 
-        <CtaPanel tileLinkMode="page" />
+        <CtaPanel />
       </main>
     </BasicLayout>
   );
