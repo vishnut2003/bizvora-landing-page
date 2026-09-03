@@ -10,6 +10,7 @@ import {
   ChevronDownIcon,
   CloseIcon,
   Mark,
+  type MarkName,
 } from "@/components/icons";
 import { DemoPillButton } from "@/components/demo-trigger";
 import { NAV_LINKS } from "@/lib/bizvora";
@@ -23,6 +24,15 @@ const EXIT_MS = 320;
 
 const FOCUSABLE =
   'a[href],button:not([disabled]),[tabindex]:not([tabindex="-1"])';
+
+/** Top-level rows wear an icon tile and a one-line teaser, keyed by label. */
+const TOP_META: Record<string, { icon: MarkName; blurb: string }> = {
+  Modules: { icon: "kanban", blurb: "7 modules, one workspace" },
+  Industries: { icon: "factory", blurb: "Built for 8 industries" },
+  Pricing: { icon: "ledger", blurb: "₹199 per user, every module in" },
+  Company: { icon: "building", blurb: "About us, why us & FAQs" },
+  Contact: { icon: "mail", blurb: "Talk to our team" },
+};
 
 /** The group that owns the current page opens by default; the rest stay shut. */
 const initialGroup = (pathname: string) =>
@@ -111,6 +121,54 @@ function ChildLink({
   );
 }
 
+/** The shared face of every top-level row: icon tile, label, teaser. */
+function RowFace({
+  label,
+  active,
+  lit,
+}: {
+  label: string;
+  active: boolean;
+  /** The tile fills with brand purple: hovered, or the group is expanded. */
+  lit: boolean;
+}) {
+  const meta = TOP_META[label];
+  return (
+    <span className="flex min-w-0 items-center gap-3.5">
+      {meta && (
+        <span
+          className={cn(
+            "flex size-10 shrink-0 items-center justify-center rounded-[12px] ring-1 transition-colors duration-200",
+            lit || active
+              ? "bg-[linear-gradient(125deg,rgb(140,0,255)_9%,rgb(69,6,147)_92%)] text-white ring-primary/40 shadow-[0_8px_20px_-8px_rgba(140,0,255,0.6)]"
+              : "bg-tile text-primary-dark ring-primary/10 group-hover/row:bg-[linear-gradient(125deg,rgb(140,0,255)_9%,rgb(69,6,147)_92%)] group-hover/row:text-white group-hover/row:ring-primary/40",
+          )}
+        >
+          <Mark name={meta.icon} className="size-5" />
+        </span>
+      )}
+      <span className="flex min-w-0 flex-col gap-px">
+        <span
+          className={cn(
+            "flex items-center gap-2 text-[16px] leading-[1.35] font-medium tracking-[-0.02em]",
+            active ? "text-primary-dark" : "text-ink",
+          )}
+        >
+          {label}
+          {active && (
+            <span aria-hidden className="size-1.5 rounded-full bg-primary" />
+          )}
+        </span>
+        {meta && (
+          <span className="truncate text-[12px] leading-[1.4] text-ink-50">
+            {meta.blurb}
+          </span>
+        )}
+      </span>
+    </span>
+  );
+}
+
 function GroupRow({
   group,
   expanded,
@@ -132,26 +190,14 @@ function GroupRow({
         aria-expanded={expanded}
         onClick={onToggle}
         className={cn(
-          "flex w-full items-center justify-between rounded-[14px] px-3.5 py-3 text-left transition-colors duration-150",
+          "group/row flex w-full items-center justify-between gap-3 rounded-[16px] px-2.5 py-2.5 text-left transition-colors duration-150",
           expanded ? "bg-primary-10" : "hover:bg-primary-10/60",
         )}
       >
-        <span className="flex items-center gap-2.5">
-          <span
-            className={cn(
-              "text-[17px] leading-[1.4] font-medium tracking-[-0.02em]",
-              active ? "text-primary-dark" : "text-ink",
-            )}
-          >
-            {group.label}
-          </span>
-          {active && (
-            <span aria-hidden className="size-1.5 rounded-full bg-primary" />
-          )}
-        </span>
+        <RowFace label={group.label} active={active} lit={expanded} />
         <span
           className={cn(
-            "flex size-7 items-center justify-center rounded-full bg-ink/5 text-ink-70 transition-transform duration-300",
+            "flex size-7 shrink-0 items-center justify-center rounded-full bg-ink/5 text-ink-70 transition-transform duration-300",
             expanded && "rotate-180 bg-white text-primary-dark",
           )}
         >
@@ -341,44 +387,82 @@ export function MobileDrawer({
                     href={link.href}
                     onClick={onClose}
                     aria-current={isUnder(pathname, link.href) ? "page" : undefined}
-                    className="group/top flex items-center justify-between rounded-[14px] px-3.5 py-3 transition-colors duration-150 hover:bg-primary-10/60"
+                    className="group/row flex items-center justify-between gap-3 rounded-[16px] px-2.5 py-2.5 transition-colors duration-150 hover:bg-primary-10/60"
                   >
-                    <span
-                      className={cn(
-                        "text-[17px] leading-[1.4] font-medium tracking-[-0.02em]",
-                        isUnder(pathname, link.href) ? "text-primary-dark" : "text-ink",
-                      )}
-                    >
-                      {link.label}
+                    <RowFace
+                      label={link.label}
+                      active={isUnder(pathname, link.href)}
+                      lit={false}
+                    />
+                    <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-ink/5 text-ink-70">
+                      <ArrowUpRightIcon className="size-3 transition-transform duration-150 group-hover/row:translate-x-0.5 group-hover/row:-translate-y-0.5" />
                     </span>
-                    <ArrowUpRightIcon className="size-3 text-ink-50 transition-transform duration-150 group-hover/top:translate-x-0.5 group-hover/top:-translate-y-0.5" />
                   </Link>
                 )}
               </li>
             ))}
           </ul>
+
+          {/* Spotlight: fills the slack below the list on tall phones instead
+              of leaving a white void, and sells the headline module. */}
+          <Link
+            href="/modules/ai-voice-agent"
+            onClick={onClose}
+            className="mn-item group/spot relative mt-4 block overflow-hidden rounded-[20px] bg-ink p-4 text-white ring-1 ring-white/10 transition-shadow duration-200 hover:shadow-[0_20px_40px_-20px_rgba(140,0,255,0.7)]"
+            style={{ "--mn-i": NAV_LINKS.length } as CSSProperties}
+          >
+            <span className="pointer-events-none absolute -top-16 -right-10 size-40 rounded-full bg-primary/50 blur-2xl" />
+            <span className="pointer-events-none absolute -bottom-20 -left-8 size-40 rounded-full bg-violet-400/30 blur-2xl" />
+            <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.12)_1px,transparent_1px)] [background-size:18px_18px] [mask-image:radial-gradient(ellipse_80%_80%_at_100%_0%,black,transparent)]" />
+
+            <span className="relative flex items-start gap-3">
+              <span className="flex size-10 shrink-0 items-center justify-center rounded-[12px] bg-white/10 ring-1 ring-white/15">
+                <Mark name="phone" className="size-5 text-[#C084FC]" />
+              </span>
+              <span className="flex min-w-0 flex-1 flex-col gap-1">
+                <span className="flex items-center gap-2 text-[10.5px] font-semibold tracking-[0.14em] text-white/60 uppercase">
+                  <span className="relative flex size-1.5">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#C084FC] opacity-60" />
+                    <span className="relative inline-flex size-1.5 rounded-full bg-[#C084FC]" />
+                  </span>
+                  AI Voice Agent
+                </span>
+                <span className="text-[14.5px] leading-[1.3] font-medium tracking-[-0.02em]">
+                  Every new lead called back{" "}
+                  <span className="bg-gradient-to-r from-[#C084FC] to-primary bg-clip-text text-transparent">
+                    within seconds
+                  </span>
+                </span>
+              </span>
+              <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-white/10 text-white transition-transform duration-200 group-hover/spot:translate-x-0.5 group-hover/spot:-translate-y-0.5">
+                <ArrowUpRightIcon className="size-3" />
+              </span>
+            </span>
+          </Link>
         </nav>
 
         <div
           className="mn-item relative flex shrink-0 flex-col gap-2.5 border-t border-line bg-surface-muted/70 px-5 pt-4 pb-[max(1.25rem,env(safe-area-inset-bottom))]"
           style={{ "--mn-i": NAV_LINKS.length } as CSSProperties}
         >
-          <DemoPillButton
-            variant="gradient"
-            size="sm"
-            className="w-full hover:shadow-[0_16px_32px_-16px_rgba(140,0,255,0.6)]"
-            onOpen={onClose}
-          >
-            Request a Demo
-          </DemoPillButton>
-          <a
-            href="https://app.bizvora.com"
-            onClick={onClose}
-            className="flex h-[42px] items-center justify-center gap-1.5 rounded-[40px] bg-white text-[14px] leading-[1.6] font-medium text-ink ring-1 ring-line transition-colors hover:bg-tile hover:text-primary-dark"
-          >
-            Login to BizvoraOne
-            <ArrowUpRightIcon className="size-3" />
-          </a>
+          <div className="grid grid-cols-2 gap-2.5">
+            <a
+              href="https://app.bizvora.com"
+              onClick={onClose}
+              className="flex h-[42px] items-center justify-center gap-1.5 rounded-[40px] bg-white px-4 text-[14px] leading-[1.6] font-medium text-ink ring-1 ring-line transition-colors hover:bg-tile hover:text-primary-dark"
+            >
+              Login
+              <ArrowUpRightIcon className="size-3" />
+            </a>
+            <DemoPillButton
+              variant="gradient"
+              size="sm"
+              className="px-4 hover:shadow-[0_16px_32px_-16px_rgba(140,0,255,0.6)]"
+              onOpen={onClose}
+            >
+              Get a Demo
+            </DemoPillButton>
+          </div>
           <p className="mt-1 flex items-center justify-center gap-2 text-center text-[11px] font-semibold tracking-[0.12em] text-ink-50 uppercase">
             <Mark name="building" className="size-3.5 shrink-0 text-primary-dark" />
             Made in India · Hosted in Mumbai
