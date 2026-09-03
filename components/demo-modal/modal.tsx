@@ -8,7 +8,12 @@ import {
   type PointerEvent as ReactPointerEvent,
 } from "react";
 import { createPortal } from "react-dom";
-import { ArrowUpRightIcon, Mark, type MarkName } from "@/components/icons";
+import {
+  ArrowUpRightIcon,
+  CloseIcon,
+  Mark,
+  type MarkName,
+} from "@/components/icons";
 import {
   LEAD_FIELDS,
   LEAD_TRUST_POINTS,
@@ -31,19 +36,6 @@ const PROOF_POINTS: { icon: MarkName; label: string }[] = [
   { icon: "ledger", label: "Tally-style books — zero retraining" },
   { icon: "building", label: "Hosted in Mumbai. Your data stays in India." },
 ];
-
-function CloseIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 16 16" fill="none" aria-hidden className={className}>
-      <path
-        d="M4 4l8 8M12 4l-8 8"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
 
 /**
  * The demo lead form: a centred split panel on desktop, a bottom sheet on

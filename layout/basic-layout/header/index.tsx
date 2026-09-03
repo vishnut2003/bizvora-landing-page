@@ -8,37 +8,13 @@ import {
   ChevronDownIcon,
   Mark,
   MenuIcon,
-  type MarkName,
 } from "@/components/icons";
 import { DemoPillButton } from "@/components/demo-trigger";
 import { NAV_LINKS } from "@/lib/bizvora";
 import type { NavGroup, NavLink } from "@/types/content";
 import { cn } from "@/lib/utils";
-
-const hasChildren = (link: NavLink | NavGroup): link is NavGroup =>
-  "children" in link;
-
-/**
- * Mega-menu enrichment, keyed by route. Children without an entry render as a
- * plain link list (Company); "All …" links become the panel's footer row.
- */
-const ITEM_META: Record<string, { icon: MarkName; blurb: string }> = {
-  "/modules/crm": { icon: "crm", blurb: "Customers, leads & 9-stage pipeline" },
-  "/modules/ai-proposals": { icon: "doc", blurb: "Drafted by AI, branded PDF output" },
-  "/modules/quotations": { icon: "quote", blurb: "Itemized quotes in seconds" },
-  "/modules/accounting-recovery": { icon: "ledger", blurb: "Tally-style vouchers & collections" },
-  "/modules/projects": { icon: "kanban", blurb: "Milestones with review gates" },
-  "/modules/hr-payroll": { icon: "hr", blurb: "Payroll runs & payslip PDFs" },
-  "/modules/ai-voice-agent": { icon: "phone", blurb: "Calls every new lead in seconds" },
-  "/industries/manufacturing": { icon: "factory", blurb: "Orders, vouchers & recovery" },
-  "/industries/real-estate-construction": { icon: "building", blurb: "Site enquiries called back fast" },
-  "/industries/it-agencies": { icon: "laptop", blurb: "Proposals to milestones to payroll" },
-  "/industries/service-consulting": { icon: "brief", blurb: "Client engagements, end to end" },
-  "/industries/law-ca-cs": { icon: "scale", blurb: "Matters, filings & fee recovery" },
-  "/industries/education": { icon: "cap", blurb: "Admissions enquiries never go cold" },
-  "/industries/healthcare": { icon: "pulse", blurb: "Appointments, billing & payroll" },
-  "/industries/trading-distribution": { icon: "truck", blurb: "Quotes, ledgers & collections" },
-};
+import { MobileDrawer } from "./mobile-drawer";
+import { ITEM_META, hasChildren } from "./nav-meta";
 
 /** Hover pill: rgba(171,255,89,.1) capsule behind the label. */
 function NavItem({ link }: { link: NavLink }) {
@@ -188,70 +164,19 @@ export function Header() {
 
         <button
           type="button"
-          aria-label="Toggle navigation"
+          aria-label="Open navigation"
+          aria-haspopup="dialog"
           aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-          className="flex size-10 items-center justify-center rounded-full text-ink lg:hidden"
+          onClick={() => setOpen(true)}
+          className="flex size-10 items-center justify-center rounded-full text-ink transition-colors hover:bg-primary-10 lg:hidden"
         >
           <MenuIcon className="size-6" />
         </button>
       </nav>
 
-      {open && (
-        <div className="absolute top-full right-5 left-5 max-h-[calc(100dvh-7rem)] overflow-y-auto rounded-[16px] bg-white/95 p-6 ring-1 ring-line shadow-[0_20px_45px_rgba(14,20,8,0.12)] backdrop-blur-xl lg:hidden">
-          <div className="flex flex-col gap-4">
-            {/* Groups render their children indented: on mobile there is no
-                hover, so a flat list would strand every sub-page. */}
-            {NAV_LINKS.map((link) => (
-              <div key={link.label} className="flex flex-col gap-3">
-                <Link
-                  href={link.href}
-                  onClick={() => setOpen(false)}
-                  className="text-[16px] leading-[1.6] font-medium text-ink capitalize"
-                >
-                  {link.label}
-                </Link>
-                {hasChildren(link) && (
-                  <div className="flex flex-col gap-2.5 border-l border-line pl-4">
-                    {link.children.map((child) => (
-                      <Link
-                        key={child.href}
-                        href={child.href}
-                        onClick={() => setOpen(false)}
-                        className="flex items-center gap-2.5 text-[15px] leading-[1.4] font-normal text-ink-70 transition-colors hover:text-ink"
-                      >
-                        {ITEM_META[child.href] && (
-                          <Mark
-                            name={ITEM_META[child.href].icon}
-                            className="size-4 shrink-0 text-primary-dark"
-                          />
-                        )}
-                        {child.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-            <div className="mt-2 flex items-center gap-6">
-              <a
-                href="https://app.bizvora.com"
-                onClick={() => setOpen(false)}
-                className="text-[15px] leading-[1.6] font-medium text-ink underline decoration-ink/30 underline-offset-4 transition-colors hover:text-primary-dark hover:decoration-primary/50"
-              >
-                Login
-              </a>
-              <DemoPillButton
-                variant="gradient"
-                size="sm"
-                onOpen={() => setOpen(false)}
-              >
-                Request a Demo
-              </DemoPillButton>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Portalled sidebar: the header is its own stacking context, so the
+          drawer has to live on <body> to cover the page. */}
+      <MobileDrawer open={open} onClose={() => setOpen(false)} />
     </header>
   );
 }

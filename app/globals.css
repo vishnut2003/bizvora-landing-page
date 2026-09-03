@@ -209,6 +209,53 @@ body {
   }
 }
 
+/* --- Mobile nav drawer (layout/basic-layout/header/mobile-drawer.tsx) ----
+   Slides in from the right edge; the rows inside stagger in after it lands,
+   each offset by its --mn-i index. */
+
+.mn-backdrop {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.mn-backdrop[data-visible="true"] {
+  opacity: 1;
+}
+
+.mn-panel {
+  transform: translateX(105%);
+  transition: transform 0.32s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.mn-panel[data-visible="true"] {
+  transform: translateX(0);
+}
+
+.mn-panel[data-visible="true"] .mn-item {
+  animation: mn-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(70ms + var(--mn-i, 0) * 40ms);
+}
+
+@keyframes mn-in {
+  from {
+    opacity: 0;
+    transform: translateX(18px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mn-backdrop,
+  .mn-panel {
+    transition: none;
+  }
+  .mn-panel {
+    transform: none;
+  }
+  .mn-panel .mn-item {
+    animation: none;
+  }
+}
+
 /* --- 404 page (app/not-found.tsx) ---------------------------------------
    The digit tiles and floating product cards drift on the existing
    fa-float keyframes, staggered per element via --nf-delay. */

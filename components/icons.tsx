@@ -85,6 +85,20 @@ export function MenuIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+/** Dismisses the demo modal and the mobile nav drawer. */
+export function CloseIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 16 16" fill="none" aria-hidden {...props}>
+      <path
+        d="M4 4l8 8M12 4l-8 8"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
 /**
  * 24×24 stroke marks ported verbatim from the BizvoraOne source page's
  * `<symbol>` sprite — module, industry and utility glyphs.
