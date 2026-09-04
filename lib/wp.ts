@@ -153,29 +153,47 @@ export class WpError extends Error {
 
 // --- transport -------------------------------------------------------------
 
+/** Backoff before each retry; the build fires ~20 page exports at once and WP occasionally 500s under it. */
+const RETRY_DELAYS_MS = [400, 1200];
+
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 async function wpFetch<T>(
   path: string,
   init: RequestInit,
 ): Promise<{ data: T; headers: Headers }> {
-  const res = await fetch(`${API}${path}`, {
-    ...init,
-    headers: { Accept: "application/json", ...init.headers },
-  });
-  if (!res.ok) {
-    let code: string | undefined;
+  let lastError: unknown;
+  for (let attempt = 0; attempt <= RETRY_DELAYS_MS.length; attempt += 1) {
+    if (attempt > 0) await sleep(RETRY_DELAYS_MS[attempt - 1]);
     try {
-      code = ((await res.json()) as { code?: string }).code;
-    } catch {
-      // non-JSON error body; fall through with no code
+      const res = await fetch(`${API}${path}`, {
+        ...init,
+        headers: { Accept: "application/json", ...init.headers },
+      });
+      if (res.ok) return { data: (await res.json()) as T, headers: res.headers };
+
+      let code: string | undefined;
+      try {
+        code = ((await res.json()) as { code?: string }).code;
+      } catch {
+        // non-JSON error body; fall through with no code
+      }
+      // WP answers a page past the last one with 400 rather than [] — treat
+      // it as an empty page so a stale `total` can never crash the list.
+      if (code === "rest_post_invalid_page_number") {
+        return { data: [] as unknown as T, headers: res.headers };
+      }
+      lastError = new WpError(`WordPress responded ${res.status} for ${path}`, res.status, code);
+      // 4xx is a real answer; only server errors are worth retrying.
+      if (res.status < 500) break;
+    } catch (error) {
+      // network failure / aborted body: retry
+      lastError = error;
     }
-    // WP answers a page past the last one with 400 rather than [] — treat
-    // it as an empty page so a stale `total` can never crash the list.
-    if (code === "rest_post_invalid_page_number") {
-      return { data: [] as unknown as T, headers: res.headers };
-    }
-    throw new WpError(`WordPress responded ${res.status} for ${path}`, res.status, code);
   }
-  return { data: (await res.json()) as T, headers: res.headers };
+  throw lastError instanceof Error
+    ? lastError
+    : new WpError(`WordPress request failed for ${path}`);
 }
 
 const headerCount = (headers: Headers, name: string) =>
@@ -212,18 +230,42 @@ export async function getRelatedPosts(excludeId: number, limit = 3): Promise<Blo
   }
 }
 
-/** Tag names for a set of ids, in the order the ids were given. */
+/**
+ * Every tag, cached for a day. One shared request instead of one per post:
+ * the same URL and options across all page exports hits the data cache once.
+ */
+async function getAllTags(): Promise<WpTagRaw[]> {
+  const tags: WpTagRaw[] = [];
+  let page = 1;
+  let totalPages = 1;
+  do {
+    const { data, headers } = await wpFetch<WpTagRaw[]>(
+      `/tags?per_page=100&page=${page}&_fields=id,name,slug`,
+      { next: { revalidate: TAG_REVALIDATE, tags: ["wp-tags"] } },
+    );
+    tags.push(...data);
+    totalPages = headerCount(headers, "x-wp-totalpages");
+    page += 1;
+  } while (page <= totalPages);
+  return tags;
+}
+
+/**
+ * Tag names for a set of ids, in the order the ids were given. Tags are
+ * decorative, so a WP hiccup here yields [] rather than failing the page
+ * (a transient 500 on this lookup once broke a production build).
+ */
 export async function getTags(ids: number[]): Promise<BlogTag[]> {
   if (ids.length === 0) return [];
-  const { data } = await wpFetch<WpTagRaw[]>(
-    `/tags?include=${ids.join(",")}&per_page=100&_fields=id,name,slug`,
-    { next: { revalidate: TAG_REVALIDATE, tags: ["wp-tags"] } },
-  );
-  const byId = new Map(data.map((tag) => [tag.id, tag]));
-  return ids
-    .map((id) => byId.get(id))
-    .filter((tag): tag is WpTagRaw => tag !== undefined)
-    .map(({ id, name, slug }) => ({ id, name: decodeEntities(name), slug }));
+  try {
+    const byId = new Map((await getAllTags()).map((tag) => [tag.id, tag]));
+    return ids
+      .map((id) => byId.get(id))
+      .filter((tag): tag is WpTagRaw => tag !== undefined)
+      .map(({ id, name, slug }) => ({ id, name: decodeEntities(name), slug }));
+  } catch {
+    return [];
+  }
 }
 
 /**
