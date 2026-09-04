@@ -187,14 +187,31 @@ body {
   transform: translateY(0);
 }
 
-/* desktop: settles in place instead of sliding */
+/* desktop: settles in place instead of sliding. The metrics the form half
+   reads (md:p-[var(--dm-pad)] etc.) live here so a short laptop viewport
+   can tighten them without the column having to scroll. */
 @media (min-width: 768px) {
   .dm-panel {
+    --dm-max-h: 88vh;
+    --dm-pad: 2.25rem;
+    --dm-gap: 1.25rem;
+    --dm-field: 54px;
     transform: translateY(8px) scale(0.96);
   }
 
   .dm-panel[data-visible="true"] {
     transform: translateY(0) scale(1);
+  }
+}
+
+/* short desktop viewports (13" laptops at 125% scaling land near 550px):
+   the panel takes all but the wrapper's 24px padding and runs compact */
+@media (min-width: 768px) and (max-height: 720px) {
+  .dm-panel {
+    --dm-max-h: calc(100dvh - 48px);
+    --dm-pad: 1.5rem;
+    --dm-gap: 0.875rem;
+    --dm-field: 48px;
   }
 }
 

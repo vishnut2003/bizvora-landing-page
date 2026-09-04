@@ -14,11 +14,7 @@ import {
   Mark,
   type MarkName,
 } from "@/components/icons";
-import {
-  LEAD_FIELDS,
-  LEAD_TRUST_POINTS,
-  leadInputClass,
-} from "@/components/lead-form-fields";
+import { LEAD_FIELDS, leadInputClass } from "@/components/lead-form-fields";
 import { useScrollLock } from "@/lib/scroll-lock";
 import { cn } from "@/lib/utils";
 
@@ -220,7 +216,7 @@ export function DemoModal({
         className={cn(
           "dm-panel relative flex max-h-[92dvh] w-full flex-col overflow-hidden rounded-t-[28px] bg-white outline-none",
           "shadow-[0_-24px_60px_-24px_rgba(14,20,8,0.4)]",
-          "md:max-h-[88vh] md:max-w-[880px] md:flex-row md:rounded-[24px] md:shadow-[0_48px_96px_-32px_rgba(14,20,8,0.55)]",
+          "md:max-h-[var(--dm-max-h)] md:max-w-[880px] md:flex-row md:rounded-[24px] md:shadow-[0_48px_96px_-32px_rgba(14,20,8,0.55)]",
           dragging && "select-none",
         )}
       >
@@ -335,24 +331,29 @@ export function DemoModal({
         </div>
 
         {/* the form half — scrolls inside the sheet on mobile */}
-        <div className="flex flex-1 flex-col gap-3.5 overflow-y-auto px-5 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] md:gap-5 md:p-9">
+        <div className="flex flex-1 flex-col gap-3.5 overflow-y-auto px-5 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] md:gap-[var(--dm-gap)] md:bg-[radial-gradient(ellipse_70%_55%_at_100%_0%,rgba(140,0,255,0.07),transparent)] md:p-[var(--dm-pad)]">
           <button
             type="button"
             onClick={onClose}
             aria-label="Close"
-            className="absolute top-4 right-4 hidden size-9 items-center justify-center rounded-full text-ink-50 transition-colors hover:bg-ink/5 hover:text-ink md:flex"
+            className="absolute top-4 right-4 hidden size-9 items-center justify-center rounded-full bg-white/70 text-ink-50 ring-1 ring-ink/10 transition-colors hover:bg-ink/5 hover:text-ink md:flex"
           >
             <CloseIcon className="size-4" />
           </button>
 
-          <div className="hidden flex-col gap-1.5 md:flex">
-            <h3 className="text-[22px] leading-[1.2] font-medium tracking-[-0.03em] text-ink">
-              Request a demo
-            </h3>
-            <p className="text-[13px] leading-[1.6] text-ink-50">
-              Leave your details and we&apos;ll call you back within business
-              hours.
-            </p>
+          <div className="hidden items-center gap-3.5 pr-10 md:flex">
+            <span className="flex size-11 shrink-0 items-center justify-center rounded-[14px] bg-[linear-gradient(125deg,rgb(140,0,255)_9%,rgb(69,6,147)_92%)] text-white shadow-[0_10px_24px_-10px_rgba(140,0,255,0.7)]">
+              <Mark name="phone" className="size-5" />
+            </span>
+            <div className="flex flex-col gap-0.5">
+              <h3 className="text-[22px] leading-[1.2] font-medium tracking-[-0.03em] text-ink">
+                Request a demo
+              </h3>
+              <p className="text-[13px] leading-[1.5] text-ink-50">
+                Leave your details and we&apos;ll call you back within business
+                hours.
+              </p>
+            </div>
           </div>
 
           {sent ? (
@@ -381,7 +382,9 @@ export function DemoModal({
                 e.preventDefault();
                 setSent(true);
               }}
-              className="flex w-full flex-col gap-2.5 md:gap-3"
+              // two-by-two from md: half the height, and the pair of rows
+              // reads as one compact card rather than a long column
+              className="flex w-full flex-col gap-2.5 md:grid md:grid-cols-2 md:gap-3"
             >
               {LEAD_FIELDS.map((field) => (
                 // The glyph follows the input in the DOM so `peer-focus` can
@@ -400,12 +403,12 @@ export function DemoModal({
                     }
                     className={cn(
                       leadInputClass,
-                      "peer h-12 pl-[52px] md:h-[54px] md:pl-6",
+                      "peer h-12 pl-[52px] md:h-[var(--dm-field)]",
                     )}
                   />
                   <span
                     aria-hidden
-                    className="pointer-events-none absolute inset-y-0 left-5 flex items-center text-ink-50 transition-colors duration-200 peer-focus:text-primary md:hidden"
+                    className="pointer-events-none absolute inset-y-0 left-5 flex items-center text-ink-50 transition-colors duration-200 peer-focus:text-primary"
                   >
                     <Mark name={FIELD_ICONS[field.name]} className="size-[18px]" />
                   </span>
@@ -415,7 +418,7 @@ export function DemoModal({
                   arrow is always out on touch, where there is no hover. */}
               <button
                 type="submit"
-                className="group mt-0.5 inline-flex h-12 w-full items-center justify-center rounded-[40px] bg-[linear-gradient(125deg,rgb(140,0,255)_9%,rgb(69,6,147)_92%)] px-5 text-[14px] md:mt-1 md:h-[54px] md:py-4 leading-[1.6] font-medium whitespace-nowrap text-white shadow-[0_16px_32px_-16px_rgba(140,0,255,0.6)] transition-all duration-200 md:shadow-none md:hover:shadow-[0_16px_32px_-16px_rgba(140,0,255,0.6)]"
+                className="group mt-0.5 inline-flex h-12 w-full items-center justify-center rounded-[40px] bg-[linear-gradient(125deg,rgb(140,0,255)_9%,rgb(69,6,147)_92%)] px-5 text-[14px] leading-[1.6] font-medium whitespace-nowrap text-white shadow-[0_16px_32px_-16px_rgba(140,0,255,0.6)] transition-all duration-200 hover:shadow-[0_20px_40px_-16px_rgba(140,0,255,0.75)] md:col-span-2 md:mt-1 md:h-[var(--dm-field)]"
               >
                 Request a Demo
                 <ArrowUpRightIcon className="ml-[5px] size-3 shrink-0 overflow-hidden transition-all duration-200 md:ml-0 md:w-0 md:opacity-0 md:group-hover:ml-[5px] md:group-hover:w-3 md:group-hover:opacity-100" />
@@ -423,9 +426,9 @@ export function DemoModal({
             </form>
           )}
 
-          {/* mobile: what happens next, as three numbered beats */}
+          {/* what happens next, as three numbered beats */}
           {!sent && (
-            <ol className="mt-auto grid list-none grid-cols-3 gap-1 rounded-[16px] bg-surface-muted px-2 py-2.5 md:hidden">
+            <ol className="mt-auto grid list-none grid-cols-3 gap-1 rounded-[16px] bg-surface-muted px-2 py-2.5 md:rounded-[18px] md:py-3.5">
               {NEXT_STEPS.map((step, i) => (
                 <li
                   key={step}
@@ -440,25 +443,13 @@ export function DemoModal({
                   <span className="relative flex size-6 items-center justify-center rounded-full bg-white text-[11px] font-semibold text-primary-dark ring-1 ring-primary/15">
                     {i + 1}
                   </span>
-                  <span className="text-[11.5px] leading-[1.3] tracking-[-0.01em] text-ink-70">
+                  <span className="text-[11.5px] leading-[1.3] tracking-[-0.01em] text-ink-70 md:text-[12px]">
                     {step}
                   </span>
                 </li>
               ))}
             </ol>
           )}
-
-          <div className="mt-auto hidden flex-wrap items-center justify-center gap-x-5 gap-y-2 border-t border-ink/5 pt-4 md:flex">
-            {LEAD_TRUST_POINTS.map((point) => (
-              <span
-                key={point}
-                className="flex items-center gap-2 text-[12.5px] leading-[1.6] tracking-[-0.02em] text-ink-50"
-              >
-                <Mark name="check" className="size-3.5 shrink-0 text-primary-dark" />
-                {point}
-              </span>
-            ))}
-          </div>
         </div>
       </div>
     </div>,
