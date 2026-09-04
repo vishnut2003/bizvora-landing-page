@@ -4,13 +4,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BasicLayout } from "@/layout/basic-layout";
 import { ArrowUpRightIcon, Mark } from "@/components/icons";
-import { DemoPillButton } from "@/components/demo-trigger";
+import { CtaPair, DEMO_CTA } from "@/components/cta-pair";
 import { Reveal } from "@/components/reveal";
 import { FAQS, MODULE_PAGES, MODULES, ROLES } from "@/lib/bizvora";
 import type { ModulePageExtras } from "@/types/content";
 import { cn } from "@/lib/utils";
 import { CtaPanel } from "../_components/cta-panel";
-import { ARTS, CARD_CLASSES, GHOST_BUTTON_CLASSES } from "../_components/shared";
+import { ARTS, CARD_CLASSES } from "../_components/shared";
 
 const PAGE_EXTRAS: Record<string, ModulePageExtras> = MODULE_PAGES;
 
@@ -137,15 +137,11 @@ export default async function ModuleDetailPage({ params }: PageProps<"/modules/[
                   </p>
                 </Reveal>
 
-                <Reveal variant="up" distance={30} delay={280}>
-                  <div className="flex flex-col gap-3 sm:flex-row">
-                    <DemoPillButton className="w-[212px]">
-                      Request a Demo
-                    </DemoPillButton>
-                    <Link href="/modules" className={GHOST_BUTTON_CLASSES}>
-                      All Modules
-                    </Link>
-                  </div>
+                <Reveal variant="up" distance={30} delay={280} className="w-full">
+                  <CtaPair
+                    primary={DEMO_CTA}
+                    secondary={{ label: "All Modules", href: "/modules" }}
+                  />
                 </Reveal>
               </div>
 

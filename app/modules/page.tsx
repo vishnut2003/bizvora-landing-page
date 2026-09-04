@@ -3,18 +3,14 @@ import type { CSSProperties } from "react";
 import Link from "next/link";
 import { BasicLayout } from "@/layout/basic-layout";
 import { ArrowUpRightIcon, Mark } from "@/components/icons";
-import { DemoLink, DemoPillButton } from "@/components/demo-trigger";
+import { CtaPair, DEMO_CTA } from "@/components/cta-pair";
+import { DemoLink } from "@/components/demo-trigger";
 import { Reveal } from "@/components/reveal";
 import { MODULES } from "@/lib/bizvora";
 import type { ModuleDetail } from "@/types/content";
 import { cn } from "@/lib/utils";
 import { CtaPanel } from "./_components/cta-panel";
-import {
-  ARTS,
-  CARD_CLASSES,
-  GHOST_BUTTON_CLASSES,
-  JUMP_CHIP_CLASSES,
-} from "./_components/shared";
+import { ARTS, CARD_CLASSES, JUMP_CHIP_CLASSES } from "./_components/shared";
 
 export const metadata: Metadata = {
   title: "Modules | BizvoraOne",
@@ -216,15 +212,15 @@ export default function ModulesPage() {
                   </p>
                 </Reveal>
 
-                <Reveal variant="up" distance={30} delay={240}>
-                  <div className="flex flex-col gap-3 sm:flex-row">
-                    <DemoPillButton className="w-[212px]">
-                      Request a Demo
-                    </DemoPillButton>
-                    <Link href="/modules/crm" className={GHOST_BUTTON_CLASSES}>
-                      Explore the Modules
-                    </Link>
-                  </div>
+                <Reveal variant="up" distance={30} delay={240} className="w-full">
+                  <CtaPair
+                    primary={DEMO_CTA}
+                    secondary={{
+                      label: "Explore the Modules",
+                      short: "See Modules",
+                      href: "/modules/crm",
+                    }}
+                  />
                 </Reveal>
               </div>
 
@@ -427,15 +423,20 @@ export default function ModulesPage() {
               </div>
             </Reveal>
 
-            <Reveal variant="up" distance={30} delay={180}>
-              <div className="flex flex-col items-center gap-3 sm:flex-row">
-                <DemoPillButton className="w-[212px]">
-                  Request a Demo
-                </DemoPillButton>
-                <Link href="/pricing" className={GHOST_BUTTON_CLASSES}>
-                  See What&apos;s Included
-                </Link>
-              </div>
+            <Reveal
+              variant="up"
+              distance={30}
+              delay={180}
+              className="flex w-full justify-center"
+            >
+              <CtaPair
+                primary={DEMO_CTA}
+                secondary={{
+                  label: "See What's Included",
+                  short: "What's Included",
+                  href: "/pricing",
+                }}
+              />
             </Reveal>
 
             <Reveal variant="up" distance={20} delay={260}>

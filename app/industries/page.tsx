@@ -4,12 +4,12 @@ import Link from "next/link";
 import { BasicLayout } from "@/layout/basic-layout";
 import { ArrowUpRightIcon, Mark, type MarkName } from "@/components/icons";
 import { CountUp } from "@/components/count-up";
-import { DemoPillButton } from "@/components/demo-trigger";
+import { CtaPair, DEMO_CTA } from "@/components/cta-pair";
 import { TradesTicker } from "@/components/trades-ticker";
 import { Reveal } from "@/components/reveal";
 import { INDUSTRIES, INDUSTRY_PAGES, MODULES } from "@/lib/bizvora";
 import { CtaPanel } from "@/app/modules/_components/cta-panel";
-import { CARD_CLASSES, GHOST_BUTTON_CLASSES } from "@/app/modules/_components/shared";
+import { CARD_CLASSES } from "@/app/modules/_components/shared";
 
 export const metadata: Metadata = {
   title: "Industries | BizvoraOne",
@@ -101,15 +101,15 @@ export default function IndustriesPage() {
                 </p>
               </Reveal>
 
-              <Reveal variant="up" distance={30} delay={240}>
-                <div className="flex flex-col gap-3 sm:flex-row">
-                  <DemoPillButton className="w-[212px]">
-                    Request a Demo
-                  </DemoPillButton>
-                  <Link href="/industries/manufacturing" className={GHOST_BUTTON_CLASSES}>
-                    Find Your Industry
-                  </Link>
-                </div>
+              <Reveal variant="up" distance={30} delay={240} className="w-full">
+                <CtaPair
+                  primary={DEMO_CTA}
+                  secondary={{
+                    label: "Find Your Industry",
+                    short: "Your Industry",
+                    href: "/industries/manufacturing",
+                  }}
+                />
               </Reveal>
             </div>
 

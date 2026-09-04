@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { DemoLink } from "@/components/demo-trigger";
 import { Search } from "lucide-react";
 import { BasicLayout } from "@/layout/basic-layout";
+import { CtaPair, DEMO_CTA } from "@/components/cta-pair";
 import { Mark, type MarkName } from "@/components/icons";
-import { PillButton } from "@/components/pill-button";
 import { Reveal } from "@/components/reveal";
 import { cn } from "@/lib/utils";
 
@@ -276,17 +275,16 @@ export default function NotFound() {
               </p>
             </Reveal>
 
-            <Reveal variant="up" distance={30} delay={340}>
-              <div className="flex flex-col items-center gap-3 sm:flex-row">
-                <PillButton href="/" className="w-[212px]">
-                  Back to Home
-                </PillButton>
-                <DemoLink
-                  className="inline-flex h-[58px] w-[212px] items-center justify-center rounded-[40px] border border-ink/10 bg-white/70 text-[14px] leading-[1.6] font-medium text-ink backdrop-blur-sm transition-colors duration-200 hover:border-primary/40 hover:bg-primary-10"
-                >
-                  Request a Demo
-                </DemoLink>
-              </div>
+            <Reveal
+              variant="up"
+              distance={30}
+              delay={340}
+              className="flex w-full justify-center"
+            >
+              <CtaPair
+                primary={{ label: "Back to Home", href: "/" }}
+                secondary={DEMO_CTA}
+              />
             </Reveal>
 
             <Reveal variant="up" distance={20} delay={420}>

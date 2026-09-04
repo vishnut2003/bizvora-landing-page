@@ -30,7 +30,7 @@ export function DemoPillButton({
   className,
   onOpen,
 }: {
-  children: string;
+  children: ReactNode;
   variant?: "gradient" | "dark";
   size?: "sm" | "md";
   className?: string;

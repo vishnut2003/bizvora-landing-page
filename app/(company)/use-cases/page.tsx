@@ -3,18 +3,14 @@ import type { CSSProperties } from "react";
 import Link from "next/link";
 import { BasicLayout } from "@/layout/basic-layout";
 import { ArrowUpRightIcon, Mark, type MarkName } from "@/components/icons";
-import { DemoLink, DemoPillButton } from "@/components/demo-trigger";
+import { CtaPair, DEMO_CTA } from "@/components/cta-pair";
+import { DemoLink } from "@/components/demo-trigger";
 import { TradesTicker } from "@/components/trades-ticker";
 import { Reveal } from "@/components/reveal";
 import { MODULES, ROLES } from "@/lib/bizvora";
 import { cn } from "@/lib/utils";
 import { CtaPanel } from "@/app/modules/_components/cta-panel";
-import {
-  ARTS,
-  CARD_CLASSES,
-  GHOST_BUTTON_CLASSES,
-  JUMP_CHIP_CLASSES,
-} from "@/app/modules/_components/shared";
+import { ARTS, CARD_CLASSES, JUMP_CHIP_CLASSES } from "@/app/modules/_components/shared";
 
 export const metadata: Metadata = {
   title: "Use Cases | BizvoraOne",
@@ -335,15 +331,15 @@ export default function UseCasesPage() {
                   </p>
                 </Reveal>
 
-                <Reveal variant="up" distance={30} delay={240}>
-                  <div className="flex flex-col gap-3 sm:flex-row">
-                    <DemoPillButton className="w-[212px]">
-                      Request a Demo
-                    </DemoPillButton>
-                    <Link href="#lead-to-call" className={GHOST_BUTTON_CLASSES}>
-                      Follow a Workflow
-                    </Link>
-                  </div>
+                <Reveal variant="up" distance={30} delay={240} className="w-full">
+                  <CtaPair
+                    primary={DEMO_CTA}
+                    secondary={{
+                      label: "Follow a Workflow",
+                      short: "See a Workflow",
+                      href: "#lead-to-call",
+                    }}
+                  />
                 </Reveal>
               </div>
 

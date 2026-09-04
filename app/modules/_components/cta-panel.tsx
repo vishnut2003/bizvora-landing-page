@@ -1,6 +1,6 @@
 import Link from "next/link";
+import { CtaPair, DEMO_CTA } from "@/components/cta-pair";
 import { Mark } from "@/components/icons";
-import { DemoPillButton } from "@/components/demo-trigger";
 import { Reveal } from "@/components/reveal";
 import { MODULES, PLAN } from "@/lib/bizvora";
 
@@ -58,17 +58,12 @@ export function CtaPanel() {
             ))}
           </div>
 
-          <div className="relative flex flex-col items-center gap-3 sm:flex-row">
-            <DemoPillButton className="w-[212px]">
-              Request a Demo
-            </DemoPillButton>
-            <Link
-              href="/pricing"
-              className="inline-flex h-[58px] w-[212px] items-center justify-center rounded-[40px] border border-white/20 bg-white/5 text-[14px] leading-[1.6] font-medium text-white backdrop-blur-sm transition-colors duration-200 hover:border-white/40 hover:bg-white/10"
-            >
-              See Pricing
-            </Link>
-          </div>
+          <CtaPair
+            primary={DEMO_CTA}
+            secondary={{ label: "See Pricing", href: "/pricing" }}
+            tone="dark"
+            className="relative"
+          />
 
           <div className="relative flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
             {["No per-module pricing", "All 8 role dashboards", "Hosted in Mumbai"].map(
