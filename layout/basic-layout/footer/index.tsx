@@ -33,18 +33,19 @@ export function Footer() {
             </Link>
           </div>
 
-          {/* One row from `sm` up. BizvoraOne's labels are long and `nowrap`,
-              so below that they wrap onto a second line rather than pushing
-              the page sideways. */}
-          <div className="flex flex-wrap justify-between gap-x-6 gap-y-10 lg:flex-nowrap lg:justify-start lg:gap-x-[66px]">
+          {/* A 2×2 grid below `lg`, so the second row's columns line up with
+              the first's — a wrapping flex row would space each row by its
+              own widest label. One content-sized row from `lg` up, where the
+              long labels can stay on one line. */}
+          <div className="grid grid-cols-2 gap-x-5 gap-y-10 lg:flex lg:flex-nowrap lg:justify-start lg:gap-x-[66px]">
             {FOOTER_COLUMNS.map((column) => (
-              <div key={column.heading} className="flex flex-col items-start gap-4">
+              <div key={column.heading} className="flex min-w-0 flex-col items-start gap-4">
                 <p className="mb-1 text-[12px] leading-[1.6] font-semibold tracking-[0.1em] whitespace-nowrap text-zinc-500 uppercase">
                   {column.heading}
                 </p>
                 {column.links.map((link) => {
                   const className =
-                    "text-[14px] leading-[1.3] font-normal tracking-[-0.02em] whitespace-nowrap text-zinc-400 transition-colors duration-200 hover:text-white";
+                    "text-[14px] leading-[1.3] font-normal tracking-[-0.02em] text-zinc-400 transition-colors duration-200 hover:text-white lg:whitespace-nowrap";
                   // The demo row opens the modal; everything else navigates.
                   return link.label === "Request a Demo" ? (
                     <DemoLink key={link.label} className={className}>
