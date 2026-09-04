@@ -3,8 +3,8 @@ import type { SVGProps } from "react";
 /**
  * Bizvora mark ("Ascend") — four rising pillars, lime→cyan across the set.
  * Free-standing, so it needs a ground with contrast on both ends of the
- * gradient; the tiled build in `public/brand/bizvora-mark-tile.svg` is the
- * one for favicons and app icons.
+ * gradient; the tiled build in `app/icon.svg` (white pillars on the brand
+ * gradient) is the one for favicons and app icons.
  */
 export function BizvoraLogoIcon(props: SVGProps<SVGSVGElement>) {
   return (
