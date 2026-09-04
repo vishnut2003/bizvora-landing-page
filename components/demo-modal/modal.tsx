@@ -30,13 +30,43 @@ const DRAG_CLOSE_PX = 100;
 const FOCUSABLE =
   'a[href],button:not([disabled]),input:not([disabled]),textarea:not([disabled]),select:not([disabled]),[tabindex]:not([tabindex="-1"])';
 
-/** The split view's left panel — the same proof points the site makes elsewhere. */
-const PROOF_POINTS: { icon: MarkName; label: string }[] = [
-  { icon: "crm", label: "All 7 modules in one workspace" },
-  { icon: "phone", label: "An AI voice agent that calls every new lead" },
-  { icon: "ledger", label: "Tally-style books — zero retraining" },
-  { icon: "building", label: "Hosted in Mumbai. Your data stays in India." },
+/**
+ * The split view's left panel — the same proof points the site makes
+ * elsewhere. `short` is the chip copy on the phone sheet's header strip.
+ */
+const PROOF_POINTS: { icon: MarkName; label: string; short: string }[] = [
+  {
+    icon: "crm",
+    label: "All 7 modules in one workspace",
+    short: "7 modules, one workspace",
+  },
+  {
+    icon: "phone",
+    label: "An AI voice agent that calls every new lead",
+    short: "AI agent calls every lead",
+  },
+  {
+    icon: "ledger",
+    label: "Tally-style books — zero retraining",
+    short: "Tally-style books",
+  },
+  {
+    icon: "building",
+    label: "Hosted in Mumbai. Your data stays in India.",
+    short: "Hosted in Mumbai",
+  },
 ];
+
+/** Leading glyph per field — phone sheet only; desktop keeps the plain pills. */
+const FIELD_ICONS: Record<(typeof LEAD_FIELDS)[number]["name"], MarkName> = {
+  name: "user",
+  phone: "phone",
+  email: "mail",
+  company: "building",
+};
+
+/** What the phone sheet promises under the button, in the order it happens. */
+const NEXT_STEPS = ["Send your details", "We call you back", "Live demo, your data"];
 
 /**
  * The demo lead form: a centred split panel on desktop, a bottom sheet on
@@ -188,50 +218,80 @@ export function DemoModal({
             : undefined
         }
         className={cn(
-          "dm-panel relative flex max-h-[92dvh] w-full flex-col overflow-hidden rounded-t-[24px] bg-white outline-none",
+          "dm-panel relative flex max-h-[92dvh] w-full flex-col overflow-hidden rounded-t-[28px] bg-white outline-none",
           "shadow-[0_-24px_60px_-24px_rgba(14,20,8,0.4)]",
           "md:max-h-[88vh] md:max-w-[880px] md:flex-row md:rounded-[24px] md:shadow-[0_48px_96px_-32px_rgba(14,20,8,0.55)]",
           dragging && "select-none",
         )}
       >
-        {/* mobile: grab handle + sheet header, and the only draggable surface —
-            dragging the whole sheet would fight the form's own scrolling */}
-        <div
-          onPointerDown={startDrag}
-          onPointerMove={moveDrag}
-          onPointerUp={endDrag}
-          onPointerCancel={endDrag}
-          className="relative shrink-0 cursor-grab touch-none border-b border-ink/5 bg-[linear-gradient(135deg,#FBF9FF_0%,#F3EDFC_100%)] px-6 pt-3 pb-5 active:cursor-grabbing md:hidden"
-        >
-          <span
-            aria-hidden
-            className="mx-auto mb-4 block h-1 w-10 rounded-full bg-ink/15"
-          />
-          <div className="flex items-center gap-3.5">
-            <span className="flex size-11 shrink-0 items-center justify-center rounded-[14px] bg-[linear-gradient(125deg,rgb(140,0,255)_9%,rgb(69,6,147)_92%)]">
-              <Mark name="phone" className="size-5 text-white" />
-            </span>
-            <div className="flex flex-1 flex-col gap-0.5">
-              <span
-                id={titleId}
-                className="text-[20px] leading-[1.2] font-medium tracking-[-0.03em] text-ink"
+        {/* mobile: the dark header, wearing the same glow + dot grid as the
+            desktop split panel and the nav drawer's spotlight card */}
+        <div className="relative shrink-0 overflow-hidden bg-ink text-white md:hidden">
+          <div className="pointer-events-none absolute -top-24 -right-16 size-[240px] rounded-full bg-primary/45 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-24 -left-12 size-[200px] rounded-full bg-violet-400/25 blur-3xl" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.12)_1px,transparent_1px)] [background-size:20px_20px] [mask-image:radial-gradient(ellipse_80%_90%_at_50%_0%,black,transparent)]" />
+
+          {/* grab handle + title: the only draggable surface — dragging the
+              whole sheet would fight the form's own scrolling, and the chip
+              strip below needs its horizontal pan */}
+          <div
+            onPointerDown={startDrag}
+            onPointerMove={moveDrag}
+            onPointerUp={endDrag}
+            onPointerCancel={endDrag}
+            className="relative cursor-grab touch-none px-5 pt-2.5 pb-3 active:cursor-grabbing"
+          >
+            <span
+              aria-hidden
+              className="mx-auto mb-3 block h-1 w-10 rounded-full bg-white/25"
+            />
+            <div className="flex items-center justify-between gap-3">
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[10.5px] font-semibold tracking-[0.14em] text-white/70 uppercase backdrop-blur-sm">
+                <span className="relative flex size-1.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#C084FC] opacity-60" />
+                  <span className="relative inline-flex size-1.5 rounded-full bg-[#C084FC]" />
+                </span>
+                Free live demo
+              </span>
+              <button
+                type="button"
+                onClick={onClose}
+                aria-label="Close"
+                className="flex size-9 shrink-0 items-center justify-center rounded-full bg-white/10 text-white/80 ring-1 ring-white/15 transition-colors hover:bg-white/20 hover:text-white"
               >
-                Book your live demo
-              </span>
-              <span className="flex items-center gap-2 text-[11px] font-semibold tracking-[0.14em] text-ink-50 uppercase">
-                <span aria-hidden className="h-px w-4 bg-ink/20" />
-                We call you back
-              </span>
+                <CloseIcon className="size-4" />
+              </button>
             </div>
-            <button
-              type="button"
-              onClick={onClose}
-              aria-label="Close"
-              className="flex size-9 shrink-0 items-center justify-center rounded-full text-ink-50 transition-colors hover:bg-ink/5 hover:text-ink"
+            <h2
+              id={titleId}
+              className="mt-3 text-[22px] leading-[1.15] font-medium tracking-[-0.04em] text-white"
             >
-              <CloseIcon className="size-4" />
-            </button>
+              See it working{" "}
+              <span className="bg-gradient-to-r from-[#C084FC] to-primary bg-clip-text text-transparent">
+                on your data
+              </span>
+            </h2>
+            <p className="mt-1 text-[12.5px] leading-[1.5] tracking-[-0.02em] text-white/60">
+              Leave your number — we call you back within business hours.
+            </p>
           </div>
+
+          {/* proof chips: one pannable row, fading out at the right edge so
+              the overflow reads as "more", with end padding so the last chip
+              can scroll clear of the fade */}
+          <ul className="relative flex list-none gap-2 overflow-x-auto px-5 pr-12 pb-4 [scrollbar-width:none] [mask-image:linear-gradient(to_right,black_calc(100%-40px),transparent)] [&::-webkit-scrollbar]:hidden">
+            {PROOF_POINTS.map((point) => (
+              <li
+                key={point.short}
+                className="flex shrink-0 items-center gap-2 rounded-full bg-white/8 py-1 pr-3 pl-1.5 text-[11.5px] leading-[1.4] font-medium tracking-[-0.01em] whitespace-nowrap text-white/85 ring-1 ring-white/10"
+              >
+                <span className="flex size-5 items-center justify-center rounded-full bg-white/10">
+                  <Mark name={point.icon} className="size-3 text-[#C084FC]" />
+                </span>
+                {point.short}
+              </li>
+            ))}
+          </ul>
         </div>
 
         {/* desktop: the dark half */}
@@ -275,7 +335,7 @@ export function DemoModal({
         </div>
 
         {/* the form half — scrolls inside the sheet on mobile */}
-        <div className="flex flex-1 flex-col gap-5 overflow-y-auto p-6 md:p-9">
+        <div className="flex flex-1 flex-col gap-3.5 overflow-y-auto px-5 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] md:gap-5 md:p-9">
           <button
             type="button"
             onClick={onClose}
@@ -321,36 +381,74 @@ export function DemoModal({
                 e.preventDefault();
                 setSent(true);
               }}
-              className="flex w-full flex-col gap-3"
+              className="flex w-full flex-col gap-2.5 md:gap-3"
             >
               {LEAD_FIELDS.map((field) => (
-                <input
-                  key={field.name}
-                  name={field.name}
-                  type={field.type}
-                  required={field.required}
-                  placeholder={field.placeholder}
-                  aria-label={field.placeholder}
-                  onChange={
-                    field.name === "name"
-                      ? (e) => setName(e.target.value)
-                      : undefined
-                  }
-                  className={leadInputClass}
-                />
+                // The glyph follows the input in the DOM so `peer-focus` can
+                // light it; absolute positioning puts it back on the left.
+                <div key={field.name} className="relative">
+                  <input
+                    name={field.name}
+                    type={field.type}
+                    required={field.required}
+                    placeholder={field.placeholder}
+                    aria-label={field.placeholder}
+                    onChange={
+                      field.name === "name"
+                        ? (e) => setName(e.target.value)
+                        : undefined
+                    }
+                    className={cn(
+                      leadInputClass,
+                      "peer h-12 pl-[52px] md:h-[54px] md:pl-6",
+                    )}
+                  />
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute inset-y-0 left-5 flex items-center text-ink-50 transition-colors duration-200 peer-focus:text-primary md:hidden"
+                  >
+                    <Mark name={FIELD_ICONS[field.name]} className="size-[18px]" />
+                  </span>
+                </div>
               ))}
-              {/* PillButton is a Link; the submit reuses its exact shape. */}
+              {/* PillButton is a Link; the submit reuses its exact shape. The
+                  arrow is always out on touch, where there is no hover. */}
               <button
                 type="submit"
-                className="group mt-1 inline-flex h-[54px] w-full items-center justify-center rounded-[40px] bg-[linear-gradient(125deg,rgb(140,0,255)_9%,rgb(69,6,147)_92%)] px-5 py-4 text-[14px] leading-[1.6] font-medium whitespace-nowrap text-white transition-all duration-200 hover:shadow-[0_16px_32px_-16px_rgba(140,0,255,0.6)]"
+                className="group mt-0.5 inline-flex h-12 w-full items-center justify-center rounded-[40px] bg-[linear-gradient(125deg,rgb(140,0,255)_9%,rgb(69,6,147)_92%)] px-5 text-[14px] md:mt-1 md:h-[54px] md:py-4 leading-[1.6] font-medium whitespace-nowrap text-white shadow-[0_16px_32px_-16px_rgba(140,0,255,0.6)] transition-all duration-200 md:shadow-none md:hover:shadow-[0_16px_32px_-16px_rgba(140,0,255,0.6)]"
               >
                 Request a Demo
-                <ArrowUpRightIcon className="size-3 w-0 shrink-0 overflow-hidden opacity-0 transition-all duration-200 group-hover:ml-[5px] group-hover:w-3 group-hover:opacity-100" />
+                <ArrowUpRightIcon className="ml-[5px] size-3 shrink-0 overflow-hidden transition-all duration-200 md:ml-0 md:w-0 md:opacity-0 md:group-hover:ml-[5px] md:group-hover:w-3 md:group-hover:opacity-100" />
               </button>
             </form>
           )}
 
-          <div className="mt-auto flex flex-wrap items-center justify-center gap-x-5 gap-y-2 border-t border-ink/5 pt-4">
+          {/* mobile: what happens next, as three numbered beats */}
+          {!sent && (
+            <ol className="mt-auto grid list-none grid-cols-3 gap-1 rounded-[16px] bg-surface-muted px-2 py-2.5 md:hidden">
+              {NEXT_STEPS.map((step, i) => (
+                <li
+                  key={step}
+                  className="relative flex flex-col items-center gap-1.5 text-center"
+                >
+                  {i > 0 && (
+                    <span
+                      aria-hidden
+                      className="absolute top-3 right-[calc(50%+16px)] left-[calc(-50%+16px)] h-px bg-primary/15"
+                    />
+                  )}
+                  <span className="relative flex size-6 items-center justify-center rounded-full bg-white text-[11px] font-semibold text-primary-dark ring-1 ring-primary/15">
+                    {i + 1}
+                  </span>
+                  <span className="text-[11.5px] leading-[1.3] tracking-[-0.01em] text-ink-70">
+                    {step}
+                  </span>
+                </li>
+              ))}
+            </ol>
+          )}
+
+          <div className="mt-auto hidden flex-wrap items-center justify-center gap-x-5 gap-y-2 border-t border-ink/5 pt-4 md:flex">
             {LEAD_TRUST_POINTS.map((point) => (
               <span
                 key={point}

@@ -125,6 +125,17 @@ const MARKS = {
       />
     </>
   ),
+  user: (
+    <>
+      <circle cx="12" cy="8" r="3.6" stroke="currentColor" strokeWidth="1.8" />
+      <path
+        d="M4.5 20c.9-3.6 3.9-5.5 7.5-5.5s6.6 1.9 7.5 5.5"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+    </>
+  ),
   crm: (
     <>
       <circle cx="9" cy="8" r="3.2" stroke="currentColor" strokeWidth="1.8" />
