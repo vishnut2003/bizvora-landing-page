@@ -30,7 +30,7 @@ const TOP_META: Record<string, { icon: MarkName; blurb: string }> = {
   Modules: { icon: "kanban", blurb: "7 modules, one workspace" },
   Industries: { icon: "factory", blurb: "Built for 8 industries" },
   Pricing: { icon: "ledger", blurb: "₹199 per user, every module in" },
-  Company: { icon: "building", blurb: "About us, why us & FAQs" },
+  Company: { icon: "building", blurb: "About us, blog & FAQs" },
   Contact: { icon: "mail", blurb: "Talk to our team" },
 };
 

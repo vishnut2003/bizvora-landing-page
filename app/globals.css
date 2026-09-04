@@ -428,3 +428,211 @@ body {
     animation: none;
   }
 }
+
+/* --- Blog post body (app/blogs/_components/article-body.tsx) --------------
+   WordPress's Gutenberg HTML wears no classes we control, so the article is
+   styled by element. Tokens are the @theme values written out, because a
+   plain selector block can't lean on utility generation. */
+
+.wp-prose {
+  font-size: 15px;
+  line-height: 1.8;
+  letter-spacing: -0.02em;
+  color: rgba(23, 23, 23, 0.7);
+  overflow-wrap: anywhere;
+}
+
+@media (min-width: 768px) {
+  .wp-prose {
+    font-size: 16px;
+  }
+}
+
+.wp-prose > * + * {
+  margin-top: 1.1em;
+}
+
+.wp-prose > :first-child {
+  margin-top: 0;
+}
+
+.wp-prose h2,
+.wp-prose h3,
+.wp-prose h4 {
+  color: rgb(23, 23, 23);
+  font-weight: 600;
+  scroll-margin-top: 110px;
+  text-wrap: balance;
+}
+
+.wp-prose h2 {
+  margin-top: 2.6em;
+  font-size: 22px;
+  line-height: 1.25;
+  letter-spacing: -0.03em;
+}
+
+.wp-prose h3 {
+  margin-top: 2em;
+  font-size: 18px;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+.wp-prose h4 {
+  margin-top: 1.6em;
+  font-size: 16.5px;
+  line-height: 1.35;
+}
+
+@media (min-width: 768px) {
+  .wp-prose h2 {
+    font-size: 26px;
+  }
+  .wp-prose h3 {
+    font-size: 20px;
+  }
+}
+
+.wp-prose h2 + *,
+.wp-prose h3 + *,
+.wp-prose h4 + * {
+  margin-top: 0.75em;
+}
+
+.wp-prose p {
+  text-wrap: pretty;
+}
+
+.wp-prose ul,
+.wp-prose ol {
+  padding-left: 1.5rem;
+}
+
+.wp-prose ul {
+  list-style: disc;
+}
+
+.wp-prose ol {
+  list-style: decimal;
+}
+
+.wp-prose li {
+  padding-left: 0.25rem;
+}
+
+.wp-prose li + li,
+.wp-prose li > ul,
+.wp-prose li > ol {
+  margin-top: 0.4em;
+}
+
+.wp-prose li::marker {
+  color: rgb(69, 6, 147);
+  font-weight: 500;
+}
+
+.wp-prose blockquote {
+  padding: 1rem 1.25rem;
+  border-left: 4px solid rgba(140, 0, 255, 0.4);
+  border-radius: 0 12px 12px 0;
+  background: rgba(243, 232, 255, 0.4);
+  color: rgb(23, 23, 23);
+  font-weight: 500;
+  font-style: normal;
+}
+
+.wp-prose blockquote > * + * {
+  margin-top: 0.6em;
+}
+
+.wp-prose a {
+  color: rgb(69, 6, 147);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: rgba(140, 0, 255, 0.4);
+  text-underline-offset: 4px;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.wp-prose a:hover {
+  color: rgb(140, 0, 255);
+  text-decoration-color: rgb(140, 0, 255);
+}
+
+.wp-prose strong {
+  color: rgb(23, 23, 23);
+  font-weight: 600;
+}
+
+.wp-prose em {
+  font-style: italic;
+}
+
+.wp-prose code {
+  padding: 0.1em 0.4em;
+  border-radius: 6px;
+  background: rgb(245, 245, 246);
+  box-shadow: 0 0 0 1px rgb(228, 228, 231);
+  color: rgb(23, 23, 23);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.9em;
+}
+
+/* not in today's content, cheap insurance for tomorrow's */
+.wp-prose pre {
+  overflow-x: auto;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  background: rgb(23, 23, 23);
+  color: #fff;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.wp-prose pre code {
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  color: inherit;
+  font-size: inherit;
+}
+
+.wp-prose img,
+.wp-prose figure {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+.wp-prose figcaption {
+  margin-top: 0.5em;
+  font-size: 13px;
+  color: rgba(23, 23, 23, 0.5);
+  text-align: center;
+}
+
+.wp-prose hr {
+  margin: 2.5rem 0;
+  border: 0;
+  border-top: 1px solid rgba(23, 23, 23, 0.1);
+}
+
+.wp-prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.wp-prose th,
+.wp-prose td {
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid rgba(23, 23, 23, 0.1);
+  text-align: left;
+  vertical-align: top;
+}
+
+.wp-prose th {
+  color: rgb(23, 23, 23);
+  font-weight: 600;
+}

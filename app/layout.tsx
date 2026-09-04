@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Rubik } from "next/font/google";
 import { DemoModalProvider } from "@/components/demo-modal/context";
+import { siteOrigin } from "@/lib/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -15,6 +16,8 @@ const rubik = Rubik({
 });
 
 export const metadata: Metadata = {
+  // Resolves the blog's relative canonical / og:url to absolute URLs.
+  metadataBase: new URL(siteOrigin()),
   title: "BizvoraOne | All-in-one business management software for Indian teams",
   description:
     "BizvoraOne runs your whole business from one workspace: CRM, AI proposals, quotations, accounting, projects and HR & payroll, plus an AI voice agent that calls every new lead within seconds. Made in India, hosted in Mumbai.",
