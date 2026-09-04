@@ -10,7 +10,16 @@ import { Reveal } from "@/components/reveal";
 import { MODULES, ROLES } from "@/lib/bizvora";
 import { cn } from "@/lib/utils";
 import { CtaPanel } from "@/app/modules/_components/cta-panel";
-import { ARTS, CARD_CLASSES, JUMP_CHIP_CLASSES } from "@/app/modules/_components/shared";
+import {
+  ARTS,
+  CARD_CLASSES,
+  JUMP_CHIP_CLASSES,
+  STAT_CLASSES,
+  STAT_DIVIDER_CLASSES,
+  STAT_LABEL_CLASSES,
+  STAT_ROW_CLASSES,
+  STAT_TILE_CLASSES,
+} from "@/app/modules/_components/shared";
 
 export const metadata: Metadata = {
   title: "Use Cases | BizvoraOne",
@@ -183,43 +192,51 @@ function UseCaseSection({ useCase, index }: { useCase: UseCase; index: number })
             ))}
           </ol>
 
-          {/* stat + the modules the scenario runs on */}
-          <div className="mt-2 flex w-full flex-wrap items-center gap-x-4 gap-y-4 border-t border-ink/10 pt-5">
-            <div className="flex flex-col">
+          {/* stat + the modules the scenario runs on: stat line, then the
+              module tiles beside a demo tile on phones; one divided row from
+              lg */}
+          <div className={STAT_ROW_CLASSES}>
+            <div className={STAT_CLASSES}>
               <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-[28px] leading-[1.2] font-semibold tracking-[-0.02em] text-transparent">
                 {useCase.stat.value}
               </span>
-              <span className="max-w-[150px] text-[12px] leading-[1.5] text-ink-50">
-                {useCase.stat.label}
-              </span>
+              <span className={STAT_LABEL_CLASSES}>{useCase.stat.label}</span>
             </div>
-            <span className="h-10 w-px bg-ink/10" />
-            <div className="flex items-center gap-1.5">
-              <span className="mr-1 text-[10px] font-semibold tracking-[0.1em] text-ink-50 uppercase">
-                Runs on
-              </span>
-              {modules.map((mod) => (
-                <Link
-                  key={mod.slug}
-                  href={`/modules/${mod.slug}`}
-                  title={mod.name}
-                  aria-label={mod.name}
-                  className="flex size-7 items-center justify-center rounded-[8px] bg-white ring-1 ring-ink/10 transition-all duration-200 hover:-translate-y-0.5 hover:bg-primary hover:ring-primary"
-                >
-                  <Mark
-                    name={mod.icon}
-                    className="size-3.5 text-primary-dark transition-colors duration-200 hover:text-white"
-                  />
-                </Link>
-              ))}
+            <span className={STAT_DIVIDER_CLASSES} />
+            {/* `contents` at lg dissolves this wrapper so its children and
+                their divider become the row's own flex items */}
+            <div className="flex flex-wrap items-center justify-between gap-3 lg:contents">
+              <div className="flex items-center gap-1.5">
+                <span className="mr-1 text-[10px] font-semibold tracking-[0.1em] text-ink-50 uppercase">
+                  Runs on
+                </span>
+                {modules.map((mod) => (
+                  <Link
+                    key={mod.slug}
+                    href={`/modules/${mod.slug}`}
+                    title={mod.name}
+                    aria-label={mod.name}
+                    className="flex size-7 items-center justify-center rounded-[8px] bg-white ring-1 ring-ink/10 transition-all duration-200 hover:-translate-y-0.5 hover:bg-primary hover:ring-primary"
+                  >
+                    <Mark
+                      name={mod.icon}
+                      className="size-3.5 text-primary-dark transition-colors duration-200 hover:text-white"
+                    />
+                  </Link>
+                ))}
+              </div>
+              <span className={STAT_DIVIDER_CLASSES} />
+              <DemoLink
+                className={cn(
+                  STAT_TILE_CLASSES,
+                  "bg-primary-10 px-4 text-primary-dark ring-primary/15 hover:bg-tile lg:hover:text-primary",
+                )}
+              >
+                <span className="lg:hidden">Live demo</span>
+                <span className="hidden lg:inline">See it live on a demo</span>
+                <ArrowUpRightIcon className="size-3 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </DemoLink>
             </div>
-            <span className="h-10 w-px bg-ink/10" />
-            <DemoLink
-              className="group inline-flex items-center gap-1.5 text-[14px] font-medium text-primary-dark transition-colors hover:text-primary"
-            >
-              See it live on a demo
-              <ArrowUpRightIcon className="size-3 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </DemoLink>
           </div>
         </Reveal>
 

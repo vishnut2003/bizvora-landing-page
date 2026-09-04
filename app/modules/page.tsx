@@ -10,7 +10,16 @@ import { MODULES } from "@/lib/bizvora";
 import type { ModuleDetail } from "@/types/content";
 import { cn } from "@/lib/utils";
 import { CtaPanel } from "./_components/cta-panel";
-import { ARTS, CARD_CLASSES, JUMP_CHIP_CLASSES } from "./_components/shared";
+import {
+  ARTS,
+  CARD_CLASSES,
+  JUMP_CHIP_CLASSES,
+  STAT_CLASSES,
+  STAT_DIVIDER_CLASSES,
+  STAT_LABEL_CLASSES,
+  STAT_ROW_CLASSES,
+  STAT_TILE_CLASSES,
+} from "./_components/shared";
 
 export const metadata: Metadata = {
   title: "Modules | BizvoraOne",
@@ -72,32 +81,42 @@ function ModuleSection({ module, index }: { module: ModuleDetail; index: number 
             ))}
           </ul>
 
-          {/* stat + per-module CTAs */}
-          <div className="mt-2 flex w-full flex-wrap items-center gap-x-4 gap-y-4 border-t border-ink/10 pt-5">
-            <div className="flex flex-col">
+          {/* stat + per-module CTAs: stat line over two tiles on phones, one
+              divided row from lg */}
+          <div className={STAT_ROW_CLASSES}>
+            <div className={STAT_CLASSES}>
               <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-[28px] leading-[1.2] font-semibold tracking-[-0.02em] text-transparent">
                 {module.stat.value}
               </span>
-              {/* capped so the row's three items stay on one line at lg */}
-              <span className="max-w-[150px] text-[12px] leading-[1.5] text-ink-50">
-                {module.stat.label}
-              </span>
+              {/* capped at lg so the row's three items stay on one line */}
+              <span className={STAT_LABEL_CLASSES}>{module.stat.label}</span>
             </div>
-            <span className="h-10 w-px bg-ink/10" />
-            <DemoLink
-              className="group inline-flex items-center gap-1.5 text-[14px] font-medium text-primary-dark transition-colors hover:text-primary"
-            >
-              See it live on a demo
-              <ArrowUpRightIcon className="size-3 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </DemoLink>
-            <span className="h-10 w-px bg-ink/10" />
-            <Link
-              href={`/modules/${module.slug}`}
-              className="group inline-flex items-center gap-1.5 text-[14px] font-medium text-ink-70 transition-colors hover:text-primary-dark"
-            >
-              Learn more
-              <ArrowUpRightIcon className="size-3 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </Link>
+            <span className={STAT_DIVIDER_CLASSES} />
+            {/* `contents` at lg dissolves the grid so the links and their
+                divider become the row's own flex items */}
+            <div className="grid grid-cols-2 gap-2.5 lg:contents">
+              <DemoLink
+                className={cn(
+                  STAT_TILE_CLASSES,
+                  "bg-primary-10 text-primary-dark ring-primary/15 hover:bg-tile lg:hover:text-primary",
+                )}
+              >
+                <span className="lg:hidden">Live demo</span>
+                <span className="hidden lg:inline">See it live on a demo</span>
+                <ArrowUpRightIcon className="size-3 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </DemoLink>
+              <span className={STAT_DIVIDER_CLASSES} />
+              <Link
+                href={`/modules/${module.slug}`}
+                className={cn(
+                  STAT_TILE_CLASSES,
+                  "bg-white text-ink-70 ring-ink/10 hover:bg-surface-muted hover:text-primary-dark",
+                )}
+              >
+                Learn more
+                <ArrowUpRightIcon className="size-3 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </Link>
+            </div>
           </div>
         </Reveal>
 
