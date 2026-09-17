@@ -14,6 +14,7 @@ import {
 } from "@/components/icons";
 import { DemoPillButton } from "@/components/demo-trigger";
 import { NAV_LINKS } from "@/lib/bizvora";
+import { appBaseUrl } from "@/lib/site";
 import type { NavGroup, NavLink } from "@/types/content";
 import { useScrollLock } from "@/lib/scroll-lock";
 import { cn } from "@/lib/utils";
@@ -447,7 +448,7 @@ export function MobileDrawer({
         >
           <div className="grid grid-cols-2 gap-2.5">
             <a
-              href="https://app.bizvora.com"
+              href={appBaseUrl()}
               onClick={onClose}
               className="flex h-[42px] items-center justify-center gap-1.5 rounded-[40px] bg-white px-4 text-[14px] leading-[1.6] font-medium text-ink ring-1 ring-line transition-colors hover:bg-tile hover:text-primary-dark"
             >

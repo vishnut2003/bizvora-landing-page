@@ -5,6 +5,7 @@ import { BasicLayout } from "@/layout/basic-layout";
 import { ArrowUpRightIcon, Mark, type MarkName } from "@/components/icons";
 import { TradesTicker } from "@/components/trades-ticker";
 import { Reveal } from "@/components/reveal";
+import { appBaseUrl } from "@/lib/site";
 import { ContactForm } from "./_components/contact-form";
 
 export const metadata: Metadata = {
@@ -42,7 +43,7 @@ const CHANNELS: {
     description:
       "Your workspace is waiting where you left it — the pipeline, the vouchers and the payslips, behind your own login.",
     icon: "laptop",
-    href: "https://app.bizvora.com",
+    href: appBaseUrl(),
     linkLabel: "Log in to BizvoraOne",
     external: true,
   },

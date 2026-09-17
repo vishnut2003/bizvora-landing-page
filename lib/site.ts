@@ -11,3 +11,13 @@ export function siteOrigin(): string {
   }
   return "http://localhost:3000";
 }
+
+/**
+ * The BizvoraOne app origin, for login links and the hero mock's address
+ * bar. NEXT_PUBLIC_ so the client-side header can read it; the fallback is
+ * production itself, so a missing var can never crash the bundle.
+ */
+export function appBaseUrl(): string {
+  const explicit = process.env.NEXT_PUBLIC_APP_BASE_URL?.trim();
+  return (explicit || "https://app.bizvoraone.com").replace(/\/+$/, "");
+}

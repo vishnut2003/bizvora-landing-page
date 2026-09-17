@@ -11,6 +11,7 @@ import {
 } from "@/components/icons";
 import { DemoPillButton } from "@/components/demo-trigger";
 import { NAV_LINKS } from "@/lib/bizvora";
+import { appBaseUrl } from "@/lib/site";
 import type { NavGroup, NavLink } from "@/types/content";
 import { cn } from "@/lib/utils";
 import { MobileDrawer } from "./mobile-drawer";
@@ -152,7 +153,7 @@ export function Header() {
 
         <div className="hidden items-center gap-5 lg:flex">
           <a
-            href="https://app.bizvora.com"
+            href={appBaseUrl()}
             className="text-[14px] leading-[1.6] font-medium text-ink underline decoration-ink/30 underline-offset-4 transition-colors hover:text-primary-dark hover:decoration-primary/50"
           >
             Login

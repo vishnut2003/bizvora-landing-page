@@ -24,6 +24,7 @@ import {
   Wallet,
   type LucideIcon,
 } from "lucide-react";
+import { appBaseUrl } from "@/lib/site";
 import davidSingh from "./assets/david-singh.png";
 
 /**
@@ -196,7 +197,7 @@ export function HeroDashboard() {
           </div>
           <span className="flex items-center gap-[0.4em] rounded-full bg-white/10 px-[1.2em] py-[0.35em] text-[0.7em] text-white/60">
             <Lock className="size-[0.9em]" strokeWidth={2} />
-            app.bizvora.com/workspace
+            {new URL(appBaseUrl()).host}/workspace
           </span>
           <span />
         </div>
