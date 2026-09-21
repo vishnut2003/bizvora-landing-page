@@ -284,25 +284,47 @@ export const getPostBySlug = cache(async (slug: string): Promise<BlogPost | null
   return toPost(raw, tags);
 });
 
-/** Every published slug, for generateStaticParams. Never fails a build. */
-export async function getAllSlugs(): Promise<string[]> {
+/** The little a sitemap needs of a post: where it lives, what to call it, when it changed. */
+export interface PostStub {
+  slug: string;
+  title: string;
+  /** ISO 8601 in UTC. */
+  modified: string;
+}
+
+/**
+ * Every published post as a stub, for generateStaticParams, sitemap.xml,
+ * sitemap.html and llms.txt. Never fails a build: any error yields [].
+ */
+export async function getPostStubs(): Promise<PostStub[]> {
   try {
-    const slugs: string[] = [];
+    const stubs: PostStub[] = [];
     let page = 1;
     let totalPages = 1;
     do {
-      const { data, headers } = await wpFetch<{ slug: string }[]>(
-        `/posts?per_page=100&page=${page}&_fields=slug`,
+      const { data, headers } = await wpFetch<Pick<WpPostRaw, "slug" | "title" | "modified_gmt">[]>(
+        `/posts?per_page=100&page=${page}&_fields=slug,title,modified_gmt`,
         { next: { revalidate: POST_REVALIDATE, tags: ["wp-posts"] } },
       );
-      slugs.push(...data.map((post) => post.slug));
+      stubs.push(
+        ...data.map((post) => ({
+          slug: post.slug,
+          title: stripHtml(post.title.rendered),
+          modified: toIso(post.modified_gmt),
+        })),
+      );
       totalPages = headerCount(headers, "x-wp-totalpages");
       page += 1;
     } while (page <= totalPages);
-    return slugs;
+    return stubs;
   } catch {
     return [];
   }
+}
+
+/** Every published slug, for generateStaticParams. */
+export async function getAllSlugs(): Promise<string[]> {
+  return (await getPostStubs()).map((stub) => stub.slug);
 }
 
 // --- mappers ---------------------------------------------------------------

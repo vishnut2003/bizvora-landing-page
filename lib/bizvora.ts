@@ -1347,6 +1347,7 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
       { label: "Blog", href: "/blogs" },
       { label: "Terms of Use", href: "/terms" },
       { label: "Privacy Policy", href: "/privacy" },
+      { label: "Sitemap", href: "/sitemap.html" },
     ],
   },
 ];
